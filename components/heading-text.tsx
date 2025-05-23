@@ -49,7 +49,7 @@ export default function HeadingTextSection() {
     <section className="my-20">
       <h1
         ref={headingRef}
-        className="text-8xl text-center font-partial leading-tight"
+        className="md:text-8xl text-4xl text-center font-partial leading-tight"
       >
         <span className="block">The Largest</span>
         <span className="block">Library of</span>
