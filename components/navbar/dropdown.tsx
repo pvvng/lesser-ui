@@ -94,8 +94,8 @@ export default function NavbarDropDown() {
                 <Link
                   href={`/elements/${getLinkLabel(item.label)}`}
                   role="menuitem"
-                  className="p-2 rounded flex gap-2 items-center
-                text-sm bg-neutral-700 hover:bg-neutral-600 transition-colors"
+                  className="p-3 rounded flex gap-2 items-center
+                  text-sm font-semibold bg-neutral-700 hover:bg-neutral-600 transition-colors"
                 >
                   <FontAwesomeIcon icon={item.icon} />
                   <span>{item.label}</span>

@@ -1,12 +1,12 @@
 import Link from "next/link";
-import LinkLogo from "./link-logo";
-import NavbarDropDown from "./nav-dropdown";
+import LinkLogo from "../link-logo";
+import NavbarDropDown from "./dropdown";
 
 export default function Navbar() {
   return (
     <nav
       id="header"
-      className="bg-neutral-900 sticky top-0 left-0 w-full h-16
+      className="bg-neutral-900 w-full h-16 sticky top-0 left-0
       flex justify-between items-center p-3 z-100"
     >
       <section className="flex gap-5 items-center">

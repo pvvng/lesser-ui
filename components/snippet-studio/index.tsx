@@ -33,7 +33,7 @@ export default function SnippetStudio({
   });
 
   return (
-    <div className="p-5 grid grid-cols-2 mt-5">
+    <div className="grid grid-cols-2">
       <div className="relative rounded-l-2xl bg-neutral-600 overflow-auto h-[540px] py-10">
         <Preview previewCode={previewCode} />
       </div>
