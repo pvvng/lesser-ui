@@ -9,7 +9,7 @@ import "prismjs/components/prism-css";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-jsx";
-// dependency
+
 import Editor from "react-simple-code-editor";
 import { LanguageMode } from "@/types/core";
 
@@ -19,16 +19,16 @@ interface CodeEditorProps {
   setCurrentCode: (value: string) => void;
 }
 
-export function CodeEditor({
+export default function CodeEditor({
   nowMode,
   getCurrentCode,
   setCurrentCode,
 }: CodeEditorProps) {
   return (
-    <div className="bg-neutral-800 h-[500px] overflow-auto">
-      <div className="flex w-full bg-neutral-800 rounded font-mono font-semibold">
+    <div className="h-full w-full overflow-auto pr-4">
+      <div className="flex w-full font-mono font-semibold overflow-x-auto min-w-max">
         {/* 줄 번호 */}
-        <div className="text-right px-3 py-2.5 select-none text-neutral-400">
+        <div className="text-right px-3 py-2.5 select-none text-neutral-400 shrink-0">
           {getCurrentCode()
             .split("\n")
             .map((_, i) => (
@@ -37,6 +37,7 @@ export function CodeEditor({
               </div>
             ))}
         </div>
+
         {/* 코드 에디터 */}
         <Editor
           value={getCurrentCode()}
@@ -48,12 +49,7 @@ export function CodeEditor({
           }
           padding={10}
           className="outline-none min-w-max"
-          textareaClassName="focus:outline-none overflow-auto"
-          style={{
-            fontFamily: "'Fira Code', monospace",
-            lineHeight: "1.5em",
-            minHeight: "100%",
-          }}
+          textareaClassName="focus:outline-none"
         />
       </div>
     </div>
