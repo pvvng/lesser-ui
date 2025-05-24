@@ -10,7 +10,8 @@ import useEditor from "@/lib/hooks/use-editor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
-const test_html = `<input type="checkbox" id="checkboxInput"><label for="checkboxInput" class="toggleSwitch"></label>`;
+const test_html = `<input type="checkbox" id="checkboxInput">
+<label for="checkboxInput" class="toggleSwitch"></label>`;
 const test_css = `#checkboxInput { display: none; }
 .toggleSwitch {
   width: 50px;
@@ -44,16 +45,15 @@ export default function CodePlayground() {
   const {
     nowMode,
     previewCode,
+    isCopied,
     getCurrentCode,
     setCurrentCode,
     changeLangaugeMode,
+    handleCopy,
   } = useEditor({
     userHtml: test_html,
     userCss: test_css,
   });
-  const handleCopy = () => {
-    navigator.clipboard.writeText(getCurrentCode());
-  };
 
   return (
     <div className="p-5 grid grid-cols-2 mt-5">
@@ -66,7 +66,7 @@ export default function CodePlayground() {
           changeLangaugeMode={changeLangaugeMode}
         />
         <div className="relative h-[500px] bg-neutral-800 rounded">
-          <CodeCopyButton handleCopy={handleCopy} />
+          <CodeCopyButton isCopied={isCopied} handleCopy={handleCopy} />
           <CodeEditor
             nowMode={nowMode}
             getCurrentCode={getCurrentCode}
