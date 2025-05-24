@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/components/navbar";
 import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
 import ElementLinkCard from "@/components/element-link-card";
@@ -9,8 +8,7 @@ export default function Home() {
   const items = Array.from({ length: 15 }, (_, i) => i + 1);
 
   return (
-    <div className="min-h-[20000px]">
-      <Navbar />
+    <main>
       <div className="p-5 space-y-15">
         <HeadingTextSection />
         <section className="relative">
@@ -22,6 +20,6 @@ export default function Home() {
           <BrowseAllLinkButton />
         </section>
       </div>
-    </div>
+    </main>
   );
 }

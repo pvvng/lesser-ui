@@ -51,9 +51,9 @@ export default function HeadingTextSection() {
         ref={headingRef}
         className="md:text-8xl text-4xl text-center font-partial leading-tight"
       >
-        <span className="block">The Largest</span>
-        <span className="block">Library of</span>
-        <span className="block text-green-500">Open-Source UI</span>
+        <span className="block">Dev-Ready UI</span>
+        <span className="block">Powered by</span>
+        <span className="block text-green-500">Open-Source</span>
         <HeadingIcon animateEnd={animateEnd} />
       </h1>
     </section>

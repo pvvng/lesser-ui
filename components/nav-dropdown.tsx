@@ -83,7 +83,7 @@ export default function NavbarDropDown() {
       </div>
 
       {show && (
-        <nav className="absolute top-full mt-5 left-5 bg-neutral-800 p-3 rounded z-50">
+        <nav className="absolute top-full mt-5 left-5 bg-neutral-800 p-3 rounded z-50 shadow-2xl">
           <ul
             ref={gridRef}
             aria-label="컴포넌트 탐색 메뉴"
@@ -92,7 +92,7 @@ export default function NavbarDropDown() {
             {dropdownItems.map((item) => (
               <li key={item.label} role="none">
                 <Link
-                  href={`${getLinkLabel(item.label)}`}
+                  href={`/elements/${getLinkLabel(item.label)}`}
                   role="menuitem"
                   className="p-2 rounded flex gap-2 items-center
                 text-sm bg-neutral-700 hover:bg-neutral-600 transition-colors"

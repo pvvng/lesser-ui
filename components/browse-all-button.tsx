@@ -48,7 +48,7 @@ export default function BrowseAllLinkButton() {
      to-neutral-900 p-5 flex justify-center items-end pointer-events-none"
     >
       <Link
-        href="/element/all"
+        href="/elements/all"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
         className="px-4 py-2 text-lg font-semibold font-sans rounded-2xl pointer-events-auto
