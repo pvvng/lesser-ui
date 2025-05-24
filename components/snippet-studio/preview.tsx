@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
-interface CodePreviewProps {
+interface PreviewProps {
   previewCode: string;
 }
 
-export default function CodePreview({ previewCode }: CodePreviewProps) {
+export default function Preview({ previewCode }: PreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

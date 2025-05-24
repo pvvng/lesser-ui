@@ -6,7 +6,7 @@ interface EditorModeButtonsProps {
   changeLangaugeMode: (mode: LanguageMode) => void;
 }
 
-export default function EditorModeButtons({
+export default function ModeButtons({
   nowMode,
   changeLangaugeMode,
 }: EditorModeButtonsProps) {
