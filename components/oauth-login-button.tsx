@@ -9,6 +9,7 @@ export default function LoginButtons() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
+        // redirect url
         redirectTo: "http://localhost:3000/auth/callback",
       },
     });
