@@ -1,7 +1,7 @@
 import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
 import ElementLinkCard from "@/components/element-link-card";
-import LoginButtons from "@/components/oauth-login-button";
+import LoginButtons from "@/components/auth/oauth-login-button";
 
 export default function Home() {
   // ui element item
