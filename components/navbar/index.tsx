@@ -14,7 +14,9 @@ export default function Navbar() {
         <NavbarDropDown />
       </section>
       <section className="flex gap-2 items-center *:font-semibold">
-        <Link href="/login">로그인</Link>
+        <Link href="/login" scroll={false}>
+          로그인
+        </Link>
         <span>/</span>
         <Link href="/register">회원가입</Link>
       </section>

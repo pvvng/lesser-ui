@@ -24,7 +24,7 @@ export default function LoginButtons() {
     <div className="relative overflow-hidden max-w-screen-sm rounded-2xl shadow-xl">
       <FloatingDotsGrid />
       <div className="w-full p-10 *:z-1 bg-neutral-950 flex flex-col gap-8 items-center text-center">
-        <LinkLogo />
+        <LinkLogo size="3xl" />
         <div className="space-y-5">
           <p className="font-bold text-xl">Join The Community</p>
           <p className="text-lg">

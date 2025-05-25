@@ -1,7 +1,6 @@
 import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
 import ElementLinkCard from "@/components/element-link-card";
-import LoginButtons from "@/components/auth/oauth-login-button";
 
 export default function Home() {
   // ui element item
@@ -9,7 +8,6 @@ export default function Home() {
 
   return (
     <div className="p-5 space-y-15">
-      <LoginButtons />
       <HeadingTextSection />
       <section className="relative">
         <div className="grid grid-cols-5 gap-5">
