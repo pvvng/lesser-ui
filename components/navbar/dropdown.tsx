@@ -1,53 +1,45 @@
 "use client";
 
 import gsap from "gsap";
-import {
-  faAngleDown,
-  faAngleUp,
-  faBook,
-  faBookmark,
-  faBrush,
-  faCircleDot,
-  faCircleInfo,
-  faFile,
-  faKeyboard,
-  faSpinner,
-  faSquareCaretRight,
-  faSquareCheck,
-  faTableList,
-  faToggleOn,
-} from "@fortawesome/free-solid-svg-icons";
+import { menuItems } from "@/lib/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-
-const dropdownItems = [
-  { icon: faBook, label: "All" },
-  { icon: faSquareCaretRight, label: "Buttons" },
-  { icon: faSquareCheck, label: "Check Boxes" },
-  { icon: faToggleOn, label: "Toggle Switches" },
-  { icon: faFile, label: "Cards" },
-  { icon: faSpinner, label: "Loaders" },
-  { icon: faKeyboard, label: "Inputs" },
-  { icon: faCircleDot, label: "Radio Buttons" },
-  { icon: faTableList, label: "Form" },
-  { icon: faBrush, label: "Patterns" },
-  { icon: faCircleInfo, label: "Tooltips" },
-  { icon: faBookmark, label: "Favorites" },
-];
+import { usePathname } from "next/navigation";
 
 export default function NavbarDropDown() {
   const [show, setShow] = useState(false);
   const gridRef = useRef<HTMLUListElement>(null);
+  // dropdown nav 감지 ref
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   // toggle function
   const toggleMenu = () => setShow((prev) => !prev);
 
-  // label url link 형식으로 변경
-  const getLinkLabel = (label: string) => {
-    return label.toLowerCase().replaceAll(" ", "-");
-  };
+  // dropdown 이외 부분 클릭시 dropdown 닫기
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        show &&
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
 
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [show]);
+
+  // path 변경시 dropdown 닫기
+  useEffect(() => {
+    setShow(false);
+  }, [pathname]);
+
+  // link 요소 애니메이션
   useEffect(() => {
     if (show && gridRef.current) {
       // grid box의 childrens (list items)
@@ -69,7 +61,7 @@ export default function NavbarDropDown() {
   }, [show]);
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       <div
         role="button"
         aria-haspopup="menu"
@@ -89,22 +81,26 @@ export default function NavbarDropDown() {
             aria-label="컴포넌트 탐색 메뉴"
             className="w-xl grid grid-cols-3 gap-2"
           >
-            {dropdownItems.map((item) => (
-              <li key={item.label} role="none">
-                <Link
-                  href={`/elements/${getLinkLabel(item.label)}`}
-                  role="menuitem"
-                  className="p-3 rounded flex gap-2 items-center
-                  text-sm font-semibold bg-neutral-700 hover:bg-neutral-600 transition-colors"
-                >
-                  <FontAwesomeIcon icon={item.icon} />
-                  <span>{item.label}</span>
-                </Link>
-              </li>
-            ))}
+            <DropdownElement />
           </ul>
         </nav>
       )}
     </div>
   );
+}
+
+function DropdownElement() {
+  return menuItems.map((item) => (
+    <li key={item.label} role="none">
+      <Link
+        href={`/${item.link}`}
+        role="menuitem"
+        className="p-3 rounded flex gap-2 items-center
+        text-sm font-semibold bg-neutral-700 hover:bg-neutral-600 transition-colors"
+      >
+        <FontAwesomeIcon icon={item.icon} />
+        <span>{item.label}</span>
+      </Link>
+    </li>
+  ));
 }
