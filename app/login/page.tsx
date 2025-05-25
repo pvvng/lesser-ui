@@ -1,9 +1,11 @@
-import LoginButtons from "@/components/auth/oauth-login-button";
+import AuthShowcaseCard from "@/components/auth/auth-showcase-card";
 
 export default function Login() {
   return (
-    <div className="flex justify-center mt-15">
-      <LoginButtons />
+    <div className="p-5 py-15">
+      <div className="max-w-screen-sm mx-auto">
+        <AuthShowcaseCard />
+      </div>
     </div>
   );
 }

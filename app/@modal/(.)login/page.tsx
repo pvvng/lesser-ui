@@ -1,10 +1,10 @@
 "use client";
 
-import LoginButtons from "@/components/auth/oauth-login-button";
+import AuthShowcaseCard from "@/components/auth/auth-showcase-card";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-export default function Modal() {
+export default function LoginModal() {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -14,6 +14,7 @@ export default function Modal() {
     }
   };
 
+  // 배경 스크롤 정지
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
@@ -28,7 +29,9 @@ export default function Modal() {
       onClick={handleBackgroundClick}
       className="w-full h-screen flex justify-center items-center fixed overflow-hidden z-100 inset-0 bg-neutral-600/80"
     >
-      <LoginButtons />
+      <div className="max-w-screen-sm">
+        <AuthShowcaseCard />
+      </div>
     </div>
   );
 }

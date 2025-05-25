@@ -1,6 +1,5 @@
+import ElementDetailHeader from "@/components/element-detail-header";
 import SnippetStudio from "@/components/snippet-studio";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ElementDetail() {
   const test_html = `<input type="checkbox" id="checkboxInput">
@@ -36,10 +35,10 @@ export default function ElementDetail() {
 `;
 
   return (
-    <div>
-      <div className="mt-5 p-5">
-        <SnippetStudio userHtml={test_html} userCss={test_css} />
-      </div>
+    <div className="p-5">
+      <ElementDetailHeader />
+      <SnippetStudio userHtml={test_html} userCss={test_css} />
+      <div className="h-[1000px]" />
     </div>
   );
 }
