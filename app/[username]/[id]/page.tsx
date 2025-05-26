@@ -1,5 +1,10 @@
-import ElementDetailHeader from "@/components/element-detail-header";
+import CommentForm from "@/components/element-detail/comment-form";
+import ElementExplaination from "@/components/element-detail/explaination";
+import ElementDetailHeader from "@/components/element-detail/header";
+import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ElementDetail() {
   const test_html = `<input type="checkbox" id="checkboxInput">
@@ -38,7 +43,21 @@ export default function ElementDetail() {
     <div className="p-5">
       <ElementDetailHeader />
       <SnippetStudio userHtml={test_html} userCss={test_css} />
-      <div className="h-[1000px]" />
+      <div className="mt-10 grid md:grid-cols-3 grid-cols-1 gap-5">
+        <ElementExplaination
+          tag="Toggle Switch"
+          elementName="super cool switch"
+          username="username"
+          createdAt="Sept 6, 2023"
+          isFavorite={false}
+        />
+        <div className="col-span-2 space-y-12">
+          <div>
+            <CommentForm />
+          </div>
+          <MITLicenseContainer username="username" />
+        </div>
+      </div>
     </div>
   );
 }

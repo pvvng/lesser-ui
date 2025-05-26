@@ -1,6 +1,8 @@
 import Link from "next/link";
 import LinkLogo from "../link-logo";
 import NavbarDropDown from "./dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   return (
@@ -14,11 +16,14 @@ export default function Navbar() {
         <NavbarDropDown />
       </section>
       <section className="flex gap-2 items-center *:font-semibold">
-        <Link href="/login" scroll={false}>
-          로그인
+        <Link
+          href="/login"
+          scroll={false}
+          className="px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition-colors font-semibold flex items-center gap-2"
+        >
+          <FontAwesomeIcon icon={faPlus} className="text-white" />
+          Create New
         </Link>
-        <span>/</span>
-        <Link href="/register">회원가입</Link>
       </section>
     </nav>
   );
