@@ -19,7 +19,7 @@ export default function ElementExplaination({
   isFavorite,
 }: ElementExplainationProps) {
   return (
-    <div className="space-y-6 relative">
+    <section className="space-y-6 relative">
       {/* tag */}
       <div className="space-y-3">
         <p className="text-2xl font-semibold">{tag}</p>
@@ -41,6 +41,6 @@ export default function ElementExplaination({
       >
         <FontAwesomeIcon icon={faBookmark} /> Save to favorites
       </button>
-    </div>
+    </section>
   );
 }

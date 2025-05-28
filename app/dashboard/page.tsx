@@ -1,17 +1,55 @@
 import LogoutButton from "@/components/auth/logout-button";
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { getUserData } from "./actions";
+import { notFound, redirect } from "next/navigation";
+import Image from "next/image";
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
+  const { data: userdata, error } = await getUserData();
 
-  const userResponse = await supabase.auth.getUser();
+  if (userdata === null) {
+    return notFound();
+  }
 
-  console.log(userResponse);
+  if (error) {
+    return (
+      <div className="mt-15 text-center">
+        <p className="text-2xl">Error!</p>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  console.log(userdata);
 
   return (
-    <div>
-      어서 오세요
+    <div className="text-white">
+      <div className="w-full h-64 bg-green-500"></div>
+      <div className="flex gap-2 items-end">
+        <div className="size-36 rounded-full relative overflow-hidden">
+          <Image
+            src={userdata.avatar || ""}
+            alt={userdata.nickname}
+            fill
+            className="object-cover bg-neutral-700"
+            sizes="100vw"
+            priority
+          />
+        </div>
+      </div>
+      <div className="flex gap-2 items-center">
+        <p className="text-2xl font-semibold">{userdata.nickname}</p>
+        {userdata.provider && (
+          <div className="size-6 relative overflow-hidden rounded">
+            <Image
+              src={`${userdata.provider}.svg`}
+              alt={userdata.provider}
+              fill
+              sizes="24px"
+              className="bg-neutral-200 rounded"
+            />
+          </div>
+        )}
+      </div>
       <LogoutButton />
     </div>
   );

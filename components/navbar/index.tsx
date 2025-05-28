@@ -15,7 +15,8 @@ export default function Navbar() {
         <LinkLogo />
         <NavbarDropDown />
       </section>
-      <section className="flex gap-2 items-center *:font-semibold">
+      <section className="flex gap-5 items-center *:font-semibold">
+        {/* TODO: suspense 로 업그레이드 */}
         <Link
           href="/login"
           scroll={false}

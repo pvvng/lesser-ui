@@ -15,7 +15,7 @@ export default function ElementDetailHeader() {
   const back = () => router.back();
 
   return (
-    <div className="flex justify-between items-center px-4 mb-3">
+    <section className="flex justify-between items-center px-4 mb-3">
       <button
         onClick={back}
         className="cursor-pointer flex gap-2 items-center text-sm 
@@ -26,9 +26,8 @@ export default function ElementDetailHeader() {
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
           <p className="text-neutral-400">Created By</p>
-          <Link href="#" className="flex gap-2 items-center">
-            <div className="size-5 rounded bg-neutral-500"></div>
-            <p className="font-bold">Pvvng</p>
+          <Link href="#" className="flex gap-2 items-center font-bold">
+            Pvvng
           </Link>
         </div>
         <p className="flex gap-3 items-center text-neutral-400">
@@ -40,6 +39,6 @@ export default function ElementDetailHeader() {
           </span>
         </p>
       </div>
-    </div>
+    </section>
   );
 }

@@ -51,12 +51,12 @@ export default function ElementDetail() {
           createdAt="Sept 6, 2023"
           isFavorite={false}
         />
-        <div className="col-span-2 space-y-12">
+        <section className="col-span-2 space-y-12">
           <div>
             <CommentForm />
           </div>
           <MITLicenseContainer username="username" />
-        </div>
+        </section>
       </div>
     </div>
   );

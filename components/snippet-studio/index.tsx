@@ -33,7 +33,7 @@ export default function SnippetStudio({
   });
 
   return (
-    <div className="grid grid-cols-2">
+    <section className="grid grid-cols-2">
       <div className="relative rounded-l-2xl bg-neutral-600 overflow-auto h-[540px] py-10">
         <Preview previewCode={previewCode} />
       </div>
@@ -51,6 +51,6 @@ export default function SnippetStudio({
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
