@@ -32,7 +32,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
+  if (!user && request.nextUrl.pathname.startsWith("/not-allowed")) {
     // 미허가 페이지 리다이렉트
     const url = request.nextUrl.clone();
     url.pathname = "/login";

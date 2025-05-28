@@ -3,7 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: [
+      // 깃허브
+      "avatars.githubusercontent.com",
+      // 구글
+      "lh3.googleusercontent.com",
+    ],
   },
 };
 
