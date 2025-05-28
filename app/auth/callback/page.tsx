@@ -1,10 +1,14 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { upsertUser } from "./action";
+import getUsername from "@/lib/utils/get-username";
+import getNullableValue from "@/lib/utils/get-nullable-value";
+
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * ───────────────────────────────────────────────────────────────────
@@ -20,7 +24,7 @@ import { useEffect } from "react";
  * ✅ 동작:
  * - supabase.auth.getUser() 를 호출하면 세션이 자동으로 생성되고
  *   localStorage와 쿠키에 인증 정보가 저장된다.
- * - 세션이 성공적으로 생성되면 /dashboard 로 이동
+ * - 세션이 성공적으로 생성되면 /user/[userId] 로 이동 및 신규 유저 정보 저장
  * - 실패하면 다시 /login 으로 이동
  *
  * ✅ 이유:
@@ -40,27 +44,66 @@ import { useEffect } from "react";
  */
 export default function AuthCallback() {
   const router = useRouter();
+  const [isAuthEnd, setIsAuthEnd] = useState(false);
 
   useEffect(() => {
     const run = async () => {
+      // 로그인 종료 플래그
+      setIsAuthEnd(false);
       const supabase = createClient();
-      const { data } = await supabase.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
 
-      if (data.user) {
-        // 여기서 DB에 유저 저장도 가능
-        router.replace("/dashboard");
-      } else {
-        router.replace("/login");
+      // 유저 확인 실패
+      if (!user || error) {
+        alert(
+          "유저 정보를 확인하는 중 에러가 발생했습니다. 다시 시도해주세요."
+        );
+        return router.replace("/");
       }
+
+      // user destructuring
+      const {
+        id,
+        email,
+        app_metadata: { provider },
+        user_metadata: { avatar_url, user_name, full_name, name },
+      } = user;
+
+      const username = getUsername([user_name, full_name, name]);
+
+      // userdata upsert
+      const upsertResponse = await upsertUser({
+        id,
+        email: getNullableValue(email),
+        nickname: username,
+        avatar: avatar_url,
+        provider: getNullableValue(provider),
+      });
+
+      // 에러처리
+      if (upsertResponse.error || !upsertResponse.data) {
+        alert("로그인 중 에러가 발생했습니다. 다시 시도해주세요.");
+        return router.replace("/");
+      }
+
+      setIsAuthEnd(true);
+      // UX를 위해 0.5초 대기 후 redirect
+      const userId = upsertResponse.data.id;
+      setTimeout(() => router.replace(`/user/${userId}`), 500);
     };
 
     run();
-  }, []);
+
+    return () => setIsAuthEnd(false);
+  }, [router]);
 
   return (
     <p className="mt-20 mx-auto font-mono font-semibold text-sm text-center">
-      <FontAwesomeIcon icon={faSpinner} className="animate-spin" /> 로그인 처리
-      중...
+      <FontAwesomeIcon icon={faSpinner} className="animate-spin" />{" "}
+      <span>{isAuthEnd ? "로그인 성공" : "로그인 처리 중..."}</span>
     </p>
   );
 }

@@ -65,14 +65,6 @@ export async function getUserData() {
   return createActionResponse(insertedUser, null);
 }
 
-interface InsertUserParams {
-  userId: string;
-  email: string | null;
-  nickname: string;
-  avatar: string | null;
-  provider: string | null;
-}
-
 export async function findUserById({ userId }: { userId: string }) {
   const supabase = await createClient();
   const { data: user, error } = await supabase
@@ -90,6 +82,14 @@ export async function findUserById({ userId }: { userId: string }) {
   }
 
   return createActionResponse(user, null);
+}
+
+interface InsertUserParams {
+  userId: string;
+  email: string | null;
+  nickname: string;
+  avatar: string | null;
+  provider: string | null;
 }
 
 export async function insertUser(insertValue: InsertUserParams) {
