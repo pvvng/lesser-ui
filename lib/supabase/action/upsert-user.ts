@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import createActionResponse from "@/lib/utils/create-action-response";
 
-interface UpsertUserParams {
+interface InsertUserParams {
   id: string;
   email: string | null;
   nickname: string;
@@ -11,7 +11,7 @@ interface UpsertUserParams {
   provider: string | null;
 }
 
-export async function upsertUser(insertValue: UpsertUserParams) {
+export async function upsertUser(insertValue: InsertUserParams) {
   const supabase = await createClient();
 
   const { data: user, error } = await supabase

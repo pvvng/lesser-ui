@@ -1,8 +1,10 @@
-import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import LinkLogo from "../link-logo";
 import NavbarDropDown from "./dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faClover } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { findUserById } from "@/lib/supabase/action/find-user-by-id";
 
 export default function Navbar() {
   return (
@@ -15,17 +17,42 @@ export default function Navbar() {
         <LinkLogo />
         <NavbarDropDown />
       </section>
-      <section className="flex gap-5 items-center *:font-semibold">
-        {/* TODO: suspense 로 업그레이드 */}
-        <Link
-          href="/login"
-          scroll={false}
-          className="px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition-colors font-semibold flex items-center gap-2"
-        >
-          <FontAwesomeIcon icon={faPlus} className="text-white" />
-          Create New
-        </Link>
+      <section className="flex gap-5 items-center">
+        <LinkButton />
       </section>
     </nav>
+  );
+}
+
+export async function LinkButton() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    return renderLink("/login", "Login");
+  }
+
+  const { data: dbUser } = await findUserById({ userId: user.id });
+
+  const href = dbUser?.id ? `/user/${user.id}` : "/login";
+  const label = dbUser?.id ? "Dashboard" : "Login";
+
+  return renderLink(href, label);
+}
+
+function renderLink(href: string, label: string) {
+  return (
+    <Link
+      href={href}
+      scroll={false}
+      className="px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition-colors 
+      font-semibold flex items-center gap-2"
+    >
+      <FontAwesomeIcon icon={faClover} className="text-white" />
+      {label}
+    </Link>
   );
 }

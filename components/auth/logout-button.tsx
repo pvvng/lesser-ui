@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { redirect } from "next/navigation";
 
 export default function LogoutButton() {
@@ -12,7 +14,13 @@ export default function LogoutButton() {
 
   return (
     <form action={logout}>
-      <button>로그아웃</button>
+      <button
+        className="px-3 py-2 rounded font-semibold cursor-pointer 
+        flex gap-1 items-center
+        transition-colors bg-neutral-800 hover:bg-neutral-700"
+      >
+        <FontAwesomeIcon icon={faPowerOff} /> Logout
+      </button>
     </form>
   );
 }
