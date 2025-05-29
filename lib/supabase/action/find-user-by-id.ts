@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import createActionResponse from "@/lib/utils/create-action-response";
 
-export async function findUserById({ userId }: { userId: string }) {
+export default async function findUserById({ userId }: { userId: string }) {
   const supabase = await createClient();
   const { data: user, error } = await supabase
     .from("users")

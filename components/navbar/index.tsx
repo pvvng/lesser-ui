@@ -1,10 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
-import LinkLogo from "../link-logo";
+import findUserById from "@/lib/supabase/action/find-user-by-id";
 import NavbarDropDown from "./dropdown";
+import LinkLogo from "../link-logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClover } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { findUserById } from "@/lib/supabase/action/find-user-by-id";
 
 export default function Navbar() {
   return (

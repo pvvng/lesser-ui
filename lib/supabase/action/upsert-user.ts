@@ -11,7 +11,7 @@ interface InsertUserParams {
   provider: string | null;
 }
 
-export async function upsertUser(insertValue: InsertUserParams) {
+export default async function upsertUser(insertValue: InsertUserParams) {
   const supabase = await createClient();
 
   const { data: user, error } = await supabase

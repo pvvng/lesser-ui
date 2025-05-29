@@ -1,7 +1,8 @@
 // supabase lib func
-import { findUserById } from "@/lib/supabase/action/find-user-by-id";
+import checkUserLogin from "@/lib/supabase/action/check-user-login";
 // component
 import LogoutButton from "@/components/auth/logout-button";
+import TabSection from "@/components/user-page/tab-section";
 // fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -9,13 +10,16 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import findUserById from "@/lib/supabase/action/find-user-by-id";
 
 interface UserDashBoardProps {
   params: Promise<{ userId: string }>;
 }
 
 export default async function UserDashBoard({ params }: UserDashBoardProps) {
-  const userId = (await params).userId;
+  const [nowUserId, { userId }] = await Promise.all([checkUserLogin(), params]);
+
+  const isOwner = nowUserId === userId;
 
   if (!userId) return notFound();
 
@@ -26,56 +30,56 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
   const userdata = response.data;
 
   return (
-    <div>
+    <div className="space-y-5 p-5">
       {/* background */}
-      <section className="w-full h-64 bg-neutral-800"></section>
-      {/* header section */}
-      <section className="flex justify-between items-end p-5">
-        <div className="size-30 rounded-full relative overflow-hidden">
-          <Image
-            src={userdata.avatar || ""}
-            alt={userdata.nickname}
-            fill
-            className="object-cover bg-neutral-700"
-            sizes="100vw"
-            priority
-          />
-        </div>
-        <div className="flex items-center gap-1">
-          <Link
-            href="#"
-            className="px-3 py-2 rounded font-semibold cursor-pointer 
-            flex gap-1 items-center
-            transition-colors bg-neutral-800 hover:bg-neutral-700"
-          >
-            <FontAwesomeIcon icon={faPenToSquare} /> Edit Profile
-          </Link>
-          <LogoutButton />
-        </div>
-      </section>
+      <section className="w-full h-72 bg-neutral-800"></section>
+      {/* avatar */}
+      <div className="size-36 rounded-full relative overflow-hidden -mt-12">
+        <Image
+          src={userdata.avatar || ""}
+          alt={userdata.nickname}
+          fill
+          className="object-cover bg-neutral-700"
+          sizes="100vw"
+          priority
+        />
+      </div>
       {/* name */}
-      <section className="px-5">
+      <section className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <p className="text-[2rem] font-semibold">{userdata.nickname}</p>
           {userdata.provider && (
-            <Image
-              src={`/${userdata.provider}.svg`}
-              alt={userdata.provider}
-              width={25}
-              height={25}
-            />
+            <div className="relative size-[2rem] rounded bg-neutral-300">
+              <Image
+                src={`/${userdata.provider}.svg`}
+                alt={userdata.provider}
+                fill
+                className="object-cover"
+              />
+            </div>
           )}
         </div>
+        {isOwner && (
+          <div className="flex items-center gap-1">
+            <EditProfileLinkButton />
+            <LogoutButton />
+          </div>
+        )}
       </section>
       {/* tabs */}
-      <section className="p-5">
-        <ul className="flex items-center gap-1">
-          <li className="px-3 py-2 rounded bg-neutral-700 cursor-pointer text-lg font-semibold">
-            posts
-          </li>
-          <li className="px-3 py-2 rounded bg-neutral-700">activites</li>
-        </ul>
-      </section>
+      <TabSection />
     </div>
+  );
+}
+
+function EditProfileLinkButton() {
+  return (
+    <Link
+      href="#"
+      className="px-3 py-2 rounded font-semibold cursor-pointer flex gap-1 items-center
+      transition-colors bg-neutral-800 hover:bg-neutral-700"
+    >
+      <FontAwesomeIcon icon={faPenToSquare} /> Edit Profile
+    </Link>
   );
 }
