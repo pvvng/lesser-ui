@@ -1,14 +1,9 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
 import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function ElementLinkCard({ item }: { item: any }) {
   const cardRef = useScrollReveal();

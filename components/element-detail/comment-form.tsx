@@ -12,7 +12,7 @@ export default function CommentForm() {
       </p>
       <div className="flex gap-3 items-center mt-3 p-5 rounded bg-neutral-800">
         <input
-          className="w-full h-10 ring ring-neutral-700 rounded px-3 transition-all 
+          className="w-full h-10 ring ring-neutral-600 rounded px-3 transition-all 
           placeholder:text-neutral-600 focus:outline-none focus:ring-2"
           placeholder="Send Comment"
         />

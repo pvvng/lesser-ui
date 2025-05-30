@@ -9,6 +9,137 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      comments: {
+        Row: {
+          created_at: string
+          element_id: string
+          id: string
+          payload: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          element_id: string
+          id?: string
+          payload: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          element_id?: string
+          id?: string
+          payload?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_element_id_fkey"
+            columns: ["element_id"]
+            isOneToOne: false
+            referencedRelation: "elements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      elements: {
+        Row: {
+          bio: string | null
+          created_at: string
+          css: string
+          html: string
+          id: string
+          marked: number
+          name: string
+          tag: string
+          type: string
+          updated_at: string
+          user_id: string | null
+          view: number
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          css: string
+          html: string
+          id?: string
+          marked?: number
+          name: string
+          tag: string
+          type: string
+          updated_at?: string
+          user_id?: string | null
+          view?: number
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          css?: string
+          html?: string
+          id?: string
+          marked?: number
+          name?: string
+          tag?: string
+          type?: string
+          updated_at?: string
+          user_id?: string | null
+          view?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "elements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          element_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          element_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          element_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_element_id_fkey"
+            columns: ["element_id"]
+            isOneToOne: false
+            referencedRelation: "elements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           avatar: string | null

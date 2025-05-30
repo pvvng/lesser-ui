@@ -1,4 +1,5 @@
 "use client";
+
 import { LanguageMode } from "@/types/core";
 import { useEffect, useMemo, useRef, useState } from "react";
 import createDOMPurify from "dompurify";
@@ -6,6 +7,7 @@ import createDOMPurify from "dompurify";
 interface UseEditorProps {
   userHtml: string;
   userCss: string;
+  codeRef?: React.RefObject<{ html: string; css: string }>;
 }
 
 // XSS 방지를 위한 DOMPurify 옵션
@@ -15,7 +17,11 @@ const SANITIZE_OPTIONS = {
   FORBID_ATTR: ["onerror", "onclick", "onload"], // 이벤트 핸들러
 };
 
-export default function useEditor({ userHtml, userCss }: UseEditorProps) {
+export default function useEditor({
+  userHtml,
+  userCss,
+  codeRef,
+}: UseEditorProps) {
   /** 현재 코드 모드 (HTML 또는 CSS) */
   const [nowMode, setNowMode] = useState<LanguageMode>("CSS");
   /** 사용자 입력 코드 상태 */
@@ -27,6 +33,19 @@ export default function useEditor({ userHtml, userCss }: UseEditorProps) {
   const DOMPurify = useRef<ReturnType<typeof createDOMPurify>>(null);
   /** DOMPurify 준비 완료 추적 플래그 */
   const [isPurifierReady, setIsPurifierReady] = useState(false);
+
+  /** 코드 값 변경 시에만 codeRef 갱신 */
+  useEffect(() => {
+    const getAllCode = () => {
+      return {
+        html: htmlCode,
+        css: cssCode,
+      };
+    };
+    if (codeRef) {
+      codeRef.current = getAllCode();
+    }
+  }, [htmlCode, cssCode]);
 
   /** DOMPurify 초기화 */
   useEffect(() => {

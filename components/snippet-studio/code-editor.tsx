@@ -28,7 +28,7 @@ export default function CodeEditor({
     <div className="h-full w-full overflow-auto pr-4">
       <div className="flex w-full font-mono font-semibold overflow-x-auto min-w-max">
         {/* 줄 번호 */}
-        <div className="text-right px-3 py-2.5 select-none text-neutral-400 shrink-0">
+        <div className="text-right px-3 py-2.5 select-none text-neutral-400 shrink-0 pointer-events-none">
           {getCurrentCode()
             .split("\n")
             .map((_, i) => (
@@ -48,8 +48,8 @@ export default function CodeEditor({
               : Prism.highlight(code, Prism.languages.css, "css")
           }
           padding={10}
-          className="outline-none min-w-max"
-          textareaClassName="focus:outline-none"
+          className="outline-none w-full h-full"
+          textareaClassName="focus:outline-none caret-white bg-transparent w-full h-full"
         />
       </div>
     </div>

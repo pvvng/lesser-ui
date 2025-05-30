@@ -13,11 +13,14 @@ import CodeEditor from "./code-editor";
 interface SnippetStudioProps {
   userHtml?: string;
   userCss?: string;
+  codeRef?: React.RefObject<{ html: string; css: string }>;
 }
 
 export default function SnippetStudio({
   userHtml = "",
   userCss = "",
+  /** form action용 code ref */
+  codeRef,
 }: SnippetStudioProps) {
   const {
     nowMode,
@@ -30,6 +33,7 @@ export default function SnippetStudio({
   } = useEditor({
     userHtml,
     userCss,
+    codeRef,
   });
 
   return (

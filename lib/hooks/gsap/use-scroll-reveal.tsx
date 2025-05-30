@@ -1,5 +1,8 @@
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * gsap 위에서 아래로 요소 떨어지는 애니메이션
