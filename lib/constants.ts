@@ -15,7 +15,7 @@ import {
 
 /** menu nav item */
 export const menuItems = [
-  { icon: faBook, label: "All", link: "elements" },
+  { icon: faBook, label: "All", link: null },
   { icon: faSquareCaretRight, label: "Buttons", link: "buttons" },
   { icon: faSquareCheck, label: "Check Boxes", link: "check-boxes" },
   { icon: faToggleOn, label: "Toggle Switches", link: "toggle-switches" },

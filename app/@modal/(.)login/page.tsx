@@ -1,6 +1,7 @@
 "use client";
 
 import AuthShowcaseCard from "@/components/auth/auth-showcase-card";
+import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
@@ -14,14 +15,8 @@ export default function LoginModal() {
     }
   };
 
-  // 배경 스크롤 정지
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  // 스크롤 정지
+  useStopScoll();
 
   return (
     <div
