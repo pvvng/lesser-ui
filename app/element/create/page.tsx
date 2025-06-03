@@ -7,28 +7,20 @@ import AdditionalInfoForm from "@/components/element-create/additional-info-form
 // custom hook
 import useWarnOnUnload from "@/lib/hooks/use-warn-on-unload";
 // constant
-import { exampleCode, menuItems } from "@/lib/constants";
+import { exampleCode } from "@/lib/constants";
+// etc
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
-import Preview from "@/components/snippet-studio/preview";
 
 export default function CreateElement() {
   const codeRef = useRef<{ html: string; css: string }>({ html: "", css: "" });
   // tag state
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   // form open flag state
-  const [openForm, setOpenForm] = useState(false);
-
-  const handleFormContainer = () => {
-    console.log(codeRef.current);
-    setOpenForm(true);
-  };
-
-  const action = (formdata: FormData) => {
-    console.log(codeRef.current);
-    console.log(formdata);
-  };
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  // toggle form
+  const toggleForm = () => setIsFormOpen((prev) => !prev);
 
   useWarnOnUnload();
 
@@ -37,7 +29,9 @@ export default function CreateElement() {
       {!selectedTag && (
         <TagSelector confirmChoice={(tag) => setSelectedTag(tag)} />
       )}
-      {openForm && <AdditionalInfoForm codeRef={codeRef} />}
+      {isFormOpen && (
+        <AdditionalInfoForm codeRef={codeRef} closeForm={toggleForm} />
+      )}
       {/* code editor */}
       <SnippetStudio {...exampleCode} codeRef={codeRef} />
       <div className="w-full p-2 bg-neutral-800 rounded flex justify-between items-center">
@@ -56,7 +50,7 @@ export default function CreateElement() {
         <button
           className="rounded px-4 py-2 font-semibold cursor-pointer
          flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-colors"
-          onClick={handleFormContainer}
+          onClick={toggleForm}
         >
           <FontAwesomeIcon icon={faRocket} /> Submit
         </button>

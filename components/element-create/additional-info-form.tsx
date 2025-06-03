@@ -1,21 +1,27 @@
+// components
 import InputWithLabel from "./input-with-label";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faRocket } from "@fortawesome/free-solid-svg-icons";
-import Preview from "../snippet-studio/preview";
-import useEditor from "@/lib/hooks/use-editor";
-import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import CheckBoxWithLabel from "./checkbox-with-label";
+import Preview from "../snippet-studio/preview";
+// hooks
+import useEditor from "@/lib/hooks/use-editor";
+import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
+import useStopScoll from "@/lib/hooks/use-stop-scroll";
+// etc
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faRocket } from "@fortawesome/free-solid-svg-icons";
 
 interface AdditionalInfoFormProps {
   codeRef: React.RefObject<{
     html: string;
     css: string;
   }>;
+  closeForm: () => void;
 }
 
 export default function AdditionalInfoForm({
   codeRef,
+  closeForm,
 }: AdditionalInfoFormProps) {
   const [nameInput, setNameInput] = useState("");
   const [nameBio, setNameBio] = useState("");
@@ -32,17 +38,33 @@ export default function AdditionalInfoForm({
     userCss: codeRef.current.css,
   });
 
+  const { containerRef, backdropRef } = useSlideBoxes();
+
   useStopScoll();
 
   return (
     <div
+      ref={backdropRef}
       className="inset-0 fixed w-full h-screen bg-black/80 z-100 
       flex justify-center items-center"
+      onClick={closeForm}
     >
-      <div className="max-w-screen-lg p-5 grid grid-cols-2 shadow-xl">
+      <div
+        ref={containerRef}
+        className="max-w-screen-lg p-5 grid grid-cols-2 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* preview */}
-        <div className="aspect-square bg-neutral-800 rounded-l-2xl">
+        <div className="aspect-square bg-neutral-800 rounded-l-2xl relative">
           <Preview previewCode={previewCode} />
+          {/* close button */}
+          <button
+            onClick={closeForm}
+            className="absolute top-2 left-2 cursor-pointer flex gap-2 items-center text-sm 
+            px-3 py-2 rounded transition-colors hover:bg-neutral-700"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} /> Go Back
+          </button>
         </div>
         {/* form */}
         <form className="aspect-square p-5 bg-neutral-900 flex flex-col gap-3 justify-center rounded-r-2xl">

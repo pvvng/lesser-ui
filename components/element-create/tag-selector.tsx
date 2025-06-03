@@ -1,8 +1,9 @@
-import { menuItems } from "@/lib/constants";
 import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
+import { menuItems } from "@/lib/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 export default function TagSelector({
   defaultTag = null,
@@ -31,38 +32,14 @@ export default function TagSelector({
       <div className="max-w-screen-lg bg-neutral-900 rounded-2xl p-8 space-y-5">
         <p className="font-bold text-3xl text-center">What are you making?</p>
         <div className="grid grid-cols-5 gap-5">
-          {tagItems.map((item) => {
-            const cardRef = useScrollReveal();
-
-            const isSelected = selected === item.link;
-            const classname = isSelected
-              ? "bg-green-500 text-white border-green-500"
-              : "bg-neutral-800 text-neutral-300 border-neutral-600";
-
-            return (
-              <label
-                key={item.label}
-                ref={cardRef}
-                className={
-                  "cursor-pointer aspect-square px-4 py-2 rounded-lg border-2 hover:border-green-500 transition-colors " +
-                  classname
-                }
-              >
-                <div className="w-full h-full flex flex-col gap-2 justify-center items-center">
-                  <input
-                    type="radio"
-                    name="tag"
-                    value={item.link ?? ""}
-                    checked={isSelected}
-                    onChange={() => handleSelect(item.link)}
-                    className="hidden"
-                  />
-                  <FontAwesomeIcon icon={item.icon} className="text-2xl" />
-                  <p className="font-semibold text-center">{item.label}</p>
-                </div>
-              </label>
-            );
-          })}
+          {tagItems.map((item) => (
+            <TagCard
+              key={item.label}
+              selected={selected}
+              {...item}
+              handleSelect={handleSelect}
+            />
+          ))}
         </div>
         <button
           className="w-full bg-green-500 px-4 py-2 font-semibold rounded cursor-pointer 
@@ -74,5 +51,45 @@ export default function TagSelector({
         </button>
       </div>
     </section>
+  );
+}
+
+interface TagCardProps {
+  selected: string | null;
+  link: string | null;
+  label: string;
+  icon: IconDefinition;
+  handleSelect: (tag: string | null) => void;
+}
+
+function TagCard({ selected, link, label, icon, handleSelect }: TagCardProps) {
+  const cardRef = useScrollReveal();
+
+  const isSelected = selected === link;
+  const classname = isSelected
+    ? "bg-green-500 text-white border-green-500"
+    : "bg-neutral-800 text-neutral-300 border-neutral-600";
+
+  return (
+    <label
+      ref={cardRef}
+      className={
+        "cursor-pointer aspect-square px-4 py-2 rounded-lg border-2 hover:border-green-500 transition-colors " +
+        classname
+      }
+    >
+      <div className="w-full h-full flex flex-col gap-2 justify-center items-center">
+        <input
+          type="radio"
+          name="tag"
+          value={link ?? ""}
+          checked={isSelected}
+          onChange={() => handleSelect(link)}
+          className="hidden"
+        />
+        <FontAwesomeIcon icon={icon} className="text-2xl" />
+        <p className="font-semibold text-center">{label}</p>
+      </div>
+    </label>
   );
 }
