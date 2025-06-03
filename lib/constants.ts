@@ -13,6 +13,8 @@ import {
   faToggleOn,
 } from "@fortawesome/free-solid-svg-icons";
 
+// TODO: tag set 만들기 + tag Enum 만들기
+
 /** menu nav item */
 export const menuItems = [
   { icon: faBook, label: "All", link: null },
