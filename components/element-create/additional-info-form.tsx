@@ -16,11 +16,13 @@ interface AdditionalInfoFormProps {
     html: string;
     css: string;
   }>;
+  selectedTag: string | null;
   closeForm: () => void;
 }
 
 export default function AdditionalInfoForm({
   codeRef,
+  selectedTag,
   closeForm,
 }: AdditionalInfoFormProps) {
   const [nameInput, setNameInput] = useState("");
@@ -71,6 +73,14 @@ export default function AdditionalInfoForm({
           <p className="text-2xl font-bold mb-3">
             Looks great! Let’s finish it up.
           </p>
+          <InputWithLabel
+            label="Element Tag"
+            id="tag"
+            name="tag"
+            defaultValue={selectedTag ?? ""}
+            disabled
+            required
+          />
           <InputWithLabel
             label="Element Name"
             id="name"

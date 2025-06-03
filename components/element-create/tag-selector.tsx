@@ -2,8 +2,8 @@ import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import { menuItems } from "@/lib/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export default function TagSelector({
   defaultTag = null,
