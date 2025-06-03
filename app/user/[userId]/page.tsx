@@ -42,6 +42,7 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
           className="object-cover bg-neutral-700"
           sizes="100vw"
           priority
+          draggable={false}
         />
       </div>
       {/* name */}
@@ -55,6 +56,7 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
                 alt={userdata.provider}
                 fill
                 className="object-cover"
+                draggable={false}
               />
             </div>
           )}

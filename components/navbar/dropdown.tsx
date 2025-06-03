@@ -81,7 +81,7 @@ export default function NavbarDropDown() {
             aria-label="컴포넌트 탐색 메뉴"
             className="w-xl grid grid-cols-3 gap-2"
           >
-            <DropdownElement />
+            <DropdownElement closeDropdown={() => setShow(false)} />
           </ul>
         </nav>
       )}
@@ -89,7 +89,11 @@ export default function NavbarDropDown() {
   );
 }
 
-function DropdownElement() {
+interface DropdownElementProps {
+  closeDropdown?: () => void;
+}
+
+function DropdownElement({ closeDropdown }: DropdownElementProps) {
   const getTagLink = (link: string | null) => {
     const tagLink = "/elements";
     if (!link) return tagLink;
@@ -102,7 +106,8 @@ function DropdownElement() {
         href={getTagLink(item.link)}
         role="menuitem"
         className="p-3 rounded flex gap-2 items-center text-sm font-semibold 
-          bg-neutral-700 hover:bg-neutral-600 transition-colors"
+        bg-neutral-700 hover:bg-neutral-600 transition-colors"
+        onClick={closeDropdown}
       >
         <FontAwesomeIcon icon={item.icon} />
         <span>{item.label}</span>
