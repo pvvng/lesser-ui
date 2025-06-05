@@ -50,11 +50,11 @@ export default function CheckBoxWithLabel({
     <label className="w-full flex items-center gap-2 cursor-pointer">
       <input
         type="checkbox"
-        className="hidden"
+        className="peer absolute opacity-0 w-4 h-4"
         defaultChecked={defaultChecked}
         onChange={handleCheck}
       />
-      <div className="size-4 flex-shrink-0 rounded-full flex items-center justify-center bg-neutral-700">
+      <div className="peer-focus:ring-green-500 ring ring-transparent size-4 flex-shrink-0 rounded-full flex items-center justify-center bg-neutral-700">
         <FontAwesomeIcon
           ref={iconRef}
           icon={faCheck}

@@ -36,7 +36,7 @@ export default async function Element(props: { searchParams: SearchParams }) {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-5 mt-10 p-5">
+    <div className="grid grid-cols-3 gap-5 mt-10 p-5 overflow-hidden">
       {elements.map((element) => (
         <ElementCard
           key={element.id}

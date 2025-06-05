@@ -1,6 +1,6 @@
 import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
-import { menuItems } from "@/lib/constants";
+import { tagItems } from "@/lib/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -14,13 +14,7 @@ export default function TagSelector({
 }) {
   const [selected, setSelected] = useState<string | null>(defaultTag ?? null);
 
-  const tagItems = menuItems.filter(
-    (item) => item.link !== null && item.link !== "favorites"
-  );
-
-  const handleSelect = (tag: string | null) => {
-    setSelected(tag);
-  };
+  const handleSelect = (tag: string | null) => setSelected(tag);
 
   useStopScoll();
 
@@ -34,7 +28,7 @@ export default function TagSelector({
         <div className="grid grid-cols-5 gap-5">
           {tagItems.map((item) => (
             <TagCard
-              key={item.label}
+              key={item.tag}
               selected={selected}
               {...item}
               handleSelect={handleSelect}
@@ -56,16 +50,15 @@ export default function TagSelector({
 
 interface TagCardProps {
   selected: string | null;
-  link: string | null;
-  label: string;
+  tag: string;
   icon: IconDefinition;
   handleSelect: (tag: string | null) => void;
 }
 
-function TagCard({ selected, link, label, icon, handleSelect }: TagCardProps) {
+function TagCard({ selected, tag, icon, handleSelect }: TagCardProps) {
   const cardRef = useScrollReveal();
 
-  const isSelected = selected === link;
+  const isSelected = selected === tag;
   const classname = isSelected
     ? "bg-green-500 text-white border-green-500"
     : "bg-neutral-800 text-neutral-300 border-neutral-600";
@@ -82,13 +75,13 @@ function TagCard({ selected, link, label, icon, handleSelect }: TagCardProps) {
         <input
           type="radio"
           name="tag"
-          value={link ?? ""}
+          value={tag ?? ""}
           checked={isSelected}
-          onChange={() => handleSelect(link)}
+          onChange={() => handleSelect(tag)}
           className="hidden"
         />
         <FontAwesomeIcon icon={icon} className="text-2xl" />
-        <p className="font-semibold text-center">{label}</p>
+        <p className="font-semibold text-center">{tag}</p>
       </div>
     </label>
   );

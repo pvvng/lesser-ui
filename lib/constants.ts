@@ -31,6 +31,21 @@ export const menuItems = [
   { icon: faBookmark, label: "Favorites", link: "favorites" },
 ] as const;
 
+export const tagItems = [
+  { icon: faSquareCaretRight, tag: "buttons" },
+  { icon: faSquareCheck, tag: "check-boxes" },
+  { icon: faToggleOn, tag: "toggle-switches" },
+  { icon: faFile, tag: "card" },
+  { icon: faSpinner, tag: "loaders" },
+  { icon: faKeyboard, tag: "inputs" },
+  { icon: faCircleDot, tag: "radio-buttons" },
+  { icon: faTableList, tag: "form" },
+  { icon: faBrush, tag: "patterns" },
+  { icon: faCircleInfo, tag: "tooltips" },
+] as const;
+
+export const tagSet: Set<string> = new Set(tagItems.map((item) => item.tag));
+
 export const exampleCode = {
   userHtml: `<!-- This is just an example. Feel free to delete and create your own element! -->
 <button class="clover-button">

@@ -3,11 +3,11 @@
 // component
 import SnippetStudio from "@/components/snippet-studio";
 import TagSelector from "@/components/element-create/tag-selector";
-import AdditionalInfoForm from "@/components/element-create/additional-info-form";
+import SubmitModal from "@/components/element-create/submit-modal";
 // custom hook
 import useWarnOnUnload from "@/lib/hooks/use-warn-on-unload";
 // constant
-import { exampleCode, menuItems } from "@/lib/constants";
+import { exampleCode, tagItems } from "@/lib/constants";
 // etc
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +22,8 @@ export default function CreateElement() {
   // toggle form
   const toggleForm = () => setIsFormOpen((prev) => !prev);
 
+  const selectedIcon = tagItems.find((item) => item.tag === selectedTag)?.icon;
+
   useWarnOnUnload();
 
   return (
@@ -30,7 +32,7 @@ export default function CreateElement() {
         <TagSelector confirmChoice={(tag) => setSelectedTag(tag)} />
       )}
       {isFormOpen && (
-        <AdditionalInfoForm
+        <SubmitModal
           codeRef={codeRef}
           selectedTag={selectedTag}
           closeForm={toggleForm}
@@ -49,7 +51,12 @@ export default function CreateElement() {
             disabled
             className="hidden"
           />
-          <span>{selectedTag}</span>
+          <span className="flex items-center gap-1">
+            {selectedIcon && (
+              <FontAwesomeIcon icon={selectedIcon} className="text-sm" />
+            )}
+            {selectedTag}
+          </span>
         </div>
         <button
           className="rounded px-4 py-2 font-semibold cursor-pointer
