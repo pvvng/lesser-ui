@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import ErrorMap from "../error-map";
 
 interface InputWithLabelProps {
   label: string;
@@ -30,11 +31,7 @@ export default function InputWithLabel({
         onChange={(e) => setValue?.(e.target.value)}
         {...rest}
       />
-      {errors.map((error, index) => (
-        <p key={index} className="text-red-400 text-xs">
-          {error}
-        </p>
-      ))}
+      <ErrorMap errors={errors} />
     </div>
   );
 }

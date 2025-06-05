@@ -6,7 +6,8 @@ import InputWithLabel from "./input-with-label";
 import FormButton from "./form-button";
 // etc
 import { startTransition, useActionState, useState } from "react";
-import { createElementAction } from "@/app/element/create/action";
+import { createElementAction } from "@/app/element/create/actions";
+import ErrorMap from "../error-map";
 
 interface AdditionalInfoFormProps {
   selectedTag: string | null;
@@ -48,8 +49,6 @@ export default function AdditionalInfoForm({
     });
   };
 
-  console.log(state);
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -76,7 +75,7 @@ export default function AdditionalInfoForm({
         placeholder="Type your element`s name"
         required
         minLength={2}
-        maxLength={20}
+        // maxLength={20}
         errors={state?.fieldErrors.name}
       />
       <InputWithLabel
@@ -103,13 +102,7 @@ export default function AdditionalInfoForm({
             setChecks((prev) => ({ ...prev, accurate: checked }))
           }
         />
-        <section className="space-y-1.5">
-          {state?.formErrors.map((error) => (
-            <p key={error} className="text-red-400 text-xs">
-              {error}
-            </p>
-          ))}
-        </section>
+        <ErrorMap errors={state?.formErrors} />
       </div>
       <FormButton isFormValid={isFormValid} text="Submit to Confirm" />
     </form>
