@@ -21,7 +21,7 @@ export default function Preview({ previewCode }: PreviewProps) {
   return (
     <div
       ref={containerRef}
-      className="w-full h-full overflow-auto flex justify-center items-center"
+      className="w-full h-full overflow-hidden flex justify-center items-center p-5"
     />
   );
 }

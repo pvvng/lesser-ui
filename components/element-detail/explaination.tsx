@@ -2,11 +2,15 @@
 
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
 
 interface ElementExplainationProps {
   tag: string;
   elementName: string;
   username: string;
+  userId: string | null;
+  userAvatar: string;
   createdAt: string;
   isFavorite: boolean;
 }
@@ -15,6 +19,8 @@ export default function ElementExplaination({
   tag,
   elementName,
   username,
+  userId,
+  userAvatar,
   createdAt,
   isFavorite,
 }: ElementExplainationProps) {
@@ -28,10 +34,22 @@ export default function ElementExplaination({
       <hr className="border-neutral-700" />
       {/* user datas */}
       <div className="flex gap-3 items-center">
-        <div className="size-14 rounded bg-neutral-600"></div>
+        <Link
+          href={userId ? `/user/${userId}` : "#"}
+          className="size-14 rounded bg-neutral-600 relative overflow-hidden"
+        >
+          <Image
+            src={userAvatar}
+            alt={username}
+            fill
+            sizes="56px"
+            className="object-cover"
+            draggable={false}
+          />
+        </Link>
         <div>
           <p className="text-lg font-semibold">{username}</p>
-          <p>{createdAt}</p>
+          <p className="text-sm text-neutral-400">{createdAt}</p>
         </div>
       </div>
       {/* favorite button */}

@@ -1,5 +1,6 @@
 // supabase lib func
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
+import findUserById from "@/lib/supabase/action/find-user-by-id";
 // component
 import LogoutButton from "@/components/auth/logout-button";
 import TabSection from "@/components/user-page/tab-section";
@@ -10,7 +11,6 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import findUserById from "@/lib/supabase/action/find-user-by-id";
 
 interface UserDashBoardProps {
   params: Promise<{ userId: string }>;

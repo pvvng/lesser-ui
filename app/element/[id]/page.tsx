@@ -1,61 +1,65 @@
+// action
+import ConfettiCelebration from "@/components/confetti-celebration";
 import CommentForm from "@/components/element-detail/comment-form";
 import ElementExplaination from "@/components/element-detail/explaination";
 import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// action
+import { getElement } from "./actions";
+// util
+import { getKoreanDate } from "@/lib/utils/get-korean-date";
+// etc
+import { notFound } from "next/navigation";
 
-export default function ElementDetail() {
-  const test_html = `<input type="checkbox" id="checkboxInput">
-<label for="checkboxInput" class="toggleSwitch"></label>`;
+interface ElementDetailProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{
+    [key: string]: string | string[] | undefined;
+  }>;
+}
 
-  const test_css = `#checkboxInput { display: none; }
-.toggleSwitch {
-  width: 50px;
-  height: 30px;
-  background: #444;
-  border-radius: 15px;
-  position: relative;
-  display: block;
-  cursor: pointer;
-}
-.toggleSwitch::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: white;
-  transition: transform 0.2s ease;
-}
-#checkboxInput:checked + .toggleSwitch::after {
-  transform: translateX(20px);
-}
-#checkboxInput:checked + .toggleSwitch {
-  background: #7c3aed;
-}
-`;
+export default async function ElementDetail({
+  params,
+  searchParams,
+}: ElementDetailProps) {
+  const elementId = (await params).id;
+  const celebration = (await searchParams).celebration === "true";
+
+  const { data: element, error } = await getElement({ elementId });
+
+  if (error || !element) {
+    console.error(error);
+    notFound();
+  }
 
   return (
     <div className="p-5">
-      <ElementDetailHeader />
-      <SnippetStudio userHtml={test_html} userCss={test_css} />
+      <ConfettiCelebration run={celebration} />
+      <ElementDetailHeader
+        userId={element.user_id}
+        username={element.users?.nickname || "알 수 없는 사용자"}
+        view={element.view}
+        marked={element.marked}
+      />
+      <SnippetStudio userHtml={element.html} userCss={element.css} />
       <div className="mt-10 grid md:grid-cols-3 grid-cols-1 gap-5">
         <ElementExplaination
-          tag="Toggle Switch"
-          elementName="super cool switch"
-          username="username"
-          createdAt="Sept 6, 2023"
+          tag={element.tag}
+          elementName={element.name}
+          username={element.users?.nickname || "알 수 없는 사용자"}
+          userId={element.user_id}
+          userAvatar={element.users?.avatar || "/unknown.png"}
+          createdAt={getKoreanDate(element.created_at)}
           isFavorite={false}
         />
         <section className="col-span-2 space-y-12">
           <div>
             <CommentForm />
           </div>
-          <MITLicenseContainer username="username" />
+          <MITLicenseContainer
+            username={element.users?.nickname || "알 수 없는 사용자"}
+          />
         </section>
       </div>
     </div>

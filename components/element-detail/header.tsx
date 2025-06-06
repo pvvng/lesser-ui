@@ -9,7 +9,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function ElementDetailHeader() {
+interface ElementDetailHeaderProps {
+  userId: string | null;
+  username: string;
+  view: number;
+  marked: number;
+}
+
+export default function ElementDetailHeader({
+  userId,
+  username,
+  view,
+  marked,
+}: ElementDetailHeaderProps) {
   const router = useRouter();
 
   const back = () => router.back();
@@ -26,16 +38,19 @@ export default function ElementDetailHeader() {
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
           <p className="text-neutral-400">Created By</p>
-          <Link href="#" className="flex gap-2 items-center font-bold">
-            Pvvng
+          <Link
+            href={userId ? `/user/${userId}` : "#"}
+            className="flex gap-2 items-center font-bold"
+          >
+            {username}
           </Link>
         </div>
         <p className="flex gap-3 items-center text-neutral-400">
           <span className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faEye} /> 403
+            <FontAwesomeIcon icon={faEye} /> {view}
           </span>
           <span className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faBookmark} /> 26
+            <FontAwesomeIcon icon={faBookmark} /> {marked}
           </span>
         </p>
       </div>

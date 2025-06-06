@@ -44,22 +44,27 @@ export async function createElementAction(_: unknown, formData: FormData) {
     };
   }
 
-  const { error: insertError } = await supabase.from("elements").insert({
-    name,
-    bio,
-    tag,
-    user_id: user.id,
-    type: "normal",
-    html,
-    css,
-  });
+  const { data: element, error: insertError } = await supabase
+    .from("elements")
+    .insert({
+      name,
+      bio,
+      tag,
+      user_id: user.id,
+      type: "normal",
+      html,
+      css,
+    })
+    .select("id")
+    .maybeSingle();
 
-  if (insertError) {
+  if (insertError || !element) {
     return {
       formErrors: ["요소 생성 중 오류가 발생했습니다. 다시 시도해 주세요."],
       fieldErrors: {},
     };
   }
+  const elementId = element.id;
 
-  return null;
+  return redirect(`/element/${elementId}?celebration=true`);
 }
