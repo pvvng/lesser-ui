@@ -1,23 +1,63 @@
 "use client";
 
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { insertComment } from "@/app/element/[id]/actions";
+import { faComment, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { startTransition, useActionState } from "react";
 
-export default function CommentForm() {
+interface CommentFormProps {
+  userId: string | null;
+  elementId: string;
+}
+
+export default function CommentForm({ userId, elementId }: CommentFormProps) {
+  const [state, action] = useActionState(insertComment, null);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (!userId) return alert("로그인이 필요합니다.");
+    if (!elementId) return alert("UI 요소 ID가 필요합니다.");
+
+    event.preventDefault();
+
+    const formdata = new FormData(event.currentTarget);
+    formdata.append("userId", userId);
+    formdata.append("elementId", elementId);
+
+    startTransition(() => {
+      action(formdata);
+    });
+
+    event.currentTarget.reset();
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <p className="font-semibold text-lg flex items-center gap-2">
         <FontAwesomeIcon icon={faComment} />
         Comments
       </p>
-      <div className="flex gap-3 items-center mt-3 p-5 rounded bg-neutral-800">
+      {state &&
+        state.length > 0 &&
+        state.map((error, index) => (
+          <p key={index} className="text-red-400 text-xs mt-2">
+            {error}
+          </p>
+        ))}
+      <div className="flex gap-3 items-center mt-3 p-3 rounded bg-neutral-800">
         <input
-          className="w-full h-10 ring ring-neutral-600 rounded px-3 transition-all 
-          placeholder:text-neutral-600 focus:outline-none focus:ring-2"
+          name="payload"
+          className="w-full h-8 ring ring-neutral-600 rounded px-3 transition-all flex justify-center items-center
+          placeholder:text-neutral-600 placeholder:text-sm focus:outline-none focus:ring-2"
           placeholder="Send Comment"
+          minLength={1}
+          maxLength={50}
         />
-        <button className="rounded ring ring-green-500 bg-green-500 w-28 h-10 flex justify-center items-center cursor-pointer font-semibold">
-          Send
+        <button
+          className="rounded ring transition shrink-0 w-24 h-8 cursor-pointer font-semibold text-sm 
+          ring-green-500 bg-green-500 hover:bg-green-600 hover:ring-green-600 
+          flex justify-center items-center gap-1"
+        >
+          <FontAwesomeIcon icon={faPaperPlane} /> Send
         </button>
       </div>
     </form>

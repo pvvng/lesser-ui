@@ -1,12 +1,7 @@
 import { z } from "zod";
 import { tagSet } from "../constants";
-
-// 위험한 문자 패턴 (XSS, SQL 인젝션 등)
-const dangerousPattern = /[<>="'`;(){}$]/g;
-const isDangerousPattern = (value: string) => !dangerousPattern.test(value);
-
-// 공백만 있는지 체크 함수
-const notOnlyWhitespace = (value: string) => !/^\s*$/.test(value);
+import { isDangerousPattern } from "../utils/is-dangerous-pattern";
+import { notOnlyWhitespace } from "../utils/not-only-white-space";
 
 // 태그가 유효한지 확인
 const checkAvailableTag = (tag: string) => tagSet.has(tag);

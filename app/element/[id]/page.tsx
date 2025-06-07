@@ -6,12 +6,12 @@ import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
+import { getElement } from "./actions";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
 import { notFound } from "next/navigation";
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
-import { getElement } from "./actions";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;
@@ -63,7 +63,7 @@ export default async function ElementDetail({
         />
         <section className="col-span-2 space-y-12">
           <div>
-            <CommentForm />
+            <CommentForm userId={userId} elementId={element.id} />
           </div>
           <MITLicenseContainer
             username={element.users?.nickname || "알 수 없는 사용자"}
