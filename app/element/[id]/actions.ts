@@ -12,7 +12,18 @@ const selectFields = `*,
   favorites:favorites (
     user_id,
     element_id
-  )      
+  ),
+  comments:comments (
+    id,
+    payload,
+    created_at,
+    user_id,
+    users (
+      id,
+      nickname,
+      avatar
+    )
+  )
 `;
 
 export async function getElement({ elementId }: { elementId: string }) {
@@ -146,20 +157,32 @@ export async function insertComment(_: unknown, formdata: FormData) {
 
     const allMessages = [...fieldMessages, ...formMessages];
 
-    return allMessages ?? "입력값에 오류가 있습니다.";
+    return { data: null, error: allMessages ?? "입력값에 오류가 있습니다." };
   }
+
+  const commentSelectFields = `*,
+  users (
+    id,
+    nickname,
+    avatar
+  )
+`;
 
   const supabase = await createClient();
-  const { error } = await supabase.from("comments").insert({
-    user_id: result.data.userId,
-    element_id: result.data.elementId,
-    payload: result.data.payload,
-  });
+  const { data: commentData, error } = await supabase
+    .from("comments")
+    .insert({
+      user_id: result.data.userId,
+      element_id: result.data.elementId,
+      payload: result.data.payload,
+    })
+    .select(commentSelectFields)
+    .maybeSingle();
 
-  if (error) {
-    console.error("Supabase insert error:", error.message);
-    return ["댓글 작성에 실패했습니다."];
+  if (!commentData || error) {
+    console.error("댓글 작성 실패:", error);
+    return { data: null, error: ["댓글 작성에 실패했습니다."] };
   }
 
-  return null;
+  return { data: commentData, error: null };
 }

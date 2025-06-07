@@ -1,6 +1,6 @@
 // action
 import ConfettiCelebration from "@/components/confetti-celebration";
-import CommentForm from "@/components/element-detail/comment-form";
+import CommentSection from "@/components/element-detail/comment-section";
 import ElementExplaination from "@/components/element-detail/explaination";
 import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
@@ -61,14 +61,16 @@ export default async function ElementDetail({
           userId={userId}
           isFavorite={isFavorite}
         />
-        <section className="col-span-2 space-y-12">
-          <div>
-            <CommentForm userId={userId} elementId={element.id} />
-          </div>
+        <div className="col-span-2 space-y-12">
+          <CommentSection
+            userId={userId}
+            elementId={element.id}
+            comments={element.comments}
+          />
           <MITLicenseContainer
             username={element.users?.nickname || "알 수 없는 사용자"}
           />
-        </section>
+        </div>
       </div>
     </div>
   );
