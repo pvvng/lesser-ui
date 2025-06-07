@@ -1,29 +1,55 @@
 "use client";
 
+import { deleteFavorite, insertFavorite } from "@/app/element/[id]/actions";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 interface ElementExplainationProps {
   tag: string;
+  elementId: string;
   elementName: string;
+  creatorId: string | null;
   username: string;
-  userId: string | null;
   userAvatar: string;
   createdAt: string;
+  userId: string | null;
   isFavorite: boolean;
 }
 
 export default function ElementExplaination({
   tag,
+  elementId,
   elementName,
   username,
-  userId,
+  creatorId,
   userAvatar,
   createdAt,
-  isFavorite,
+  userId,
+  isFavorite: initialIsFavorite,
 }: ElementExplainationProps) {
+  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
+
+  const handleFavoriteClick = async () => {
+    if (!userId) return alert("로그인이 필요합니다.");
+
+    // optimistic update
+    setIsFavorite((prev) => !prev);
+
+    try {
+      if (isFavorite) {
+        await deleteFavorite({ userId, elementId });
+      } else {
+        await insertFavorite({ userId, elementId });
+      }
+    } catch (error) {
+      alert("즐겨찾기 변경에 실패했어요.");
+      setIsFavorite((prev) => !prev);
+    }
+  };
+
   return (
     <section className="space-y-6 relative">
       {/* tag */}
@@ -35,7 +61,7 @@ export default function ElementExplaination({
       {/* user datas */}
       <div className="flex gap-3 items-center">
         <Link
-          href={userId ? `/user/${userId}` : "#"}
+          href={creatorId ? `/user/${creatorId}` : "#"}
           className="size-14 rounded bg-neutral-600 relative overflow-hidden"
         >
           <Image
@@ -54,10 +80,16 @@ export default function ElementExplaination({
       </div>
       {/* favorite button */}
       <button
-        className="w-full text-center py-2 flex justify-center items-center gap-2
-        bg-neutral-800 hover:bg-neutral-700 transition-colors rounded font-semibold cursor-pointer text-sm"
+        className={`${
+          isFavorite
+            ? "bg-green-500 hover:bg-green-600"
+            : "bg-neutral-800 hover:bg-neutral-700"
+        } w-full text-center py-2 flex justify-center items-center gap-2
+        transition-colors rounded font-semibold cursor-pointer text-sm`}
+        onClick={handleFavoriteClick}
       >
-        <FontAwesomeIcon icon={faBookmark} /> Save to favorites
+        <FontAwesomeIcon icon={faBookmark} />{" "}
+        {isFavorite ? "Delete to Favorites" : "Save to Favorites"}
       </button>
     </section>
   );

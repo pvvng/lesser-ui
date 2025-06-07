@@ -7,5 +7,6 @@ export default async function checkUserLogin() {
   } = await supabase.auth.getUser();
 
   if (user !== null && user.id !== null) return user.id;
+
   return null;
 }

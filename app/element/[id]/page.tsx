@@ -6,11 +6,12 @@ import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
-import { getElement } from "./actions";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
 import { notFound } from "next/navigation";
+import checkUserLogin from "@/lib/supabase/action/check-user-login";
+import { getElement } from "./actions";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;
@@ -26,12 +27,17 @@ export default async function ElementDetail({
   const elementId = (await params).id;
   const celebration = (await searchParams).celebration === "true";
 
+  const userId = await checkUserLogin();
   const { data: element, error } = await getElement({ elementId });
 
   if (error || !element) {
     console.error(error);
     notFound();
   }
+
+  const isFavorite = element.favorites?.some(
+    (favorite) => favorite.user_id === userId
+  );
 
   return (
     <div className="p-5">
@@ -40,18 +46,20 @@ export default async function ElementDetail({
         userId={element.user_id}
         username={element.users?.nickname || "알 수 없는 사용자"}
         view={element.view}
-        marked={element.marked}
+        marked={element.favorites?.length || 0}
       />
       <SnippetStudio userHtml={element.html} userCss={element.css} />
       <div className="mt-10 grid md:grid-cols-3 grid-cols-1 gap-5">
         <ElementExplaination
           tag={element.tag}
+          elementId={element.id}
           elementName={element.name}
           username={element.users?.nickname || "알 수 없는 사용자"}
-          userId={element.user_id}
+          creatorId={element.user_id}
           userAvatar={element.users?.avatar || "/unknown.png"}
           createdAt={getKoreanDate(element.created_at)}
-          isFavorite={false}
+          userId={userId}
+          isFavorite={isFavorite}
         />
         <section className="col-span-2 space-y-12">
           <div>

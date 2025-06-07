@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import createActionResponse from "@/lib/utils/create-action-response";
 import { elementSchema } from "@/lib/zod-schema/element";
 import { redirect } from "next/navigation";
 

@@ -1,11 +1,11 @@
 "use client";
 
-import useEditor from "@/lib/hooks/use-editor";
 import Preview from "../snippet-studio/preview";
+import useEditor from "@/lib/hooks/use-editor";
+import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
 
 interface ElementCardProps {
   elementId: string;

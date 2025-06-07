@@ -1,5 +1,5 @@
 import ElementCard from "@/components/snippet-studio/element-card-with-link";
-import { createClient } from "@/lib/supabase/server";
+import { getElementsBySearchTag } from "./actions";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
@@ -10,20 +10,10 @@ export default async function Element(props: { searchParams: SearchParams }) {
   const search = searchParams.search;
   const tag = searchParams.tag;
 
-  const supabase = await createClient();
-  let query = supabase.from("elements").select("*");
-
-  // 이름 기반 검색
-  if (typeof search === "string" && search.trim() !== "") {
-    query = query.ilike("name", `%${search}%`);
-  }
-
-  // 일치 태그 검색
-  if (typeof tag === "string" && tag.trim() !== "") {
-    query = query.eq("tag", tag);
-  }
-
-  const { data: elements, error } = await query;
+  const { data: elements, error } = await getElementsBySearchTag({
+    search,
+    tag,
+  });
 
   if (error) {
     console.error("Fetch error:", error);
