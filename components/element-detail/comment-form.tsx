@@ -19,6 +19,7 @@ export default function CommentForm({
 }: CommentFormProps) {
   const [state, action] = useActionState(insertComment, null);
 
+  // TODO: 지금 useActionState를 사용하고 있는데, 이게 서버 액션을 사용하기 위한 최적의 방법인지 확인 필요
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     if (!userId) return alert("로그인이 필요합니다.");
     if (!elementId) return alert("UI 요소 ID가 필요합니다.");

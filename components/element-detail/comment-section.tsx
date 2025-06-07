@@ -28,7 +28,7 @@ export default function CommentSection({
     <section>
       <p className="font-semibold text-lg flex items-center gap-2">
         <FontAwesomeIcon icon={faComment} />
-        Comments
+        Comments ({comments.length})
       </p>
       <div className="space-y-3 mt-3">
         {comments.map((comment) => (
