@@ -1,7 +1,8 @@
 "use client";
 
 import { deleteFavorite, insertFavorite } from "@/app/element/[id]/actions";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import FavoriteToggleButton from "./favorite-toggle-button";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +18,7 @@ interface ElementExplainationProps {
   createdAt: string;
   userId: string | null;
   isFavorite: boolean;
+  isOwner: boolean;
 }
 
 export default function ElementExplaination({
@@ -29,6 +31,7 @@ export default function ElementExplaination({
   createdAt,
   userId,
   isFavorite: initialIsFavorite,
+  isOwner,
 }: ElementExplainationProps) {
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
 
@@ -79,18 +82,39 @@ export default function ElementExplaination({
         </div>
       </div>
       {/* favorite button */}
-      <button
-        className={`${
-          isFavorite
-            ? "bg-green-500 hover:bg-green-600"
-            : "bg-neutral-800 hover:bg-neutral-700"
-        } w-full text-center py-2 flex justify-center items-center gap-2
-        transition-colors rounded font-semibold cursor-pointer text-sm`}
-        onClick={handleFavoriteClick}
-      >
-        <FontAwesomeIcon icon={faBookmark} />{" "}
-        {isFavorite ? "Delete to Favorites" : "Save to Favorites"}
-      </button>
+      {!isOwner ? (
+        <FavoriteToggleButton
+          isFavorite={isFavorite}
+          handleFavoriteClick={handleFavoriteClick}
+        />
+      ) : (
+        <OwnerLinkButtons elementId={elementId} />
+      )}
     </section>
+  );
+}
+
+function OwnerLinkButtons({ elementId }: { elementId: string }) {
+  return (
+    <div className="space-y-3">
+      <Link
+        href={`/element/${elementId}/edit`}
+        className="bg-neutral-800 hover:bg-neutral-700
+        w-full text-center py-2 flex justify-center items-center gap-2
+        transition-colors rounded font-semibold cursor-pointer text-sm"
+        scroll={false}
+      >
+        <FontAwesomeIcon icon={faEdit} /> Edit Element
+      </Link>
+      <Link
+        href={`/element/${elementId}/delete`}
+        className="bg-neutral-800 hover:bg-neutral-700 text-red-400
+        w-full text-center py-2 flex justify-center items-center gap-2
+        transition-colors rounded font-semibold cursor-pointer text-sm"
+        scroll={false}
+      >
+        <FontAwesomeIcon icon={faTrash} /> Delete Element
+      </Link>
+    </div>
   );
 }

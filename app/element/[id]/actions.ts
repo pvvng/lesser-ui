@@ -1,5 +1,6 @@
 "use server";
 
+import checkUserLogin from "@/lib/supabase/action/check-user-login";
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
 
@@ -67,6 +68,56 @@ export async function getElement({ elementId }: { elementId: string }) {
 
   return {
     data: element,
+    error: null,
+  };
+}
+
+export async function deleteElement({
+  elementId,
+  userId,
+}: {
+  elementId: string;
+  userId: string | null;
+}) {
+  if (!userId) {
+    return {
+      data: null,
+      error: "사용자 ID가 필요합니다.",
+    };
+  }
+
+  if (!elementId) {
+    return {
+      data: null,
+      error: "요소 ID가 필요합니다.",
+    };
+  }
+
+  const supabase = await createClient();
+  const currentUserId = await checkUserLogin();
+
+  if (currentUserId !== userId) {
+    return {
+      data: null,
+      error: "사용자 인증에 실패했습니다.",
+    };
+  }
+
+  const { data, error } = await supabase
+    .from("elements")
+    .delete()
+    .eq("id", elementId)
+    .eq("user_id", userId);
+
+  if (error) {
+    return {
+      data: null,
+      error: "요소 삭제에 실패했습니다.",
+    };
+  }
+
+  return {
+    data,
     error: null,
   };
 }

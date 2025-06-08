@@ -35,6 +35,8 @@ export default async function ElementDetail({
     notFound();
   }
 
+  const isOwner = userId === element.user_id;
+
   const isFavorite = element.favorites?.some(
     (favorite) => favorite.user_id === userId
   );
@@ -60,6 +62,7 @@ export default async function ElementDetail({
           createdAt={getKoreanDate(element.created_at)}
           userId={userId}
           isFavorite={isFavorite}
+          isOwner={isOwner}
         />
         <div className="col-span-2 space-y-12">
           <CommentSection
