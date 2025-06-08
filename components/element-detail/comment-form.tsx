@@ -4,7 +4,7 @@ import { insertComment } from "@/app/element/[id]/actions";
 import { Comment } from "@/types/core";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { startTransition, useActionState, useEffect } from "react";
+import { useState } from "react";
 
 interface CommentFormProps {
   userId: string | null;
@@ -17,42 +17,40 @@ export default function CommentForm({
   elementId,
   addComment,
 }: CommentFormProps) {
-  const [state, action] = useActionState(insertComment, null);
+  const [errors, setErrors] = useState<string[]>([]);
 
-  // TODO: 지금 useActionState를 사용하고 있는데, 이게 서버 액션을 사용하기 위한 최적의 방법인지 확인 필요
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const currentForm = event.currentTarget;
     if (!userId) return alert("로그인이 필요합니다.");
     if (!elementId) return alert("UI 요소 ID가 필요합니다.");
 
-    event.preventDefault();
-
-    const formdata = new FormData(event.currentTarget);
+    const formdata = new FormData(currentForm);
     formdata.append("userId", userId);
     formdata.append("elementId", elementId);
 
-    startTransition(() => {
-      action(formdata);
-    });
+    const { data, error } = await insertComment(formdata);
 
-    event.currentTarget.reset();
-  };
+    if (error) return setErrors([...error]);
 
-  useEffect(() => {
-    if (state?.data) {
-      addComment?.(state.data);
+    if (!data) {
+      return setErrors(["댓글 작성에 실패했습니다."]);
     }
-  }, [state?.data]);
+
+    addComment?.({ ...data }); // 데이터가 성공적으로 삽입되었을 때, 새로운 댓글을 추가
+
+    currentForm.reset();
+    return setErrors([]); // 에러 초기화
+  };
 
   return (
     <>
-      {state &&
-        state.error &&
-        state.error?.length > 0 &&
-        state.error.map((error, index) => (
-          <p key={index} className="text-red-400 text-xs mt-2">
-            {error}
-          </p>
-        ))}
+      {errors.map((error, index) => (
+        <p key={index} className="ml-1 text-red-400 text-xs mt-2">
+          {error}
+        </p>
+      ))}
       <form
         onSubmit={handleSubmit}
         className="flex gap-3 items-center mt-3 p-3 rounded-2xl bg-neutral-800"
@@ -63,7 +61,7 @@ export default function CommentForm({
           placeholder:text-neutral-600 placeholder:text-sm focus:outline-none focus:ring-2"
           placeholder="Send Comment"
           minLength={1}
-          maxLength={50}
+          // maxLength={50}
         />
         <button
           className="rounded-2xl ring transition shrink-0 w-24 h-10 cursor-pointer font-semibold text-sm 

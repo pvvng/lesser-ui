@@ -138,7 +138,7 @@ export async function deleteFavorite({
   };
 }
 
-export async function insertComment(_: unknown, formdata: FormData) {
+export async function insertComment(formdata: FormData) {
   const data = {
     userId: formdata.get("userId"),
     elementId: formdata.get("elementId"),
