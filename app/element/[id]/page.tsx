@@ -56,6 +56,7 @@ export default async function ElementDetail({
           tag={element.tag}
           elementId={element.id}
           elementName={element.name}
+          elementBio={element.bio}
           username={element.users?.nickname || "알 수 없는 사용자"}
           creatorId={element.user_id}
           userAvatar={element.users?.avatar || "/unknown.png"}

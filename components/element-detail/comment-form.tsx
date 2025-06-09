@@ -53,18 +53,18 @@ export default function CommentForm({
       ))}
       <form
         onSubmit={handleSubmit}
-        className="flex gap-3 items-center mt-3 p-3 rounded-2xl bg-neutral-800"
+        className="flex gap-3 items-center mt-3 p-3 rounded bg-neutral-800"
       >
         <input
           name="payload"
-          className="w-full h-10 ring ring-neutral-600 rounded-2xl px-3 transition-all flex justify-center items-center
-          placeholder:text-neutral-600 placeholder:text-sm focus:outline-none focus:ring-2"
+          className="w-full h-10 ring ring-neutral-600 rounded px-3 transition-all flex justify-center items-center
+          placeholder:text-neutral-600 focus:outline-none focus:ring-2"
           placeholder="Send Comment"
           minLength={1}
-          // maxLength={50}
+          maxLength={50}
         />
         <button
-          className="rounded-2xl ring transition shrink-0 w-24 h-10 cursor-pointer font-semibold text-sm 
+          className="rounded ring transition shrink-0 w-24 h-10 cursor-pointer font-semibold text-sm 
           ring-green-500 bg-green-500 hover:bg-green-600 hover:ring-green-600 
           flex justify-center items-center gap-1"
         >

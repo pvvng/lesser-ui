@@ -2,8 +2,9 @@
 
 import { deleteFavorite, insertFavorite } from "@/app/element/[id]/actions";
 import FavoriteToggleButton from "./favorite-toggle-button";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { tagItems } from "@/lib/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faQuestion, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,6 +13,7 @@ interface ElementExplainationProps {
   tag: string;
   elementId: string;
   elementName: string;
+  elementBio: string | null;
   creatorId: string | null;
   username: string;
   userAvatar: string;
@@ -25,6 +27,7 @@ export default function ElementExplaination({
   tag,
   elementId,
   elementName,
+  elementBio,
   username,
   creatorId,
   userAvatar,
@@ -55,14 +58,20 @@ export default function ElementExplaination({
 
   return (
     <section className="space-y-6 relative">
-      {/* tag */}
-      <div className="space-y-3">
-        <p className="text-2xl font-semibold">{tag}</p>
-        <p className="text-neutral-300">{elementName}</p>
-      </div>
+      <section className="space-y-1">
+        <p className="text-2xl font-semibold">{elementName}</p>
+        <p className="text-neutral-300">{elementBio}</p>
+      </section>
+      <section>
+        <span className="inline-block rounded-2xl px-3 py-1 text-sm font-semibold bg-neutral-600">
+          <FontAwesomeIcon
+            icon={tagItems.find((item) => item.tag == tag)?.icon || faQuestion}
+          />{" "}
+          {tag}
+        </span>
+      </section>
       <hr className="border-neutral-700" />
-      {/* user datas */}
-      <div className="flex gap-3 items-center">
+      <section className="flex gap-3 items-center">
         <Link
           href={creatorId ? `/user/${creatorId}` : "#"}
           className="size-14 rounded bg-neutral-600 relative overflow-hidden"
@@ -80,7 +89,7 @@ export default function ElementExplaination({
           <p className="text-lg font-semibold">{username}</p>
           <p className="text-sm text-neutral-400">{createdAt}</p>
         </div>
-      </div>
+      </section>
       {/* favorite button */}
       {!isOwner ? (
         <FavoriteToggleButton
