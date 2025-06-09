@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import ErrorMap from "../error-map";
+import ErrorMap from "./error-map";
 
 interface InputWithLabelProps {
   label: string;

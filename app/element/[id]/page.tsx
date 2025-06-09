@@ -6,7 +6,7 @@ import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
-import { getElement } from "./actions";
+import { getElement, incrementViewCount } from "./actions";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
@@ -28,6 +28,7 @@ export default async function ElementDetail({
   const celebration = (await searchParams).celebration === "true";
 
   const userId = await checkUserLogin();
+  await incrementViewCount({ elementId });
   const { data: element, error } = await getElement({ elementId });
 
   if (error || !element) {

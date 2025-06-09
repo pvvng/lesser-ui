@@ -3,6 +3,26 @@
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
+import { Database } from "@/types/supabase";
+
+type SimpleUser = Pick<
+  Database["public"]["Tables"]["users"]["Row"],
+  "id" | "nickname" | "avatar"
+>;
+
+export type ElementDetail = Database["public"]["Tables"]["elements"]["Row"] & {
+  users: SimpleUser | null;
+  favorites: Pick<
+    Database["public"]["Tables"]["favorites"]["Row"],
+    "user_id" | "element_id"
+  >[];
+  comments: (Pick<
+    Database["public"]["Tables"]["comments"]["Row"],
+    "id" | "payload" | "created_at" | "user_id"
+  > & {
+    users: SimpleUser | null;
+  })[];
+};
 
 const selectFields = `*,
   users!elements_user_id_fkey (
@@ -27,32 +47,10 @@ const selectFields = `*,
   )
 `;
 
+/** elementId에 따른 element value 불러오는 함수 */
 export async function getElement({ elementId }: { elementId: string }) {
   const supabase = await createClient();
 
-  // 1. 현재 view 가져오기
-  const { data: current, error: fetchError } = await supabase
-    .from("elements")
-    .select("view")
-    .eq("id", elementId)
-    .single();
-
-  if (!current || fetchError) {
-    return {
-      data: null,
-      error: "요소 조회 실패",
-    };
-  }
-
-  // 2. view 수동으로 1 증가시켜서 update
-  const { error: updateError } = await supabase
-    .from("elements")
-    .update({ view: current.view + 1 })
-    .eq("id", elementId);
-
-  if (updateError) console.error("조회수 증가 실패:", updateError);
-
-  // 3. 전체 element 정보 다시 조회
   const { data: element, error: selectError } = await supabase
     .from("elements")
     .select(selectFields)
@@ -67,11 +65,46 @@ export async function getElement({ elementId }: { elementId: string }) {
   }
 
   return {
-    data: element,
+    data: element as ElementDetail,
     error: null,
   };
 }
 
+/** elementId에 해당하는 데이터의 조회수(view)를 1 증가시키는 함수 */
+export async function incrementViewCount({
+  elementId,
+}: {
+  elementId: string;
+}): Promise<{ error: string | null }> {
+  const supabase = await createClient();
+
+  // 1. 현재 view 가져오기
+  const { data: current, error: fetchError } = await supabase
+    .from("elements")
+    .select("view")
+    .eq("id", elementId)
+    .single();
+
+  if (!current || fetchError) {
+    console.error("요소 조회 실패:", fetchError);
+    return { error: "요소 조회 실패" };
+  }
+
+  // 2. view 수동으로 1 증가시켜서 update
+  const { error: updateError } = await supabase
+    .from("elements")
+    .update({ view: current.view + 1 })
+    .eq("id", elementId);
+
+  if (updateError) {
+    console.error("조회수 증가 실패:", updateError);
+    return { error: "조회수 증가 실패" };
+  }
+
+  return { error: null };
+}
+
+/** elementId와 현재 로그인한 user id를 사용하여 element 삭제하는 함수 */
 export async function deleteElement({
   elementId,
   userId,
@@ -122,6 +155,7 @@ export async function deleteElement({
   };
 }
 
+/** element에 대한 북마크 insert 함수 */
 export async function insertFavorite({
   elementId,
   userId,
@@ -155,6 +189,7 @@ export async function insertFavorite({
   };
 }
 
+/** element에 대한 북마크 delete 함수 */
 export async function deleteFavorite({
   elementId,
   userId,
@@ -189,6 +224,7 @@ export async function deleteFavorite({
   };
 }
 
+/** 코멘트 insert 함수 */
 export async function insertComment(formdata: FormData) {
   const data = {
     userId: formdata.get("userId"),
