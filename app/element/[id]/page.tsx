@@ -1,4 +1,4 @@
-// action
+// components
 import ConfettiCelebration from "@/components/confetti-celebration";
 import CommentSection from "@/components/element-detail/comment-section";
 import ElementExplaination from "@/components/element-detail/explaination";
@@ -7,11 +7,11 @@ import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
 import { getElement, incrementViewCount } from "./actions";
+import checkUserLogin from "@/lib/supabase/action/check-user-login";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
 import { notFound } from "next/navigation";
-import checkUserLogin from "@/lib/supabase/action/check-user-login";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;

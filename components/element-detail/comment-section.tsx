@@ -30,7 +30,7 @@ export default function CommentSection({
         <FontAwesomeIcon icon={faComment} />
         Comments ({comments.length})
       </p>
-      <div className="space-y-3 mt-3">
+      <div className="space-y-3 mt-3 max-h-120 overflow-scroll">
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}

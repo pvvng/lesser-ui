@@ -1,13 +1,17 @@
 "use client";
 
+// actions
 import { deleteFavorite, insertFavorite } from "@/app/element/[id]/actions";
+// components
 import FavoriteToggleButton from "./favorite-toggle-button";
-import { tagItems } from "@/lib/constants";
+// fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faQuestion, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+// etc
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import DeleteModal from "./delete-modal";
 
 interface ElementExplainationProps {
   tag: string;
@@ -37,6 +41,11 @@ export default function ElementExplaination({
   isOwner,
 }: ElementExplainationProps) {
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const toggleDeleteModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+  };
 
   const handleFavoriteClick = async () => {
     if (!userId) return alert("로그인이 필요합니다.");
@@ -58,16 +67,20 @@ export default function ElementExplaination({
 
   return (
     <section className="space-y-6 relative">
+      {isDeleteModalOpen && (
+        <DeleteModal
+          userId={userId}
+          elementId={elementId}
+          toggleDeleteModal={toggleDeleteModal}
+        />
+      )}
       <section className="space-y-1">
         <p className="text-2xl font-semibold">{elementName}</p>
         <p className="text-neutral-300">{elementBio}</p>
       </section>
       <section>
         <span className="inline-block rounded-2xl px-3 py-1 text-sm font-semibold bg-neutral-600">
-          <FontAwesomeIcon
-            icon={tagItems.find((item) => item.tag == tag)?.icon || faQuestion}
-          />{" "}
-          {tag}
+          # {tag}
         </span>
       </section>
       <hr className="border-neutral-700" />
@@ -97,13 +110,22 @@ export default function ElementExplaination({
           handleFavoriteClick={handleFavoriteClick}
         />
       ) : (
-        <OwnerLinkButtons elementId={elementId} />
+        <OwnerButtons
+          elementId={elementId}
+          toggleDeleteModal={toggleDeleteModal}
+        />
       )}
     </section>
   );
 }
 
-function OwnerLinkButtons({ elementId }: { elementId: string }) {
+function OwnerButtons({
+  elementId,
+  toggleDeleteModal,
+}: {
+  elementId: string;
+  toggleDeleteModal: () => void;
+}) {
   return (
     <div className="space-y-3">
       <Link
@@ -115,15 +137,14 @@ function OwnerLinkButtons({ elementId }: { elementId: string }) {
       >
         <FontAwesomeIcon icon={faEdit} /> Edit Element
       </Link>
-      <Link
-        href={`/element/${elementId}/delete`}
+      <button
         className="bg-neutral-800 hover:bg-neutral-700 text-red-400
         w-full text-center py-2 flex justify-center items-center gap-2
         transition-colors rounded font-semibold cursor-pointer text-sm"
-        scroll={false}
+        onClick={toggleDeleteModal}
       >
         <FontAwesomeIcon icon={faTrash} /> Delete Element
-      </Link>
+      </button>
     </div>
   );
 }

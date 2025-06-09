@@ -74,5 +74,5 @@ export async function editElementAction(_: unknown, formData: FormData) {
     };
   }
 
-  return redirect(`/element/${elementId}?celebration=true`);
+  return redirect(`/element/${elementId}`);
 }

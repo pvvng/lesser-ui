@@ -4,6 +4,7 @@ import checkUserLogin from "@/lib/supabase/action/check-user-login";
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
 import { Database } from "@/types/supabase";
+import { redirect } from "next/navigation";
 
 type SimpleUser = Pick<
   Database["public"]["Tables"]["users"]["Row"],
@@ -111,29 +112,20 @@ export async function deleteElement({
 }: {
   elementId: string;
   userId: string | null;
-}) {
+}): Promise<{ error: string | null }> {
   if (!userId) {
-    return {
-      data: null,
-      error: "사용자 ID가 필요합니다.",
-    };
+    return { error: "사용자 ID가 필요합니다." };
   }
 
   if (!elementId) {
-    return {
-      data: null,
-      error: "요소 ID가 필요합니다.",
-    };
+    return { error: "요소 ID가 필요합니다." };
   }
 
   const supabase = await createClient();
   const currentUserId = await checkUserLogin();
 
   if (currentUserId !== userId) {
-    return {
-      data: null,
-      error: "사용자 인증에 실패했습니다.",
-    };
+    return { error: "사용자 인증에 실패했습니다." };
   }
 
   const { data, error } = await supabase
@@ -143,16 +135,10 @@ export async function deleteElement({
     .eq("user_id", userId);
 
   if (error) {
-    return {
-      data: null,
-      error: "요소 삭제에 실패했습니다.",
-    };
+    return { error: "요소 삭제에 실패했습니다." };
   }
 
-  return {
-    data,
-    error: null,
-  };
+  return { error: null };
 }
 
 /** element에 대한 북마크 insert 함수 */
