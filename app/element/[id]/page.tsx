@@ -47,7 +47,7 @@ export default async function ElementDetail({
       <ConfettiCelebration run={celebration} />
       <ElementDetailHeader
         userId={element.user_id}
-        username={element.users?.nickname || "알 수 없는 사용자"}
+        username={element.users?.nickname || "탈퇴한 사용자"}
         view={element.view}
         marked={element.favorites?.length || 0}
       />
@@ -58,7 +58,7 @@ export default async function ElementDetail({
           elementId={element.id}
           elementName={element.name}
           elementBio={element.bio}
-          username={element.users?.nickname || "알 수 없는 사용자"}
+          username={element.users?.nickname || "탈퇴한 사용자"}
           creatorId={element.user_id}
           userAvatar={element.users?.avatar || "/unknown.png"}
           createdAt={getKoreanDate(element.created_at)}
@@ -73,7 +73,7 @@ export default async function ElementDetail({
             comments={element.comments}
           />
           <MITLicenseContainer
-            username={element.users?.nickname || "알 수 없는 사용자"}
+            username={element.users?.nickname || "탈퇴한 사용자"}
           />
         </div>
       </div>

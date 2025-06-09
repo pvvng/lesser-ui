@@ -1,6 +1,5 @@
 import {
   faBook,
-  faBookmark,
   faBrush,
   faCircleDot,
   faCircleInfo,
@@ -13,8 +12,6 @@ import {
   faToggleOn,
 } from "@fortawesome/free-solid-svg-icons";
 
-// TODO: tag set 만들기 + tag Enum 만들기
-
 /** menu nav item */
 export const menuItems = [
   { icon: faBook, label: "All", link: null },
@@ -26,11 +23,10 @@ export const menuItems = [
   { icon: faKeyboard, label: "Inputs", link: "inputs" },
   { icon: faCircleDot, label: "Radio Buttons", link: "radio-buttons" },
   { icon: faTableList, label: "Form", link: "form" },
-  { icon: faBrush, label: "Patterns", link: "patterns" },
   { icon: faCircleInfo, label: "Tooltips", link: "tooltips" },
-  { icon: faBookmark, label: "Favorites", link: "favorites" },
 ] as const;
 
+/** tag item과 icon */
 export const tagItems = [
   { icon: faSquareCaretRight, tag: "buttons" },
   { icon: faSquareCheck, tag: "check-boxes" },
@@ -44,8 +40,10 @@ export const tagItems = [
   { icon: faCircleInfo, tag: "tooltips" },
 ] as const;
 
+/** tag set */
 export const tagSet: Set<string> = new Set(tagItems.map((item) => item.tag));
 
+/** element create 시 사용하는 예제 코드 */
 export const exampleCode = {
   userHtml: `<!-- This is just an example. Feel free to delete and create your own element! -->
 <button class="clover-button">

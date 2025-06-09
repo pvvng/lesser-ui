@@ -3,27 +3,8 @@
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
+import { ElementDetail } from "@/types/core";
 import { Database } from "@/types/supabase";
-import { redirect } from "next/navigation";
-
-type SimpleUser = Pick<
-  Database["public"]["Tables"]["users"]["Row"],
-  "id" | "nickname" | "avatar"
->;
-
-export type ElementDetail = Database["public"]["Tables"]["elements"]["Row"] & {
-  users: SimpleUser | null;
-  favorites: Pick<
-    Database["public"]["Tables"]["favorites"]["Row"],
-    "user_id" | "element_id"
-  >[];
-  comments: (Pick<
-    Database["public"]["Tables"]["comments"]["Row"],
-    "id" | "payload" | "created_at" | "user_id"
-  > & {
-    users: SimpleUser | null;
-  })[];
-};
 
 const selectFields = `*,
   users!elements_user_id_fkey (

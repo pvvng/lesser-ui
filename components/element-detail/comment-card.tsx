@@ -22,7 +22,7 @@ export default function CommentCard({
         <div className="size-12 rounded-full overflow-hidden relative">
           <Image
             src={avatar || "/unknown.png"}
-            alt={nickname || "알 수 없는 사용자"}
+            alt={nickname || "탈퇴한 사용자"}
             sizes="48px"
             fill
             className="object-cover"
@@ -30,7 +30,7 @@ export default function CommentCard({
           />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="font-semibold">{nickname || "알 수 없는 사용자"}</p>
+          <p className="font-semibold">{nickname || "탈퇴한 사용자"}</p>
           <p className="text-xs text-neutral-400">{getKoreanDate(createdAt)}</p>
         </div>
       </div>

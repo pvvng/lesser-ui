@@ -1,11 +1,14 @@
 "use client";
 
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// components
 import CommentCard from "./comment-card";
 import CommentForm from "./comment-form";
-import { useState } from "react";
+// types
 import { Comment } from "@/types/core";
+// etc
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 interface CommentSectionProps {
   userId: string | null;
