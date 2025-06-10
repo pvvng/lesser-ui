@@ -38,6 +38,7 @@ export default function CommentSection({
           <CommentCard
             key={comment.id}
             id={comment.id}
+            userId={comment.users?.id || null}
             avatar={comment.users?.avatar || null}
             nickname={comment.users?.nickname || null}
             createdAt={comment.created_at}

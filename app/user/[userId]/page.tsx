@@ -1,6 +1,7 @@
 // supabase lib func
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
-import findUserById from "@/lib/supabase/action/find-user-by-id";
+// actions
+import { getUserDetail } from "./actions";
 // component
 import LogoutButton from "@/components/auth/logout-button";
 import TabSection from "@/components/user-page/tab-section";
@@ -17,17 +18,20 @@ interface UserDashBoardProps {
 }
 
 export default async function UserDashBoard({ params }: UserDashBoardProps) {
-  const [nowUserId, { userId }] = await Promise.all([checkUserLogin(), params]);
+  const [currentUserId, { userId }] = await Promise.all([
+    checkUserLogin(),
+    params,
+  ]);
 
-  const isOwner = nowUserId === userId;
+  const isOwner = currentUserId === userId;
 
   if (!userId) return notFound();
 
-  const response = await findUserById({ userId });
+  const { data: userdata, error } = await getUserDetail({ userId });
 
-  if (response.error || !response.data) return notFound();
+  if (error || !userdata) return notFound();
 
-  const userdata = response.data;
+  console.log(userdata.comments);
 
   return (
     <div className="space-y-5 p-5">
@@ -40,7 +44,7 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
           alt={userdata.nickname}
           fill
           className="object-cover bg-neutral-700"
-          sizes="100vw"
+          sizes="144px"
           priority
           draggable={false}
         />
@@ -48,9 +52,9 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
       {/* name */}
       <section className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <p className="text-[2rem] font-semibold">{userdata.nickname}</p>
+          <p className="text-3xl font-semibold">{userdata.nickname}</p>
           {userdata.provider && (
-            <div className="relative size-[2rem] rounded bg-neutral-300">
+            <div className="relative size-6 rounded bg-neutral-300">
               <Image
                 src={`/${userdata.provider}.svg`}
                 alt={userdata.provider}
@@ -69,7 +73,11 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
         )}
       </section>
       {/* tabs */}
-      <TabSection />
+      <TabSection
+        favorites={userdata.favorites}
+        elements={userdata.elements}
+        comments={userdata.comments}
+      />
     </div>
   );
 }

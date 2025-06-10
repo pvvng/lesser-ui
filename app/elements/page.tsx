@@ -1,4 +1,4 @@
-import ElementCard from "@/components/snippet-studio/element-card-with-link";
+import ElementLinkCard from "@/components/element-card-with-link";
 import { getElementsBySearchTag } from "./actions";
 
 type SearchParams = Promise<{
@@ -28,7 +28,7 @@ export default async function Element(props: { searchParams: SearchParams }) {
   return (
     <div className="grid grid-cols-3 gap-5 mt-10 p-5">
       {elements.map((element) => (
-        <ElementCard
+        <ElementLinkCard
           key={element.id}
           elementId={element.id}
           htmlCode={element.html}

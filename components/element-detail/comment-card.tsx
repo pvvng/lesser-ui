@@ -1,8 +1,10 @@
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CommentProps {
   id: string;
+  userId: string | null;
   avatar: string | null;
   nickname: string | null;
   createdAt: string;
@@ -10,7 +12,8 @@ interface CommentProps {
 }
 
 export default function CommentCard({
-  id,
+  id: commentId,
+  userId,
   avatar,
   nickname,
   createdAt,
@@ -19,7 +22,10 @@ export default function CommentCard({
   return (
     <div className="p-5 bg-neutral-800 rounded-2xl">
       <div className="flex gap-3 items-center">
-        <div className="size-12 rounded-full overflow-hidden relative">
+        <Link
+          href={`/user/${userId}`}
+          className="size-12 rounded-full overflow-hidden relative"
+        >
           <Image
             src={avatar || "/unknown.png"}
             alt={nickname || "탈퇴한 사용자"}
@@ -28,7 +34,7 @@ export default function CommentCard({
             className="object-cover"
             draggable={false}
           />
-        </div>
+        </Link>
         <div className="flex flex-col gap-1">
           <p className="font-semibold">{nickname || "탈퇴한 사용자"}</p>
           <p className="text-xs text-neutral-400">{getKoreanDate(createdAt)}</p>

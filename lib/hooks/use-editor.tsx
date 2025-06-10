@@ -3,19 +3,13 @@
 import { LanguageMode } from "@/types/core";
 import { useEffect, useMemo, useRef, useState } from "react";
 import createDOMPurify from "dompurify";
+import { SANITIZE_OPTIONS } from "../constants";
 
 interface UseEditorProps {
   userHtml: string;
   userCss: string;
   codeRef?: React.RefObject<{ html: string; css: string }>;
 }
-
-// XSS 방지를 위한 DOMPurify 옵션
-const SANITIZE_OPTIONS = {
-  // ALLOWED_ATTR: ["class", "href", "src", "alt", "title", "style"], // 허용할 옵션
-  FORBID_TAGS: ["script", "iframe", "object", "embed"], // 제거할 태그
-  FORBID_ATTR: ["onerror", "onclick", "onload"], // 이벤트 핸들러
-};
 
 export default function useEditor({
   userHtml,

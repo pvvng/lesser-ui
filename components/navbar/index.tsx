@@ -1,7 +1,10 @@
+// lib
 import { createClient } from "@/lib/supabase/server";
 import findUserById from "@/lib/supabase/action/find-user-by-id";
+// components
 import NavbarDropDown from "./dropdown";
 import LinkLogo from "../link-logo";
+// etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClover } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";

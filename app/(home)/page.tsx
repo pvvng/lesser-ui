@@ -1,12 +1,12 @@
 // components
 import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
-import ElementLinkCard from "@/components/element-link-card";
 import { RandomElementLoading } from "./loading";
 // actions
 import { getRandomElements } from "./actions";
 // etc
 import { Suspense } from "react";
+import ElementLinkCard from "@/components/element-card-with-link";
 
 export default function Home() {
   return (
@@ -26,7 +26,13 @@ async function RandomElementsGrid() {
     <section className="relative">
       <div className="grid grid-cols-5 gap-5">
         {elements.map((element, idx) => (
-          <ElementLinkCard element={element} key={idx} />
+          <ElementLinkCard
+            key={idx}
+            elementId={element.id}
+            htmlCode={element.html}
+            cssCode={element.css}
+            revealAnimation
+          />
         ))}
       </div>
       <BrowseAllLinkButton />

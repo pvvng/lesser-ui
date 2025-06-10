@@ -8,9 +8,15 @@ import {
   faSpinner,
   faSquareCaretRight,
   faSquareCheck,
-  faTableList,
   faToggleOn,
 } from "@fortawesome/free-solid-svg-icons";
+
+/** XSS 방지를 위한 DOMPurify 옵션 */
+export const SANITIZE_OPTIONS = {
+  // ALLOWED_ATTR: ["class", "href", "src", "alt", "title", "style"], // 허용할 옵션
+  FORBID_TAGS: ["script", "iframe", "object", "embed"], // 제거할 태그
+  FORBID_ATTR: ["onerror", "onclick", "onload"], // 이벤트 핸들러
+};
 
 /** menu nav item */
 export const menuItems = [

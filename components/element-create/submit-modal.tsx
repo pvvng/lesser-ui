@@ -3,8 +3,9 @@
 // components
 import Preview from "../snippet-studio/preview";
 import AdditionalInfoForm from "./additional-info-form";
+// lib
+import { generatePreviewCode } from "@/lib/utils/generate-preview-code";
 // hooks
-import useEditor from "@/lib/hooks/use-editor";
 import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
 // etc
@@ -25,11 +26,10 @@ export default function SubmitModal({
   selectedTag,
   closeForm,
 }: SubmitModalProps) {
-  const { previewCode } = useEditor({
-    userHtml: codeRef.current.html,
-    userCss: codeRef.current.css,
+  const previewCode = generatePreviewCode({
+    html: codeRef.current.html,
+    css: codeRef.current.css,
   });
-
   // gsap rendering animation
   const { containerRef, backdropRef } = useSlideBoxes();
 

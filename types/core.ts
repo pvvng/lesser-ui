@@ -26,3 +26,33 @@ export type ElementDetail = Database["public"]["Tables"]["elements"]["Row"] & {
 };
 
 export type Element = Database["public"]["Tables"]["elements"]["Row"];
+
+export type UserElement = Pick<
+  Database["public"]["Tables"]["elements"]["Row"],
+  | "id"
+  | "name"
+  | "bio"
+  | "view"
+  | "marked"
+  | "type"
+  | "tag"
+  | "created_at"
+  | "html"
+  | "css"
+>;
+
+export type UserComment = Pick<
+  Database["public"]["Tables"]["comments"]["Row"],
+  "id" | "payload" | "element_id" | "created_at"
+> & {
+  element: UserElement;
+};
+
+export type UserDetail = Pick<
+  Database["public"]["Tables"]["users"]["Row"],
+  "id" | "nickname" | "avatar" | "provider" | "email"
+> & {
+  elements: UserElement[];
+  favorites: UserElement[];
+  comments: UserComment[];
+};
