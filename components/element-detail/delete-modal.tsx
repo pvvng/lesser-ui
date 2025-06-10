@@ -32,7 +32,7 @@ export default function DeleteModal({
   return (
     <section
       ref={backdropRef}
-      className="inset-0 fixed w-full h-screen bg-black/80 flex justify-center items-center p-5 z-100"
+      className="inset-0 fixed w-full h-screen bg-black/80 flex justify-center items-center p-5 z-10000"
       onClick={toggleDeleteModal}
     >
       <div

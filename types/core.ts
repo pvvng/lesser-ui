@@ -24,3 +24,5 @@ export type ElementDetail = Database["public"]["Tables"]["elements"]["Row"] & {
   favorites: Favorite[];
   comments: Comment[];
 };
+
+export type Element = Database["public"]["Tables"]["elements"]["Row"];

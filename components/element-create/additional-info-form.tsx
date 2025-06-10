@@ -1,9 +1,9 @@
 "use client";
 
 // components
-import CheckBoxWithLabel from "../checkbox-with-label";
-import InputWithLabel from "../input-with-label";
-import FormButton from "../form-button";
+import CheckBoxWithLabel from "../form/checkbox-with-label";
+import InputWithLabel from "../form/input-with-label";
+import FormButton from "../form/form-button";
 import ErrorMap from "../error-map";
 // etc
 import { startTransition, useActionState, useState } from "react";
@@ -52,7 +52,6 @@ export default function AdditionalInfoForm({
   return (
     <form
       onSubmit={handleSubmit}
-      // action={action}
       className="aspect-square p-5 bg-neutral-900 my-auto space-y-3 justify-center rounded-r-2xl overflow-auto"
     >
       <p className="text-2xl font-bold mb-3">

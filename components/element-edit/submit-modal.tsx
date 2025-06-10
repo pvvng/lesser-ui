@@ -7,10 +7,11 @@ import AdditionalInfoForm from "./additional-info-form";
 import useEditor from "@/lib/hooks/use-editor";
 import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
+// types
+import { ElementDetail } from "@/types/core";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { ElementDetail } from "@/app/element/[id]/actions";
 
 interface SubmitModalProps {
   codeRef: React.RefObject<{
@@ -41,7 +42,7 @@ export default function SubmitModal({
   return (
     <div
       ref={backdropRef}
-      className="inset-0 fixed w-full h-screen bg-black/80 z-100 
+      className="inset-0 fixed w-full h-screen bg-black/80 z-10000
       flex justify-center items-center"
       onClick={closeForm}
     >

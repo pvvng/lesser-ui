@@ -5,20 +5,23 @@ import LinkLogo from "../link-logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClover } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Navbar() {
   return (
     <nav
       id="header"
       className="bg-neutral-900 w-full h-16 sticky top-0 left-0
-      flex justify-between items-center p-3 z-100"
+      flex justify-between items-center p-3 z-9999"
     >
       <section className="flex gap-5 items-center">
         <LinkLogo />
         <NavbarDropDown />
       </section>
       <section className="flex gap-5 items-center">
-        <LinkButton />
+        <Suspense fallback={null}>
+          <LinkButton />
+        </Suspense>
       </section>
     </nav>
   );

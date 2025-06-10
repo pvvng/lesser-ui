@@ -22,7 +22,6 @@ export const menuItems = [
   { icon: faSpinner, label: "Loaders", link: "loaders" },
   { icon: faKeyboard, label: "Inputs", link: "inputs" },
   { icon: faCircleDot, label: "Radio Buttons", link: "radio-buttons" },
-  { icon: faTableList, label: "Form", link: "form" },
   { icon: faCircleInfo, label: "Tooltips", link: "tooltips" },
 ] as const;
 
@@ -35,8 +34,6 @@ export const tagItems = [
   { icon: faSpinner, tag: "loaders" },
   { icon: faKeyboard, tag: "inputs" },
   { icon: faCircleDot, tag: "radio-buttons" },
-  { icon: faTableList, tag: "form" },
-  { icon: faBrush, tag: "patterns" },
   { icon: faCircleInfo, tag: "tooltips" },
 ] as const;
 

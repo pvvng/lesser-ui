@@ -2,6 +2,7 @@
 
 // components
 import Preview from "../snippet-studio/preview";
+import AdditionalInfoForm from "./additional-info-form";
 // hooks
 import useEditor from "@/lib/hooks/use-editor";
 import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
@@ -9,7 +10,6 @@ import useStopScoll from "@/lib/hooks/use-stop-scroll";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import AdditionalInfoForm from "./additional-info-form";
 
 interface SubmitModalProps {
   codeRef: React.RefObject<{
@@ -38,7 +38,7 @@ export default function SubmitModal({
   return (
     <div
       ref={backdropRef}
-      className="inset-0 fixed w-full h-screen bg-black/80 z-100 
+      className="inset-0 fixed w-full h-screen bg-black/80 z-10000
       flex justify-center items-center"
       onClick={closeForm}
     >

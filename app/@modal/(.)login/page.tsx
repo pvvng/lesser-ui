@@ -3,7 +3,7 @@
 import AuthShowcaseCard from "@/components/auth/auth-showcase-card";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 export default function LoginModal() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,7 +22,7 @@ export default function LoginModal() {
     <div
       ref={containerRef}
       onClick={handleBackgroundClick}
-      className="w-full h-screen flex justify-center items-center fixed overflow-hidden z-100 inset-0 bg-neutral-600/80"
+      className="w-full h-screen flex justify-center items-center fixed overflow-hidden z-10000 inset-0 bg-neutral-600/80"
     >
       <div className="max-w-screen-sm">
         <AuthShowcaseCard />

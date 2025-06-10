@@ -20,12 +20,12 @@ export default function TagSelector({
 
   return (
     <section
-      className="inset-0 fixed w-full h-screen z-100 bg-black/80 p-5 
+      className="inset-0 fixed w-full h-screen z-10000 bg-black/80 p-5 
       flex justify-center items-center"
     >
       <div className="max-w-screen-lg bg-neutral-900 rounded-2xl p-8 space-y-5">
         <p className="font-bold text-3xl text-center">What are you making?</p>
-        <div className="grid grid-cols-5 gap-5">
+        <div className="grid grid-cols-4 gap-5">
           {tagItems.map((item) => (
             <TagCard
               key={item.tag}
