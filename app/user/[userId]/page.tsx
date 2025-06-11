@@ -31,8 +31,6 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
 
   if (error || !userdata) return notFound();
 
-  console.log(userdata.comments);
-
   return (
     <div className="space-y-5 p-5">
       {/* background */}

@@ -1,8 +1,8 @@
 "use client";
 
 import Preview from "./snippet-studio/preview";
-import { generatePreviewCode } from "@/lib/utils/generate-preview-code";
 import useScrollReveal from "@/lib/hooks/gsap/use-scroll-reveal";
+import { generatePreviewCode } from "@/lib/utils/generate-preview-code";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";

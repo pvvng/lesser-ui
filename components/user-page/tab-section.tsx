@@ -1,17 +1,16 @@
 "use client";
 
-import ElementLinkCard from "../element-card-with-link";
+// components
+import UserCommentSection from "./comment-section";
+import UserCodePreviewSection from "./code-preview-section";
+import UserPageTabs from "./tabs";
+// hooks
+import useSliceUp from "@/lib/hooks/gsap/use-slide-up";
+// types
 import { UserComment, UserElement } from "@/types/core";
+// etc
 import { useState } from "react";
-import Link from "next/link";
-import { getKoreanDate } from "@/lib/utils/get-korean-date";
-
-const tabItems = [
-  { label: "Favorites" },
-  { label: "Elements" },
-  { label: "Comments" },
-  { label: "Activites" },
-];
+import { userPageTabItems } from "@/lib/constants";
 
 interface TabSectionProps {
   favorites: UserElement[];
@@ -24,7 +23,7 @@ export default function TabSection({
   elements,
   comments,
 }: TabSectionProps) {
-  const [activeTab, setActiveTab] = useState(tabItems[0].label);
+  const [activeTab, setActiveTab] = useState(userPageTabItems[0].label);
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -34,67 +33,27 @@ export default function TabSection({
         return <UserCodePreviewSection elements={elements} />;
       case "Comments":
         return <UserCommentSection comments={comments} />;
-      case "Activities":
+      case "Activites":
         return <div className="text-neutral-400">준비 중...</div>;
       default:
         return null;
     }
   };
 
+  const contentRef = useSliceUp({ deps: activeTab });
+
   return (
     <div className="mt-15">
-      <ul className="flex items-center">
-        {tabItems.map((tab, idx) => (
-          <li
-            key={tab.label}
-            className={`px-3 py-2 font-semibold cursor-pointer transition-colors rounded-t ${
-              activeTab === tab.label ? "bg-neutral-700" : ""
-            }`}
-            onClick={() => setActiveTab(tab.label)}
-          >
-            {tab.label}
-          </li>
-        ))}
-      </ul>
-      <section className="w-full p-5 h-[500px] overflow-auto border-2 border-neutral-700 rounded-2xl rounded-tl-none">
+      <UserPageTabs
+        activeTab={activeTab}
+        handleTab={(label: string) => setActiveTab(label)}
+      />
+      <section
+        className="w-full py-5 h-[500px] overflow-auto  rounded-2xl rounded-tl-none"
+        ref={contentRef}
+      >
         {renderTabContent()}
       </section>
-    </div>
-  );
-}
-
-function UserCodePreviewSection({ elements }: { elements: UserElement[] }) {
-  return (
-    <div className="grid grid-cols-5 gap-5">
-      {elements.map((element) => (
-        <ElementLinkCard
-          key={element.id}
-          elementId={element.id}
-          htmlCode={element.html}
-          cssCode={element.css}
-        />
-      ))}
-    </div>
-  );
-}
-
-function UserCommentSection({ comments }: { comments: UserComment[] }) {
-  return (
-    <div className="space-y-3">
-      {comments.map((comment) => (
-        <Link
-          href={`/element/${comment.element_id}`}
-          key={comment.id}
-          className="block bg-neutral-700 rounded-2xl p-3"
-        >
-          <div className="col-span-3">
-            <p className="text-neutral-400 text-xs">
-              {getKoreanDate(comment.created_at)}
-            </p>
-            <p>{comment.payload}</p>
-          </div>
-        </Link>
-      ))}
     </div>
   );
 }
