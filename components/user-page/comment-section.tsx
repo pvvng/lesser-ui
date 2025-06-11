@@ -5,6 +5,7 @@ import { groupCommentsByElementId } from "@/lib/utils/group-comments-by-element-
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // types
 import { UserComment } from "@/types/core";
+import EmptyMessage from "./empty-message";
 
 interface UserCommentSectionProps {
   comments: UserComment[];
@@ -13,6 +14,10 @@ interface UserCommentSectionProps {
 export default function UserCommentSection({
   comments,
 }: UserCommentSectionProps) {
+  if (comments.length === 0) {
+    return <EmptyMessage type="comments" />;
+  }
+
   const { groupedComments, elements } = groupCommentsByElementId(comments);
 
   return Object.entries(elements).map(([key, element]) => (

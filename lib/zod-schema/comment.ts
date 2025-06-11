@@ -41,7 +41,7 @@ export const commentSchema = z
       ctx.addIssue({
         path: ["elementId"],
         code: z.ZodIssueCode.custom,
-        message: "존재하지 않는 UI 요소입니다.",
+        message: "존재하지 않는 UI 컴포넌트입니다.",
         fatal: true,
       });
     }

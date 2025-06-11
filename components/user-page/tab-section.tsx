@@ -28,9 +28,9 @@ export default function TabSection({
   const renderTabContent = () => {
     switch (activeTab) {
       case "Favorites":
-        return <UserCodePreviewSection elements={favorites} />;
+        return <UserCodePreviewSection elements={favorites} type="favorites" />;
       case "Elements":
-        return <UserCodePreviewSection elements={elements} />;
+        return <UserCodePreviewSection elements={elements} type="elements" />;
       case "Comments":
         return <UserCommentSection comments={comments} />;
       case "Activites":
@@ -49,7 +49,7 @@ export default function TabSection({
         handleTab={(label: string) => setActiveTab(label)}
       />
       <section
-        className="w-full py-5 h-[500px] overflow-auto  rounded-2xl rounded-tl-none"
+        className="w-full py-5 max-h-[500px] overflow-auto  rounded-2xl rounded-tl-none"
         ref={contentRef}
       >
         {renderTabContent()}

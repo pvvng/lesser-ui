@@ -76,8 +76,8 @@ export const exampleCode = {
 
 /** 유저 페이지 tab items */
 export const userPageTabItems = [
-  { label: "Favorites" },
   { label: "Elements" },
+  { label: "Favorites" },
   { label: "Comments" },
   { label: "Activites" },
 ];

@@ -42,7 +42,7 @@ export async function getElement({ elementId }: { elementId: string }) {
   if (!element || selectError) {
     return {
       data: null,
-      error: "요소 불러오기 실패",
+      error: "컴포넌트 불러오기 실패",
     };
   }
 
@@ -68,8 +68,8 @@ export async function incrementViewCount({
     .single();
 
   if (!current || fetchError) {
-    console.error("요소 조회 실패:", fetchError);
-    return { error: "요소 조회 실패" };
+    console.error("컴포넌트 조회 실패:", fetchError);
+    return { error: "컴포넌트 조회 실패" };
   }
 
   // 2. view 수동으로 1 증가시켜서 update
@@ -99,7 +99,7 @@ export async function deleteElement({
   }
 
   if (!elementId) {
-    return { error: "요소 ID가 필요합니다." };
+    return { error: "컴포넌트 ID가 필요합니다." };
   }
 
   const supabase = await createClient();
@@ -116,7 +116,7 @@ export async function deleteElement({
     .eq("user_id", userId);
 
   if (error) {
-    return { error: "요소 삭제에 실패했습니다." };
+    return { error: "컴포넌트 삭제에 실패했습니다." };
   }
 
   return { error: null };
@@ -133,7 +133,7 @@ export async function insertFavorite({
   if (!elementId || !userId) {
     return {
       data: null,
-      error: "UI 요소 ID와 사용자 ID가 필요합니다.",
+      error: "UI 컴포넌트 ID와 사용자 ID가 필요합니다.",
     };
   }
 
@@ -167,7 +167,7 @@ export async function deleteFavorite({
   if (!elementId || !userId) {
     return {
       data: null,
-      error: "UI 요소 ID와 사용자 ID가 필요합니다.",
+      error: "UI 컴포넌트 ID와 사용자 ID가 필요합니다.",
     };
   }
 

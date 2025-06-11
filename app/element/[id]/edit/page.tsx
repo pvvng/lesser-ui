@@ -15,7 +15,7 @@ export default async function EditElementDetail({
   const { data: element, error } = await getElement({ elementId });
 
   if (error || !element) {
-    console.error("UI 요소를 찾을 수 없습니다.");
+    console.error("UI 컴포넌트를 찾을 수 없습니다.");
     return notFound();
   }
   const v = element.comments;
