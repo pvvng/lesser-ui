@@ -12,6 +12,7 @@ import { faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "@/components/loading-spinner";
 
 /**
  * ───────────────────────────────────────────────────────────────────
@@ -66,13 +67,11 @@ export default function AuthCallback() {
   }, [router]);
 
   return (
-    <p className="mt-20 mx-auto font-mono font-semibold text-sm text-center">
-      <FontAwesomeIcon
-        icon={isAuthDone ? faCheck : faSpinner}
-        className={`${isAuthDone ? "" : "animate-spin"}`}
-      />{" "}
-      <span>{isAuthDone ? "로그인 성공" : "로그인 처리 중..."}</span>
-    </p>
+    <LoadingSpinner
+      text="로그인 처리 중..."
+      loadingDone={isAuthDone}
+      loadingDoneText="로그인 성공"
+    />
   );
 }
 

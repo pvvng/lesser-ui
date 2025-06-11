@@ -4,7 +4,6 @@ import checkUserLogin from "@/lib/supabase/action/check-user-login";
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
 import { ElementDetail } from "@/types/core";
-import { Database } from "@/types/supabase";
 
 const selectFields = `*,
   users!elements_user_id_fkey (

@@ -24,12 +24,18 @@ export default async function ElementDetail({
   params,
   searchParams,
 }: ElementDetailProps) {
-  const elementId = (await params).id;
-  const celebration = (await searchParams).celebration === "true";
+  const [{ id: elementId }, { celebration }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
 
-  const userId = await checkUserLogin();
-  await incrementViewCount({ elementId });
-  const { data: element, error } = await getElement({ elementId });
+  const shouldCelebrate = celebration === "true";
+
+  const [userId, _, { data: element, error }] = await Promise.all([
+    checkUserLogin(),
+    incrementViewCount({ elementId }),
+    getElement({ elementId }),
+  ]);
 
   if (error || !element) {
     console.error(error);
@@ -44,7 +50,7 @@ export default async function ElementDetail({
 
   return (
     <div className="p-5">
-      <ConfettiCelebration run={celebration} />
+      <ConfettiCelebration run={shouldCelebrate} />
       <ElementDetailHeader
         userId={element.user_id}
         username={element.users?.nickname || "탈퇴한 사용자"}

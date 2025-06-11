@@ -46,7 +46,7 @@ export default function SnippetStudio({
           nowMode={nowMode}
           changeLangaugeMode={changeLangaugeMode}
         />
-        <div className="relative h-[500px] bg-neutral-800 rounded">
+        <div className="relative h-[500px] bg-neutral-800">
           <CodeCopyButton isCopied={isCopied} handleCopy={handleCopy} />
           <CodeEditor
             nowMode={nowMode}
