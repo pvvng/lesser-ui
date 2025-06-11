@@ -26,6 +26,7 @@ export default function UserPageTabs({
           <li
             key={tab.label}
             className="px-3 py-2 font-semibold cursor-pointer rounded-t relative overflow-hidden"
+            data-active={isActive}
             onClick={() => handleTab(tab.label)}
           >
             <span className={`relative z-10 ${textClassName}`}>

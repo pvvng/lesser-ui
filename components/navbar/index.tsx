@@ -51,14 +51,9 @@ export async function LinkButton() {
 
 function renderLink(href: string, label: string) {
   return (
-    <Link
-      href={href}
-      scroll={false}
-      className="px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition-colors 
-      font-semibold flex items-center gap-2"
-    >
-      <FontAwesomeIcon icon={faClover} className="text-white" />
-      {label}
+    <Link href={href} scroll={false} className="fancy-fill-btn">
+      <FontAwesomeIcon icon={faClover} />
+      <span>{label}</span>
     </Link>
   );
 }

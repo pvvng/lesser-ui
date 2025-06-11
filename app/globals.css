@@ -10,3 +10,29 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   @apply bg-neutral-900 text-white font-sans;
 }
+
+@layer components {
+  .fancy-fill-btn {
+    @apply relative inline-flex items-center gap-2 px-4 py-2 font-semibold font-sans rounded overflow-hidden border border-green-500 text-green-500 transition-colors;
+  }
+
+  .fancy-fill-btn::before {
+    content: "";
+    @apply absolute inset-0 bg-green-500 transition-all duration-300 ease-out;
+    width: 0%;
+    left: 0;
+    z-index: 1;
+  }
+
+  .fancy-fill-btn:hover::before {
+    width: 100%;
+  }
+
+  .fancy-fill-btn:hover {
+    @apply text-white;
+  }
+
+  .fancy-fill-btn>* {
+    @apply relative z-2;
+  }
+}

@@ -64,11 +64,11 @@ export default function CommentForm({
           maxLength={50}
         />
         <button
-          className="rounded ring transition shrink-0 w-24 h-10 cursor-pointer font-semibold text-sm 
-          ring-green-500 bg-green-500 hover:bg-green-600 hover:ring-green-600 
-          flex justify-center items-center gap-1"
+          className="shrink-0 w-24 h-10 text-sm fancy-fill-btn 
+          flex justify-center items-center gap-1 cursor-pointer"
         >
-          <FontAwesomeIcon icon={faPaperPlane} /> Send
+          <FontAwesomeIcon icon={faPaperPlane} />
+          <span>Send</span>
         </button>
       </form>
     </>

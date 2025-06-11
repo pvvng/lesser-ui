@@ -59,11 +59,12 @@ export default function CreateElement() {
           </span>
         </div>
         <button
-          className="rounded px-4 py-2 font-semibold cursor-pointer
-         flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-colors"
+          className="shrink-0 w-28 h-10 fancy-fill-btn 
+          flex justify-center items-center gap-1 cursor-pointer"
           onClick={toggleForm}
         >
-          <FontAwesomeIcon icon={faRocket} /> Submit
+          <FontAwesomeIcon icon={faRocket} />
+          <span>Submit</span>
         </button>
       </div>
     </div>

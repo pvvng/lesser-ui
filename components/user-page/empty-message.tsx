@@ -36,11 +36,10 @@ export default function EmptyMessage({ type }: EmptyMessageProps) {
       </p>
       <Link
         href={messageMap[type].link}
-        className="w-fit mx-auto px-3 py-2 font-semibold font-sans rounded
-        transition-colors bg-green-500 hover:bg-green-600 flex items-center"
+        className="w-fit h-10 mx-auto fancy-fill-btn flex items-center"
       >
         <FontAwesomeIcon icon={messageMap[type].icon} className="mr-2" />
-        {messageMap[type].linkLabel}
+        <span>{messageMap[type].linkLabel}</span>
       </Link>
     </div>
   );
