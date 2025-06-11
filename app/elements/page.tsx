@@ -1,18 +1,25 @@
-import ElementLinkCard from "@/components/element-card-with-link";
 import { getElementsBySearchTag } from "./actions";
+import ElementsView from "@/components/elements";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
 
-export default async function Element(props: { searchParams: SearchParams }) {
+export default async function ElementsPage(props: {
+  searchParams: SearchParams;
+}) {
   const searchParams = await props.searchParams;
   const search = searchParams.search;
   const tag = searchParams.tag;
 
-  const { data: elements, error } = await getElementsBySearchTag({
+  const {
+    data: elements,
+    count,
+    error,
+  } = await getElementsBySearchTag({
     search,
     tag,
+    page: 0,
   });
 
   if (error) {
@@ -26,15 +33,11 @@ export default async function Element(props: { searchParams: SearchParams }) {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-5 mt-10 p-5">
-      {elements.map((element) => (
-        <ElementLinkCard
-          key={element.id}
-          elementId={element.id}
-          htmlCode={element.html}
-          cssCode={element.css}
-        />
-      ))}
-    </div>
+    <ElementsView
+      initialElements={elements}
+      count={count}
+      search={search}
+      tag={tag}
+    />
   );
 }
