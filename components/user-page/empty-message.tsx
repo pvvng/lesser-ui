@@ -36,7 +36,7 @@ export default function EmptyMessage({ type }: EmptyMessageProps) {
       </p>
       <Link
         href={messageMap[type].link}
-        className="w-fit h-10 mx-auto fancy-fill-btn flex items-center"
+        className="w-fit mx-auto fancy-fill-btn flex items-center"
       >
         <FontAwesomeIcon icon={messageMap[type].icon} className="mr-2" />
         <span>{messageMap[type].linkLabel}</span>

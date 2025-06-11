@@ -6,7 +6,7 @@ import NavbarDropDown from "./dropdown";
 import LinkLogo from "../link-logo";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClover } from "@fortawesome/free-solid-svg-icons";
+import { faClover, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -21,7 +21,7 @@ export default function Navbar() {
         <LinkLogo />
         <NavbarDropDown />
       </section>
-      <section className="flex gap-5 items-center">
+      <section className="flex gap-3 items-center">
         <Suspense fallback={null}>
           <LinkButton />
         </Suspense>
@@ -46,7 +46,17 @@ export async function LinkButton() {
   const href = dbUser?.id ? `/user/${user.id}` : "/login";
   const label = dbUser?.id ? "Dashboard" : "Login";
 
-  return renderLink(href, label);
+  return (
+    <>
+      {dbUser?.id && (
+        <Link href="/element/create" className="fancy-fill-btn">
+          <FontAwesomeIcon icon={faPlus} />
+          <span>Create New</span>
+        </Link>
+      )}
+      {renderLink(href, label)}
+    </>
+  );
 }
 
 function renderLink(href: string, label: string) {

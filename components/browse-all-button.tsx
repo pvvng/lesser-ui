@@ -44,7 +44,7 @@ export default function BrowseAllLinkButton() {
 
   return (
     <div
-      className="w-full absolute h-48 bottom-0 bg-gradient-to-b from-transparent 
+      className="w-full absolute h-52 bottom-0 bg-gradient-to-b from-transparent 
      to-neutral-900 p-5 flex justify-center items-end pointer-events-none"
     >
       <Link
