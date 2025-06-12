@@ -1,6 +1,6 @@
+import SearchInputButton from "@/components/search-input-button";
 import { getElementsBySearchTag } from "./actions";
 import ElementsView from "@/components/elements";
-
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
@@ -33,11 +33,16 @@ export default async function ElementsPage(props: {
   }
 
   return (
-    <ElementsView
-      initialElements={elements}
-      count={count}
-      search={search}
-      tag={tag}
-    />
+    <main className="mt-10 space-y-5">
+      <div className="flex justify-end pr-5">
+        <SearchInputButton />
+      </div>
+      <ElementsView
+        initialElements={elements}
+        count={count}
+        search={search}
+        tag={tag}
+      />
+    </main>
   );
 }

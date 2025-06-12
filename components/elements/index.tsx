@@ -86,7 +86,7 @@ export default function ElementsView({
 
   return (
     <>
-      <section className="grid grid-cols-4 gap-5 mt-10 p-5">
+      <section className="grid grid-cols-4 gap-5 p-5">
         {elements.map((element) => (
           <ElementLinkCard
             key={element.id}
