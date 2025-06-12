@@ -33,7 +33,7 @@ export default async function ElementsPage(props: {
   }
 
   return (
-    <main className="mt-10 space-y-5">
+    <div className="mt-10 space-y-5">
       <div className="flex justify-end pr-5">
         <SearchInputButton />
       </div>
@@ -43,6 +43,6 @@ export default async function ElementsPage(props: {
         search={search}
         tag={tag}
       />
-    </main>
+    </div>
   );
 }

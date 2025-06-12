@@ -43,7 +43,7 @@ export default function RootLayout({
       >
         <Navbar />
         {modal}
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

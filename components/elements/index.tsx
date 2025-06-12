@@ -1,10 +1,16 @@
 "use client";
 
-import { Element } from "@/types/core";
-import { useEffect, useRef, useState } from "react";
+// component
 import ElementLinkCard from "../element-card-with-link";
-import { getElementsBySearchTag } from "@/app/elements/actions";
 import LoadingBounce from "../loading-bounce";
+// hooks
+import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
+// actions
+import { getElementsBySearchTag } from "@/app/elements/actions";
+// types
+import { Element } from "@/types/core";
+// etc
+import { useEffect } from "react";
 
 interface ElementsView {
   initialElements: Element[];
@@ -19,69 +25,20 @@ export default function ElementsView({
   search,
   tag,
 }: ElementsView) {
-  const [elements, setElements] = useState([...initialElements]);
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLastPage, setIsLastPage] = useState(false);
-  const trigger = useRef<HTMLDivElement>(null);
-
-  // infinite scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      async (
-        // observer가 관측할 요소들
-        entries: IntersectionObserverEntry[],
-        // observer
-        observer: IntersectionObserver
-      ) => {
-        const element = entries[0];
-        // 사용자의 뷰에 트리거가 감지되면
-        if (element.isIntersecting && trigger.current) {
-          // 옵저버 감시 중지
-          observer.unobserve(trigger.current);
-
-          // 데이터 불러오기
-          setIsLoading(true);
-          const { data: newElement } = await getElementsBySearchTag({
-            search,
-            tag,
-            page: page + 1,
-          });
-
-          // element 업데이트 및 last page check
-          setElements((prev) => {
-            const nextElements = [...prev, ...newElement];
-            if (nextElements.length >= count) {
-              setIsLastPage(true);
-            }
-            return nextElements;
-          });
-
-          // 더이상 가져올 데이터가 없을때에만 page 증가 금지
-          setPage((pre) => pre + 1);
-
-          setIsLoading(false);
-        }
-      },
-      {
-        // 트리거가 전부 다 보여야 화면에 있다고 표시하기
-        threshold: 1.0,
-      }
-    );
-
-    if (trigger.current) {
-      // 트리거 span 감시 시작
-      observer.observe(trigger.current);
-    }
-
-    // clean-up
-    return () => observer.disconnect();
-  }, [page]);
+  const {
+    datas: elements,
+    isLoading,
+    isLastPage,
+    trigger,
+    reset,
+  } = useInfinityScroll<Element>({
+    initialData: initialElements,
+    count,
+    action: (page) => getElementsBySearchTag({ search, tag, page }),
+  });
 
   useEffect(() => {
-    setElements([...initialElements]);
-    setPage(0);
-    setIsLastPage(false);
+    reset(initialElements);
   }, [initialElements, count, search, tag]);
 
   return (
