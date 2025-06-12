@@ -1,5 +1,5 @@
 import checkUserLogin from "@/lib/supabase/action/check-user-login";
-import { notFound, redirect } from "next/navigation";
+import { notFound, unauthorized } from "next/navigation";
 import { getElement } from "../actions";
 import EditElementView from "@/components/element-edit/view";
 
@@ -12,18 +12,13 @@ export default async function EditElementDetail({
 }: ElementDetailProps) {
   const elementId = (await params).id;
   const currentUserId = await checkUserLogin();
+
   const { data: element, error } = await getElement({ elementId });
 
-  if (error || !element) {
-    console.error("UI 컴포넌트를 찾을 수 없습니다.");
-    return notFound();
-  }
-  const v = element.comments;
+  if (error || !element) return notFound();
 
-  if (!currentUserId || currentUserId !== element.user_id) {
-    console.error("접근 권한이 없습니다.");
-    return redirect("/element/" + elementId);
-  }
+  if (!currentUserId || currentUserId !== element.user_id)
+    return unauthorized();
 
   return <EditElementView element={element} />;
 }

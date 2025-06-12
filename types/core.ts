@@ -7,6 +7,8 @@ type SimpleUser = Pick<
   "id" | "nickname" | "avatar"
 >;
 
+export type Users = Database["public"]["Tables"]["users"]["Row"];
+
 export type Comment = Pick<
   Database["public"]["Tables"]["comments"]["Row"],
   "id" | "payload" | "created_at" | "user_id"

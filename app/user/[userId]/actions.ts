@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { UserDetail } from "@/types/core";
 
-const selecteField = `
+const selectFields = `
   id, avatar, nickname, provider, email,
   elements:elements!elements_user_id_fkey (
     id, name, bio, view, marked, type, tag, created_at, html, css
@@ -30,7 +30,7 @@ export async function getUserDetail({
 
   const { data, error } = await supabase
     .from("users")
-    .select(selecteField)
+    .select(selectFields)
     .eq("id", userId)
     .single();
 

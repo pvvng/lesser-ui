@@ -65,7 +65,7 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
         </div>
         {isOwner && (
           <div className="flex items-center gap-1">
-            <EditProfileLinkButton />
+            <EditProfileLinkButton userId={userdata.id} />
             <LogoutButton />
           </div>
         )}
@@ -80,10 +80,10 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
   );
 }
 
-function EditProfileLinkButton() {
+function EditProfileLinkButton({ userId }: { userId: string }) {
   return (
     <Link
-      href="#"
+      href={`/user/${userId}/edit`}
       className="px-3 py-2 rounded font-semibold cursor-pointer flex gap-1 items-center
       transition-colors bg-neutral-800 hover:bg-neutral-700"
     >

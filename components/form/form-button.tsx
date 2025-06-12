@@ -1,3 +1,5 @@
+"use client";
+
 import { faRocket, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormStatus } from "react-dom";

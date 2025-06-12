@@ -42,7 +42,6 @@ export default function useInfinityScroll<T>({
     setPage(0);
     setIsLastPage(false);
     setIsLoading(false);
-    trigger.current = null;
   };
 
   // infinite scroll

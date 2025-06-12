@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
       "lh3.googleusercontent.com",
     ],
   },
+  experimental: {
+    authInterrupts: true,
+  },
 };
 
 export default nextConfig;
