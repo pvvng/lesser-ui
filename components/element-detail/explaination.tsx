@@ -87,7 +87,7 @@ export default function ElementExplaination({
       <section className="flex gap-3 items-center">
         <Link
           href={creatorId ? `/user/${creatorId}` : "#"}
-          className="size-14 rounded bg-neutral-600 relative overflow-hidden"
+          className="size-14 rounded bg-neutral-200 relative overflow-hidden"
         >
           <Image
             src={userAvatar}
@@ -96,6 +96,7 @@ export default function ElementExplaination({
             sizes="56px"
             className="object-cover"
             draggable={false}
+            unoptimized
           />
         </Link>
         <div>

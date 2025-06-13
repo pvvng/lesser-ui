@@ -24,7 +24,7 @@ export default function CommentCard({
       <div className="flex gap-3 items-center">
         <Link
           href={`/user/${userId}`}
-          className="size-12 rounded-full overflow-hidden relative"
+          className="size-12 rounded-full overflow-hidden relative bg-neutral-200"
         >
           <Image
             src={avatar || "/unknown.png"}
@@ -33,6 +33,7 @@ export default function CommentCard({
             fill
             className="object-cover"
             draggable={false}
+            unoptimized
           />
         </Link>
         <div className="flex flex-col gap-1">

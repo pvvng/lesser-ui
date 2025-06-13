@@ -41,10 +41,11 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
           src={userdata.avatar || ""}
           alt={userdata.nickname}
           fill
-          className="object-cover bg-neutral-700"
+          className="object-cover bg-neutral-200"
           sizes="144px"
           priority
           draggable={false}
+          unoptimized
         />
       </div>
       {/* name */}

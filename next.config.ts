@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       "avatars.githubusercontent.com",
       // 구글
       "lh3.googleusercontent.com",
+      // CF
+      "imagedelivery.net",
     ],
   },
   experimental: {
