@@ -52,17 +52,6 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
       <section className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <p className="text-3xl font-semibold">{userdata.nickname}</p>
-          {userdata.provider && (
-            <div className="relative size-6 rounded bg-neutral-300">
-              <Image
-                src={`/${userdata.provider}.svg`}
-                alt={userdata.provider}
-                fill
-                className="object-cover"
-                draggable={false}
-              />
-            </div>
-          )}
         </div>
         {isOwner && (
           <div className="flex items-center gap-1">

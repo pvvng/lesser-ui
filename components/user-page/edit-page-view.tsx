@@ -90,8 +90,10 @@ export default function EditUserdataView({
       return;
     }
 
+    // TODO : getPhotoUrl 함수 서버로 분리
+    const accountHash = process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH;
     // replace photo in formdata
-    const photoUrl = `https://imagedelivery.net/MR01-6_39Z4fkK0Q1BsXww/${imageId}/public`;
+    const photoUrl = `https://imagedelivery.net/${accountHash}/${imageId}/public`;
     formData.set("avatar", photoUrl);
 
     // call uploadProduct Action
