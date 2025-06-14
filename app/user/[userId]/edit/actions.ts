@@ -64,6 +64,23 @@ export async function editUserdata(_: unknown, formdata: FormData) {
 
   const supabase = await createClient();
 
+  // 닉네임 중복 체크
+  const { data: existingUser, error: nicknameError } = await supabase
+    .from("users")
+    .select("id")
+    .eq("nickname", result.data.nickname)
+    .maybeSingle();
+
+  if (nicknameError) {
+    console.log(nicknameError);
+    return ["닉네임을 확인하는 중 문제가 발생했습니다."];
+  }
+
+  if (existingUser && existingUser.id !== result.data.userId) {
+    return ["이미 사용 중인 닉네임입니다."];
+  }
+
+  // 유저 데이터 업데이트
   const { error } = await supabase
     .from("users")
     .update({
