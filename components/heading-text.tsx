@@ -4,7 +4,7 @@ import { faClover } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(SplitText);
 
@@ -12,7 +12,7 @@ export default function HeadingTextSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [animateEnd, setAnimateEnd] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!headingRef.current) return;
 
     // 폰트가 로드될 때까지 기다림
