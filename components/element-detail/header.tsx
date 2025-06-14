@@ -36,11 +36,12 @@ export default function ElementDetailHeader({
         <FontAwesomeIcon icon={faArrowLeft} /> Go Back
       </button>
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <p className="text-neutral-400">Created By</p>
           <Link
             href={userId ? `/user/${userId}` : "#"}
-            className="flex gap-2 items-center font-bold"
+            className="flex gap-2 items-center font-bold 
+            hover:bg-neutral-600 transition-colors rounded px-2 py-1"
           >
             {username}
           </Link>
