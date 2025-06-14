@@ -90,7 +90,7 @@ export default function ErrorPage({ errorCode }: { errorCode: 404 | 401 }) {
         </span>
         <FontAwesomeIcon
           icon={faClover}
-          className="text-green-500 text-8xl mt-5"
+          className="text-green-500 text-8xl mt-9"
           ref={rightCloverRef}
         />
       </div>
