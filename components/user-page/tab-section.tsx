@@ -5,7 +5,7 @@ import UserCommentSection from "./comment-section";
 import UserCodePreviewSection from "./code-preview-section";
 import UserPageTabs from "./tabs";
 // hooks
-import useSliceUp from "@/lib/hooks/gsap/use-slide-up";
+import useSlideUp from "@/lib/hooks/gsap/use-slide-up";
 // types
 import { UserComment, UserElement } from "@/types/core";
 // etc
@@ -40,7 +40,7 @@ export default function TabSection({
     }
   };
 
-  const contentRef = useSliceUp({ deps: activeTab });
+  const contentRef = useSlideUp(activeTab);
 
   return (
     <div className="mt-15">

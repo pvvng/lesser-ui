@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 
 /** 배경(부모), 컨텐츠(자식) 컨테이너를 아래에서 위로 스르륵 하는 애니메이션 */
@@ -6,7 +6,7 @@ export default function useSlideBoxes() {
   const containerRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const tl = gsap.timeline();
 
     tl.fromTo(

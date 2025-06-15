@@ -27,6 +27,10 @@ export default function CommentSection({
     setComments((prevComments) => [...prevComments, newComment]);
   };
 
+  const deleteComment = (commentId: string) => {
+    setComments([...comments.filter((comment) => comment.id !== commentId)]);
+  };
+
   return (
     <section>
       <p className="font-semibold text-lg flex items-center gap-2">
@@ -38,11 +42,13 @@ export default function CommentSection({
           <CommentCard
             key={comment.id}
             id={comment.id}
-            userId={comment.users?.id || null}
+            currentUserId={userId}
+            authorId={comment.users?.id || null}
             avatar={comment.users?.avatar || null}
             nickname={comment.users?.nickname || null}
             createdAt={comment.created_at}
             payload={comment.payload}
+            deleteComment={deleteComment}
           />
         ))}
       </div>
