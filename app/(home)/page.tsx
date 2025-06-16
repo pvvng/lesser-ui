@@ -1,12 +1,12 @@
 // components
 import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
+import ElementLinkCard from "@/components/element-card-with-link";
 import { RandomElementLoading } from "./loading";
 // actions
-import { getRandomElements } from "@/lib/supabase/actions/elements/get-random-elements";
+import { createElementQuery } from "@/lib/supabase/actions/elements";
 // etc
 import { Suspense } from "react";
-import ElementLinkCard from "@/components/element-card-with-link";
 
 export default function Home() {
   return (
@@ -20,12 +20,13 @@ export default function Home() {
 }
 
 async function RandomElementsGrid() {
-  const elements = await getRandomElements();
+  const elementQuery = await createElementQuery();
+  const { data: elements } = await elementQuery.random().fetch();
 
   return (
     <section className="relative">
       <div className="grid grid-cols-5 gap-5">
-        {elements.map((element, idx) => (
+        {elements?.map((element, idx) => (
           <ElementLinkCard
             key={idx}
             elementId={element.id}

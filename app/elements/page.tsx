@@ -1,6 +1,7 @@
 import SearchInputButton from "@/components/search-input-button";
 import ElementsView from "@/components/elements";
-import { getElementsBySearchTag } from "@/lib/supabase/actions/elements/get-elements-by-search-tag";
+import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
+import { getBySearch } from "@/lib/supabase/actions/elements";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
@@ -10,14 +11,14 @@ export default async function ElementsPage(props: {
   searchParams: SearchParams;
 }) {
   const searchParams = await props.searchParams;
-  const search = searchParams.search;
-  const tag = searchParams.tag;
+  const search = getValidSearchParam(searchParams.search);
+  const tag = getValidSearchParam(searchParams.tag);
 
   const {
     data: elements,
     count,
     error,
-  } = await getElementsBySearchTag({
+  } = await getBySearch({
     search,
     tag,
     page: 0,
@@ -39,8 +40,8 @@ export default async function ElementsPage(props: {
         <SearchInputButton />
       </div>
       <ElementsView
-        initialElements={elements}
-        count={count}
+        initialElements={elements || []}
+        count={count || 0}
         search={search}
         tag={tag}
       />

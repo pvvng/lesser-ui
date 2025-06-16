@@ -6,7 +6,7 @@ import LoadingBounce from "../loading-bounce";
 // hooks
 import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
 // actions
-import { getElementsBySearchTag } from "@/lib/supabase/actions/elements/get-elements-by-search-tag";
+import { getBySearch } from "@/lib/supabase/actions/elements";
 // types
 import { Element } from "@/types/core";
 // etc
@@ -15,8 +15,8 @@ import { useEffect } from "react";
 interface ElementsView {
   initialElements: Element[];
   count: number;
-  search: string | string[] | undefined;
-  tag: string | string[] | undefined;
+  search: string | null;
+  tag: string | null;
 }
 
 export default function ElementsView({
@@ -34,7 +34,7 @@ export default function ElementsView({
   } = useInfinityScroll<Element>({
     initialData: initialElements,
     count,
-    action: (page) => getElementsBySearchTag({ search, tag, page }),
+    action: (page) => getBySearch({ search, tag, page }),
   });
 
   useEffect(() => {

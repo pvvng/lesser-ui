@@ -7,8 +7,8 @@ import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
 import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
-import { getElement } from "@/lib/supabase/actions/element/get-element";
-import { incrementViewCount } from "@/lib/supabase/actions/element/increase-view";
+
+import { getElement, incrementViewCount } from "@/lib/supabase/actions/element";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc

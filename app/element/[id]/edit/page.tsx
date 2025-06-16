@@ -1,6 +1,6 @@
 import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
+import { getElement } from "@/lib/supabase/actions/element";
 import { notFound, unauthorized } from "next/navigation";
-import { getElement } from "../actions";
 import EditElementView from "@/components/element-edit/view";
 
 interface ElementDetailProps {

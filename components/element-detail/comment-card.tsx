@@ -1,7 +1,9 @@
 "use client";
 
-import { editComment } from "@/lib/supabase/actions/comments/edit-comment";
-import { deleteComment as deleteCommentById } from "@/lib/supabase/actions/comments/delete-comment";
+import {
+  editComment,
+  deleteComment as deleteCommentById,
+} from "@/lib/supabase/actions/comments";
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 import {
   faBackspace,

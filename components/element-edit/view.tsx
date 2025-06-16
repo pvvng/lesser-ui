@@ -8,8 +8,9 @@ import SubmitModal from "./submit-modal";
 import useWarnOnUnload from "@/lib/hooks/use-warn-on-unload";
 // constant
 import { tagItems } from "@/lib/constants";
+// type
+import { ElementDetail } from "@/types/core";
 // actions
-import { ElementDetail } from "@/app/element/[id]/actions";
 // etc
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
