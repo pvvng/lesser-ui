@@ -3,7 +3,7 @@ import HeadingTextSection from "@/components/heading-text";
 import BrowseAllLinkButton from "@/components/browse-all-button";
 import { RandomElementLoading } from "./loading";
 // actions
-import { getRandomElements } from "./actions";
+import { getRandomElements } from "@/lib/supabase/actions/elements/get-random-elements";
 // etc
 import { Suspense } from "react";
 import ElementLinkCard from "@/components/element-card-with-link";

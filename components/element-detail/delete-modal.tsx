@@ -4,7 +4,7 @@
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import useBounceBoxes from "@/lib/hooks/gsap/use-bounce-boxes";
 // actions
-import { deleteElement } from "@/app/element/[id]/actions";
+import { deleteElement } from "@/lib/supabase/actions/element/delete-element";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";

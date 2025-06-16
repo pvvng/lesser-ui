@@ -6,7 +6,7 @@ import LoadingBounce from "../loading-bounce";
 // hooks
 import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
 // actions
-import { getElementsBySearchTag } from "@/app/elements/actions";
+import { getElementsBySearchTag } from "@/lib/supabase/actions/elements/get-elements-by-search-tag";
 // types
 import { Element } from "@/types/core";
 // etc

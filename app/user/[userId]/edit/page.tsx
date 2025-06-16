@@ -1,7 +1,7 @@
-import checkUserLogin from "@/lib/supabase/action/check-user-login";
-import { getUserdata } from "./actions";
-import { notFound, unauthorized } from "next/navigation";
 import EditUserdataView from "@/components/user-page/edit-page-view";
+import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
+import { getUserdata } from "@/lib/supabase/actions/users/get-user-data";
+import { notFound, unauthorized } from "next/navigation";
 
 interface UserDashBoardProps {
   params: Promise<{ userId: string }>;

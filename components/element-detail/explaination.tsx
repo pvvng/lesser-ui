@@ -1,7 +1,8 @@
 "use client";
 
 // actions
-import { deleteFavorite, insertFavorite } from "@/app/element/[id]/actions";
+import { insertFavorite } from "@/lib/supabase/actions/favorites/insert-favorite";
+import { deleteFavorite } from "@/lib/supabase/actions/favorites/delete-favorite";
 // components
 import FavoriteToggleButton from "./favorite-toggle-button";
 // fontawesome

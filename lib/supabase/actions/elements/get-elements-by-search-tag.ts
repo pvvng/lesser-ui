@@ -8,6 +8,7 @@ interface GetElementsBySearchTagProps {
   search: string | string[] | undefined;
   tag: string | string[] | undefined;
   page: number;
+  pageSize?: number;
 }
 
 interface PromiseReturnType {
@@ -18,18 +19,20 @@ interface PromiseReturnType {
 
 const PAGE_SIZE = 20;
 
+/** search, tag string으로 pagination용 elements를 20개씩 불러오는 함수 */
 export async function getElementsBySearchTag({
   search,
   tag,
   page,
+  pageSize = PAGE_SIZE,
 }: GetElementsBySearchTagProps): Promise<PromiseReturnType> {
   const supabase = await createClient();
   let query = supabase.from("elements").select("*", {
     count: "exact",
   });
 
-  const from = page * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
+  const from = page * pageSize;
+  const to = from + pageSize - 1;
 
   // 이름 기반 검색
   if (typeof search === "string" && search.trim() !== "") {

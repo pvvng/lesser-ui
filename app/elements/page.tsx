@@ -1,6 +1,7 @@
 import SearchInputButton from "@/components/search-input-button";
-import { getElementsBySearchTag } from "./actions";
 import ElementsView from "@/components/elements";
+import { getElementsBySearchTag } from "@/lib/supabase/actions/elements/get-elements-by-search-tag";
+
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
