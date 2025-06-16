@@ -1,11 +1,11 @@
 // components
 import ElementLinkCard from "../element-card-with-link";
+import EmptyMessage from "./empty-message";
 // utils
 import { groupCommentsByElementId } from "@/lib/utils/group-comments-by-element-id";
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // types
 import { UserComment } from "@/types/core";
-import EmptyMessage from "./empty-message";
 
 interface UserCommentSectionProps {
   comments: UserComment[];
