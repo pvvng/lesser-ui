@@ -1,11 +1,12 @@
 "use client";
 
-import { deleteComment, editComment } from "@/app/element/[id]/actions";
+import { deleteCommentById, editComment } from "@/app/element/[id]/actions";
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 import {
   faBackspace,
   faEdit,
   faSave,
+  faSpinner,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,8 +25,6 @@ interface CommentCardProps {
   deleteComment: (commentId: string) => void;
 }
 
-// TODO: 코멘트 변경 취소 시 기존 payload로 되돌리는 방법 생각하기
-// form을 사용하지 않고 button의 ajax로만 edit과 delete 컨트롤하는게 맞는 방식인지 고민하기
 export default function CommentCard({
   id: commentId,
   currentUserId,
@@ -79,6 +78,7 @@ export default function CommentCard({
           isAuthor={isAuthor}
           isEditMode={isEditMode}
           payload={payload}
+          initialPayload={initialPayload}
           toggleEditButton={toggleEditButton}
           resetPayload={resetPayload}
           deleteComment={deleteComment}
@@ -91,7 +91,7 @@ export default function CommentCard({
         <input
           className="bg-neutral-600 rounded p-1 focus:outline-none w-full placeholder:text-sm"
           placeholder="변경할 댓글 내용을 입력하세요."
-          defaultValue={payload}
+          value={payload}
           required
           onChange={(e) => setPayload(e.target.value)}
           minLength={1}
@@ -107,20 +107,37 @@ function EditButtonBox({
   isAuthor,
   isEditMode,
   payload,
+  initialPayload,
   toggleEditButton,
   resetPayload,
-  deleteComment: handleDeleteComment,
+  deleteComment,
 }: {
   commentId: string;
   isAuthor: boolean;
   isEditMode: boolean;
   payload: string;
+  initialPayload: string;
   toggleEditButton: () => void;
   resetPayload: () => void;
   deleteComment: (commentId: string) => void;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCancelEditMode = () => {
+    resetPayload();
+    toggleEditButton();
+  };
+
   const handleEdit = async () => {
+    console.log(initialPayload === payload);
+    if (initialPayload === payload) {
+      return alert("댓글 내용이 변하지 않았습니다.");
+    }
+
+    setIsLoading(true);
     const error = await editComment({ commentId, payload });
+    setIsLoading(false);
+
     if (error) {
       resetPayload();
       return alert(error);
@@ -129,10 +146,24 @@ function EditButtonBox({
   };
 
   const handleDelete = async () => {
-    const error = await deleteComment({ commentId });
+    if (!confirm("정말 이 댓글을 삭제하시겠습니까?")) return;
+
+    setIsLoading(true);
+    const error = await deleteCommentById({ commentId });
+    setIsLoading(false);
+
     if (error) return alert(error);
-    return handleDeleteComment(commentId);
+    return deleteComment(commentId);
   };
+
+  if (isLoading) {
+    return (
+      <p className="text-neutral-100 text-sm">
+        <FontAwesomeIcon icon={faSpinner} className="animate-spin" />{" "}
+        <span>요청 처리 중...</span>
+      </p>
+    );
+  }
 
   if (isAuthor && isEditMode) {
     return (
@@ -140,14 +171,16 @@ function EditButtonBox({
         <button
           className="cursor-pointer px-2 py-1 font-semibold text-sm
           transition-colors hover:bg-neutral-600 rounded text-neutral-300 hover:text-neutral-100"
-          onClick={toggleEditButton}
+          onClick={handleCancelEditMode}
         >
           <span>취소</span> <FontAwesomeIcon icon={faBackspace} />
         </button>
         <button
-          className="cursor-pointer px-2 py-1 font-semibold text-sm
+          className="cursor-pointer px-2 py-1 font-semibold text-sm 
+          disabled:cursor-not-allowed disabled:text-neutral-500 disabled:hover:bg-transparent 
           transition-colors hover:bg-neutral-600 rounded text-neutral-300 hover:text-neutral-100"
           onClick={handleEdit}
+          disabled={initialPayload === payload}
         >
           <span>저장</span> <FontAwesomeIcon icon={faSave} />
         </button>

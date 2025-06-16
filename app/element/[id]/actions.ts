@@ -286,7 +286,7 @@ export async function editComment({
   return null;
 }
 
-export async function deleteComment({
+export async function deleteCommentById({
   commentId,
 }: {
   commentId: string;
