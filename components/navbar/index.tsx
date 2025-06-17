@@ -1,6 +1,6 @@
 // lib
 import { createClient } from "@/lib/supabase/server";
-import findUserById from "@/lib/supabase/actions/users/find-user-by-id";
+import { findUserById } from "@/lib/supabase/actions/users";
 // components
 import NavbarDropDown from "./dropdown";
 import LinkLogo from "../link-logo";

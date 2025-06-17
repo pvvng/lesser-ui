@@ -1,6 +1,6 @@
 "use server";
 
-import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
+import { checkUserLogin } from "@/lib/supabase/actions/users";
 import { createClient } from "@/lib/supabase/server";
 import { editUserdataSchema } from "@/lib/zod-schema/edit-userdata";
 import { redirect } from "next/navigation";

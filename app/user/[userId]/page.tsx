@@ -1,7 +1,7 @@
 // supabase lib func
-import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
+import { checkUserLogin } from "@/lib/supabase/actions/users";
 // actions
-import { getUserDetail } from "@/lib/supabase/actions/users/get-user-detail";
+import { getUserDetail } from "@/lib/supabase/actions/users";
 // component
 import LogoutButton from "@/components/auth/logout-button";
 import TabSection from "@/components/user-page/tab-section";

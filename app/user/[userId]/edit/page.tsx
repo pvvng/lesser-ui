@@ -1,6 +1,6 @@
 import EditUserdataView from "@/components/user-page/edit-page-view";
-import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
-import { getUserdata } from "@/lib/supabase/actions/users/get-user-data";
+import { checkUserLogin } from "@/lib/supabase/actions/users";
+import { getUserdata } from "@/lib/supabase/actions/users";
 import { notFound, unauthorized } from "next/navigation";
 
 interface UserDashBoardProps {

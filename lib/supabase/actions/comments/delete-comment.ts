@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../../server";
-import checkUserLogin from "../users/check-user-login";
+import { checkUserLogin } from "../users";
 
 export async function deleteComment({
   commentId,

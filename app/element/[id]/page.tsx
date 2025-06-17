@@ -6,9 +6,12 @@ import ElementDetailHeader from "@/components/element-detail/header";
 import MITLicenseContainer from "@/components/element-detail/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
-import checkUserLogin from "@/lib/supabase/actions/users/check-user-login";
 
-import { getElement, incrementViewCount } from "@/lib/supabase/actions/element";
+import {
+  getElementDetail,
+  incrementViewCount,
+} from "@/lib/supabase/actions/elements";
+import { checkUserLogin } from "@/lib/supabase/actions/users";
 // util
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
@@ -35,7 +38,7 @@ export default async function ElementDetail({
   const [userId, _, { data: element, error }] = await Promise.all([
     checkUserLogin(),
     incrementViewCount({ elementId }),
-    getElement({ elementId }),
+    getElementDetail({ elementId }),
   ]);
 
   if (error || !element) {

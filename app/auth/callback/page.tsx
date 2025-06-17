@@ -2,8 +2,7 @@
 
 // supabase lib func
 import { createClient } from "@/lib/supabase/client";
-import findUserById from "@/lib/supabase/actions/users/find-user-by-id";
-import upsertUser from "@/lib/supabase/actions/users/upsert-user";
+import { findUserById, upsertUser } from "@/lib/supabase/actions/users";
 // utils
 import getUsername from "@/lib/utils/get-username";
 import getNullableValue from "@/lib/utils/get-nullable-value";

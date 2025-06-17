@@ -2,12 +2,9 @@ import { Database } from "./supabase";
 
 export type LanguageMode = "HTML" | "CSS" | "TAILWIND";
 
-type SimpleUser = Pick<
-  Database["public"]["Tables"]["users"]["Row"],
-  "id" | "nickname" | "avatar"
->;
-
 export type Users = Database["public"]["Tables"]["users"]["Row"];
+
+type SimpleUser = Pick<Users, "id" | "nickname" | "avatar">;
 
 export type Comment = Pick<
   Database["public"]["Tables"]["comments"]["Row"],
@@ -21,16 +18,16 @@ type Favorite = Pick<
   "user_id" | "element_id"
 >;
 
-export type ElementDetail = Database["public"]["Tables"]["elements"]["Row"] & {
+export type Element = Database["public"]["Tables"]["elements"]["Row"];
+
+export type ElementDetail = Element & {
   users: SimpleUser | null;
   favorites: Favorite[];
   comments: Comment[];
 };
 
-export type Element = Database["public"]["Tables"]["elements"]["Row"];
-
 export type UserElement = Pick<
-  Database["public"]["Tables"]["elements"]["Row"],
+  Element,
   | "id"
   | "name"
   | "bio"
@@ -51,7 +48,7 @@ export type UserComment = Pick<
 };
 
 export type UserDetail = Pick<
-  Database["public"]["Tables"]["users"]["Row"],
+  Users,
   "id" | "nickname" | "avatar" | "provider" | "email"
 > & {
   elements: UserElement[];

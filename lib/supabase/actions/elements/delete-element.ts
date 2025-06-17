@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../../server";
-import checkUserLogin from "../users/check-user-login";
+import { checkUserLogin } from "../users";
 
 /** elementId와 현재 로그인한 user id를 사용하여 element 삭제하는 함수 */
 export async function deleteElement({

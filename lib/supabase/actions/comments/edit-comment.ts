@@ -2,7 +2,7 @@
 
 import { commentRefineSchema } from "@/lib/zod-schema/comment";
 import { createClient } from "../../server";
-import checkUserLogin from "../users/check-user-login";
+import { checkUserLogin } from "../users";
 
 export async function editComment({
   commentId,

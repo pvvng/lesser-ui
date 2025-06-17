@@ -27,7 +27,7 @@ const selectFields = `*,
 `;
 
 /** elementId에 따른 element value 불러오는 함수 */
-export async function getElement({ elementId }: { elementId: string }) {
+export async function getElementDetail({ elementId }: { elementId: string }) {
   const supabase = await createClient();
 
   const { data: element, error: selectError } = await supabase
