@@ -1,58 +1,44 @@
 import { Database } from "./supabase";
 
+//////////////////////
+// custom
+//////////////////////
 export type LanguageMode = "HTML" | "CSS" | "TAILWIND";
+export type UserTab = "favorites" | "comments" | "elements" | "activites";
 
+//////////////////////
+// supabase DB
+//////////////////////
 export type Users = Database["public"]["Tables"]["users"]["Row"];
-
-type SimpleUser = Pick<Users, "id" | "nickname" | "avatar">;
-
-export type CommentWithUser = Pick<
-  Database["public"]["Tables"]["comments"]["Row"],
-  "id" | "payload" | "created_at" | "user_id"
-> & {
-  users: SimpleUser | null;
-};
-
-type Favorite = Pick<
-  Database["public"]["Tables"]["favorites"]["Row"],
-  "user_id" | "element_id"
->;
-
-export type Element = Database["public"]["Tables"]["elements"]["Row"];
-
-export type ElementDetail = Element & {
-  users: SimpleUser | null;
-  favorites: Favorite[];
-  comments: CommentWithUser[];
-};
-
-export type UserElement = Pick<
-  Element,
-  | "id"
-  | "name"
-  | "bio"
-  | "view"
-  | "marked"
-  | "type"
-  | "tag"
-  | "created_at"
-  | "html"
-  | "css"
->;
-
 export type Comment = Database["public"]["Tables"]["comments"]["Row"];
+export type Element = Database["public"]["Tables"]["elements"]["Row"];
+export type Favorites = Database["public"]["Tables"]["favorites"]["Row"];
 
-export type UserComment = Comment & {
+//////////////////////
+// picked DB types
+//////////////////////
+type SimpleUser = Pick<Users, "id" | "nickname" | "avatar">;
+type SimpleFavorites = Pick<Favorites, "user_id" | "element_id">;
+
+//////////////////////
+// join DB types
+//////////////////////
+export type CommentWithUser = Comment & {
+  users: SimpleUser | null;
+};
+
+export type CommentWithElement = Comment & {
   element: Element;
 };
 
-export type UserDetail = Pick<
-  Users,
-  "id" | "nickname" | "avatar" | "provider" | "email"
-> & {
-  elements: UserElement[];
-  favorites: UserElement[];
-  comments: UserComment[];
+export type ElementDetail = Element & {
+  users: SimpleUser | null;
+  favorites: SimpleFavorites[];
+  comments: CommentWithUser[];
 };
 
-export type UserTab = "favorites" | "comments" | "elements" | "activites";
+export type UserDetail = Users & {
+  elements: Element[];
+  favorites: Element[];
+  comments: CommentWithElement[];
+};

@@ -7,11 +7,11 @@ import CommentCard from "../comment-card";
 // utils
 import { groupCommentsByElementId } from "@/lib/utils/group-comments-by-element-id";
 // types
-import { UserComment } from "@/types/core";
+import { CommentWithElement } from "@/types/core";
 import { useRouter } from "next/navigation";
 
 interface UserCommentSectionProps {
-  comments: UserComment[];
+  comments: CommentWithElement[];
   nickname: string;
 }
 

@@ -4,7 +4,7 @@
 import CommentCard from "../comment-card";
 import CommentForm from "../form/comment-form";
 // types
-import { Comment, CommentWithUser } from "@/types/core";
+import { CommentWithUser } from "@/types/core";
 // etc
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

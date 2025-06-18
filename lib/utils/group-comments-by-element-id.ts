@@ -1,9 +1,10 @@
-import { UserComment, UserElement } from "@/types/core";
+import { CommentWithElement, Element } from "@/types/core";
 
 /** comment를 element id를 중심으로 그룹화하는 함수 */
-export function groupCommentsByElementId(comments: UserComment[]) {
-  const elements: Record<string, UserElement> = {};
-  const groupedComments: Record<string, Omit<UserComment, "element">[]> = {};
+export function groupCommentsByElementId(comments: CommentWithElement[]) {
+  const elements: Record<string, Element> = {};
+  const groupedComments: Record<string, Omit<CommentWithElement, "element">[]> =
+    {};
 
   for (const comment of comments) {
     const { element, ...rest } = comment;
