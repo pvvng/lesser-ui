@@ -1,7 +1,7 @@
 "use client";
 
 import { insertComment } from "@/app/element/[id]/actions";
-import { Comment } from "@/types/core";
+import { CommentWithUser } from "@/types/core";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -9,7 +9,7 @@ import { useState } from "react";
 interface CommentFormProps {
   userId: string | null;
   elementId: string;
-  addComment?: (newComment: Comment) => void;
+  addComment?: (newComment: CommentWithUser) => void;
 }
 
 export default function CommentForm({

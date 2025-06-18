@@ -6,12 +6,12 @@ export type Users = Database["public"]["Tables"]["users"]["Row"];
 
 type SimpleUser = Pick<Users, "id" | "nickname" | "avatar">;
 
-// export type Comment = Pick<
-//   Database["public"]["Tables"]["comments"]["Row"],
-//   "id" | "payload" | "created_at" | "user_id"
-// > & {
-//   users: SimpleUser | null;
-// };
+export type CommentWithUser = Pick<
+  Database["public"]["Tables"]["comments"]["Row"],
+  "id" | "payload" | "created_at" | "user_id"
+> & {
+  users: SimpleUser | null;
+};
 
 type Favorite = Pick<
   Database["public"]["Tables"]["favorites"]["Row"],
@@ -23,7 +23,7 @@ export type Element = Database["public"]["Tables"]["elements"]["Row"];
 export type ElementDetail = Element & {
   users: SimpleUser | null;
   favorites: Favorite[];
-  comments: Comment[];
+  comments: CommentWithUser[];
 };
 
 export type UserElement = Pick<

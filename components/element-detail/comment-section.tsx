@@ -1,10 +1,10 @@
 "use client";
 
 // components
-import CommentCard from "./comment-card";
-import CommentForm from "./comment-form";
+import CommentCard from "../comment-card";
+import CommentForm from "../form/comment-form";
 // types
-import { Comment } from "@/types/core";
+import { Comment, CommentWithUser } from "@/types/core";
 // etc
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +13,7 @@ import { useState } from "react";
 interface CommentSectionProps {
   userId: string | null;
   elementId: string;
-  comments: Comment[];
+  comments: CommentWithUser[];
 }
 
 export default function CommentSection({
@@ -21,9 +21,9 @@ export default function CommentSection({
   elementId,
   comments: initialComments,
 }: CommentSectionProps) {
-  const [comments, setComments] = useState<Comment[]>(initialComments);
+  const [comments, setComments] = useState<CommentWithUser[]>(initialComments);
 
-  const addComment = (newComment: Comment) => {
+  const addComment = (newComment: CommentWithUser) => {
     setComments((prevComments) => [...prevComments, newComment]);
   };
 

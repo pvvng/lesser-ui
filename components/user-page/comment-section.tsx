@@ -3,7 +3,7 @@
 // components
 import ElementLinkCard from "../element-card-with-link";
 import EmptyMessage from "./empty-message";
-import CommentCard from "../element-detail/comment-card";
+import CommentCard from "../comment-card";
 // utils
 import { groupCommentsByElementId } from "@/lib/utils/group-comments-by-element-id";
 // types
