@@ -25,6 +25,7 @@ interface CommentCardProps {
   nickname: string | null;
   createdAt: string;
   payload: string;
+  type?: "section" | "userDetail";
   deleteComment: (commentId: string) => void;
 }
 
@@ -36,6 +37,7 @@ export default function CommentCard({
   nickname,
   createdAt,
   payload: initialPayload,
+  type = "section",
   deleteComment,
 }: CommentCardProps) {
   const [isEditMode, setisEditMode] = useState(false);
@@ -55,20 +57,22 @@ export default function CommentCard({
     <div className="p-5 bg-neutral-800 rounded-2xl">
       <div className="flex justify-between items-start">
         <div className="flex gap-3 items-center">
-          <Link
-            href={`/user/${authorId}`}
-            className="size-12 rounded-full overflow-hidden relative bg-neutral-200"
-          >
-            <Image
-              src={avatar || "/unknown.png"}
-              alt={nickname || "탈퇴한 사용자"}
-              sizes="48px"
-              fill
-              className="object-cover"
-              draggable={false}
-              unoptimized
-            />
-          </Link>
+          {type === "section" && (
+            <Link
+              href={`/user/${authorId}`}
+              className="size-12 rounded-full overflow-hidden relative bg-neutral-200"
+            >
+              <Image
+                src={avatar || "/unknown.png"}
+                alt={nickname || "탈퇴한 사용자"}
+                sizes="48px"
+                fill
+                className="object-cover"
+                draggable={false}
+                unoptimized
+              />
+            </Link>
+          )}
           <div className="flex flex-col gap-1">
             <p className="font-semibold">{nickname || "탈퇴한 사용자"}</p>
             <p className="text-xs text-neutral-400">

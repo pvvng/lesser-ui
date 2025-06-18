@@ -1,13 +1,13 @@
 import ElementLinkCard from "../element-card-with-link";
-import { UserElement } from "@/types/core";
 import EmptyMessage from "./empty-message";
+import { Element } from "@/types/core";
 
 interface UserCodePreviewSectionProps {
-  elements: UserElement[];
+  elements: Element[];
   type: "favorites" | "elements";
 }
 
-export default function UserCodePreviewSection({
+export default async function UserCodePreviewSection({
   elements,
   type,
 }: UserCodePreviewSectionProps) {

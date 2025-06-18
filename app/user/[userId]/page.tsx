@@ -1,10 +1,10 @@
 // supabase lib func
-import { checkUserLogin } from "@/lib/supabase/actions/users";
+import { checkUserLogin, getUserdata } from "@/lib/supabase/actions/users";
 // actions
 import { getUserDetail } from "@/lib/supabase/actions/users";
 // component
 import LogoutButton from "@/components/auth/logout-button";
-import TabSection from "@/components/user-page/tab-section";
+import TabSection from "@/components/user-page/tab-wrapper";
 // fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -12,24 +12,70 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import TabHeader from "@/components/user-page/tab-header";
+import { UserTab } from "@/types/core";
+import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
+import { Suspense } from "react";
+import TabFavoritesSection from "@/components/user-page/tab-favorites-section";
+import { TabElementsSection } from "@/components/user-page/tab-elements-section";
+import TabCommentSection from "@/components/user-page/tab-comment-section";
+
+type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
 
 interface UserDashBoardProps {
   params: Promise<{ userId: string }>;
+  searchParams: SearchParams;
 }
 
-export default async function UserDashBoard({ params }: UserDashBoardProps) {
-  const [currentUserId, { userId }] = await Promise.all([
+const tabSet = new Set<UserTab>([
+  "favorites",
+  "comments",
+  "elements",
+  "activites",
+]);
+
+function isUserTab(value: string | null): value is UserTab {
+  return tabSet.has(value as UserTab);
+}
+
+export default async function UserDashBoard({
+  params,
+  searchParams,
+}: UserDashBoardProps) {
+  const [currentUserId, { userId }, { tab }] = await Promise.all([
     checkUserLogin(),
     params,
+    searchParams,
   ]);
 
+  const rawTab = getValidSearchParam(tab);
+  const selectedTab: UserTab = isUserTab(rawTab) ? rawTab : "favorites";
   const isOwner = currentUserId === userId;
 
   if (!userId) return notFound();
 
-  const { data: userdata, error } = await getUserDetail({ userId });
+  const { data: userdata, error } = await getUserdata({ userId });
 
   if (error || !userdata) return notFound();
+
+  const renderTabContent = () => {
+    switch (selectedTab) {
+      case "favorites":
+        return <TabFavoritesSection userId={userId} />;
+      case "elements":
+        return <TabElementsSection userId={userId} />;
+      case "comments":
+        return (
+          <TabCommentSection userId={userId} nickname={userdata.nickname} />
+        );
+      case "activites":
+        return <div className="text-neutral-400">준비 중...</div>;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="space-y-5 p-5">
@@ -61,11 +107,12 @@ export default async function UserDashBoard({ params }: UserDashBoardProps) {
         )}
       </section>
       {/* tabs */}
-      <TabSection
-        favorites={userdata.favorites}
-        elements={userdata.elements}
-        comments={userdata.comments}
-      />
+      <div className="mt-15">
+        <TabHeader selectedTab={selectedTab} userId={userdata.id} />
+        <TabSection deps={selectedTab}>
+          <Suspense fallback={null}>{renderTabContent()}</Suspense>
+        </TabSection>
+      </div>
     </div>
   );
 }

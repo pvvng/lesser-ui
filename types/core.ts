@@ -6,12 +6,12 @@ export type Users = Database["public"]["Tables"]["users"]["Row"];
 
 type SimpleUser = Pick<Users, "id" | "nickname" | "avatar">;
 
-export type Comment = Pick<
-  Database["public"]["Tables"]["comments"]["Row"],
-  "id" | "payload" | "created_at" | "user_id"
-> & {
-  users: SimpleUser | null;
-};
+// export type Comment = Pick<
+//   Database["public"]["Tables"]["comments"]["Row"],
+//   "id" | "payload" | "created_at" | "user_id"
+// > & {
+//   users: SimpleUser | null;
+// };
 
 type Favorite = Pick<
   Database["public"]["Tables"]["favorites"]["Row"],
@@ -40,11 +40,10 @@ export type UserElement = Pick<
   | "css"
 >;
 
-export type UserComment = Pick<
-  Database["public"]["Tables"]["comments"]["Row"],
-  "id" | "payload" | "element_id" | "created_at"
-> & {
-  element: UserElement;
+export type Comment = Database["public"]["Tables"]["comments"]["Row"];
+
+export type UserComment = Comment & {
+  element: Element;
 };
 
 export type UserDetail = Pick<
@@ -55,3 +54,5 @@ export type UserDetail = Pick<
   favorites: UserElement[];
   comments: UserComment[];
 };
+
+export type UserTab = "favorites" | "comments" | "elements" | "activites";

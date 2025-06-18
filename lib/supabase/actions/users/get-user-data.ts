@@ -25,7 +25,7 @@ export async function getUserdata({
     console.error(error);
     return {
       data: null,
-      error: "Failed to fetch user data",
+      error: "사용자 정보를 불러오는 중 에러가 발생했습니다.",
     };
   }
 
