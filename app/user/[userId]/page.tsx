@@ -15,7 +15,7 @@ import { UserTab } from "@/types/core";
 import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { Suspense } from "react";
 import TabFavoritesSection from "@/components/user-page/tab-favorites-section";
-import { TabElementsSection } from "@/components/user-page/tab-elements-section";
+import TabElementsSection from "@/components/user-page/tab-elements-section";
 import TabCommentSection from "@/components/user-page/tab-comment-section";
 
 type SearchParams = Promise<{
