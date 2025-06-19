@@ -1,5 +1,5 @@
-import SearchInputButton from "@/components/search-input-button";
-import ElementsView from "@/components/elements";
+import SearchInputButton from "@/app/elements/components/search-input-button";
+import ElementsView from "@/app/elements/components/view";
 import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { getBySearch } from "@/lib/supabase/actions/elements";
 

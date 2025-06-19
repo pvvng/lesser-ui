@@ -1,9 +1,9 @@
 "use client";
 
-import InputWithLabel from "./form/input-with-label";
-import CheckBoxWithLabel from "./form/checkbox-with-label";
-import ErrorMap from "./error-map";
-import FormButton from "./form/form-button";
+import InputWithLabel from "../form/input-with-label";
+import CheckBoxWithLabel from "../form/checkbox-with-label";
+import ErrorMap from "../error-map";
+import FormButton from "../form/form-button";
 import { startTransition, useActionState, useState } from "react";
 import { WorkspaceActionResult } from "@/types/core";
 

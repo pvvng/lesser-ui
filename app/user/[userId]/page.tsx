@@ -2,7 +2,7 @@
 import { checkUserLogin, getUserdata } from "@/lib/supabase/actions/users";
 // component
 import LogoutButton from "@/components/auth/logout-button";
-import TabSection from "@/components/user-page/tab-wrapper";
+import TabSection from "@/app/user/[userId]/components/tab-wrapper";
 // fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -10,13 +10,13 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import TabHeader from "@/components/user-page/tab-header";
+import TabHeader from "@/app/user/[userId]/components/tab-header";
 import { UserTab } from "@/types/core";
 import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { Suspense } from "react";
-import TabFavoritesSection from "@/components/user-page/tab-favorites-section";
-import TabElementsSection from "@/components/user-page/tab-elements-section";
-import TabCommentSection from "@/components/user-page/tab-comment-section";
+import TabFavoritesSection from "./components/tab-favorites-section";
+import TabElementsSection from "./components/tab-elements-section";
+import TabCommentSection from "./components/tab-comment-section";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;

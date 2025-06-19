@@ -1,5 +1,5 @@
 // components
-import ElementWorkspace from "@/components/element-workspace";
+import ElementWorkspace from "@/components/element-workspace/element-workspace";
 // actions
 import { getElementDetail } from "@/lib/supabase/actions/elements";
 import { checkUserLogin } from "@/lib/supabase/actions/users";

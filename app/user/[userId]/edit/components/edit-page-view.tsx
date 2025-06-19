@@ -1,8 +1,8 @@
 "use client";
 
 import { editUserdata, getUploadUrl } from "@/app/user/[userId]/edit/actions";
-import FormButton from "../form/form-button";
-import ErrorMap from "../error-map";
+import FormButton from "@/components/form/form-button";
+import ErrorMap from "@/components/error-map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useActionState, useState } from "react";

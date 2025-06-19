@@ -1,4 +1,4 @@
-import ElementLinkCard from "../element-card-with-link";
+import ElementLinkCard from "@/components/element-card-with-link";
 import EmptyMessage from "./empty-message";
 import { Element } from "@/types/core";
 

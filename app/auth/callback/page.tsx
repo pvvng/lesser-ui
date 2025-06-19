@@ -4,7 +4,7 @@
 import { findOrCreateUser, getSupabaseUser } from "./actions";
 // utils
 // components
-import LoadingSpinner from "@/components/loading-spinner";
+import LoadingSpinner from "@/components/loader/loading-spinner";
 // etc
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

@@ -1,4 +1,4 @@
-import EditUserdataView from "@/components/user-page/edit-page-view";
+import EditUserdataView from "@/app/user/[userId]/edit/components/edit-page-view";
 import { checkUserLogin } from "@/lib/supabase/actions/users";
 import { getUserdata } from "@/lib/supabase/actions/users";
 import { notFound, unauthorized } from "next/navigation";

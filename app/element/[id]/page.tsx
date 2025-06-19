@@ -1,12 +1,14 @@
 // components
-import ConfettiCelebration from "@/components/confetti-celebration";
-import CommentSection from "@/components/element-detail/comment-section";
-import ElementExplaination from "@/components/element-detail/explaination";
-import ElementDetailHeader from "@/components/element-detail/header";
-import MITLicenseContainer from "@/components/element-detail/license-container";
+import ConfettiCelebration from "../components/confetti-celebration";
+import ElementTitle from "../components/title";
+import ElementTag from "../components/tag";
+import UserInfo from "../components/user-info";
+import CommentSection from "../components/comment-section";
+import ExplainationContainer from "../components/explaination";
+import ElementDetailHeader from "../components/header";
+import MITLicenseContainer from "../components/license-container";
 import SnippetStudio from "@/components/snippet-studio";
 // action
-
 import {
   getElementDetail,
   incrementViewCount,
@@ -63,19 +65,25 @@ export default async function ElementDetail({
       />
       <SnippetStudio userHtml={element.html} userCss={element.css} />
       <div className="mt-10 grid md:grid-cols-3 grid-cols-1 gap-5">
-        <ElementExplaination
-          tag={element.tag}
+        <ExplainationContainer
           elementId={element.id}
-          elementName={element.name}
-          elementBio={element.bio}
-          username={element.users?.nickname || "탈퇴한 사용자"}
-          creatorId={element.user_id}
-          userAvatar={element.users?.avatar || "/unknown.png"}
-          createdAt={getKoreanDate(element.created_at)}
           userId={userId}
           isFavorite={isFavorite}
           isOwner={isOwner}
-        />
+        >
+          <ElementTitle
+            name={element.name}
+            bio={element.bio || "설명이 존재하지 않는 UI 입니다."}
+          />
+          <ElementTag tag={element.tag} />
+          <hr className="border-neutral-700" />
+          <UserInfo
+            creatorId={userId}
+            avatar={element.users?.avatar || "/unknown.png"}
+            nickname={element.users?.nickname || "탈퇴한 사용자"}
+            createdAt={getKoreanDate(element.created_at)}
+          />
+        </ExplainationContainer>
         <div className="col-span-2 space-y-12">
           <CommentSection
             userId={userId}

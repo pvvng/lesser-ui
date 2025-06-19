@@ -2,8 +2,8 @@
 
 // components
 import TagSelector from "./tag-selector";
-import SnippetStudio from "./snippet-studio";
-import SubmitModalContainer from "./submit-modal";
+import SnippetStudio from "../snippet-studio";
+import SubmitModalContainer from "./submit-modal-container";
 import AdditionalInfoForm from "./additional-info-form";
 // util
 import { generatePreviewCode } from "@/lib/utils/generate-preview-code";

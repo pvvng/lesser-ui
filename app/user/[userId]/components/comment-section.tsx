@@ -1,13 +1,14 @@
 "use client";
 
 // components
-import ElementLinkCard from "../element-card-with-link";
+import ElementLinkCard from "@/components/element-card-with-link";
+import CommentCard from "@/components/comment-card";
 import EmptyMessage from "./empty-message";
-import CommentCard from "../comment-card";
 // utils
 import { groupCommentsByElementId } from "@/lib/utils/group-comments-by-element-id";
 // types
 import { CommentWithElement } from "@/types/core";
+// etc
 import { useRouter } from "next/navigation";
 
 interface UserCommentSectionProps {

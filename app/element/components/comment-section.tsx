@@ -1,8 +1,8 @@
 "use client";
 
 // components
-import CommentCard from "../comment-card";
-import CommentForm from "../form/comment-form";
+import CommentCard from "@/components/comment-card";
+import CommentForm from "@/app/element/components/comment-form";
 // types
 import { CommentWithUser } from "@/types/core";
 // etc

@@ -1,6 +1,6 @@
 "use client";
 
-import Preview from "./snippet-studio/preview";
+import Preview from "../snippet-studio/preview";
 import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

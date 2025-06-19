@@ -1,8 +1,8 @@
 "use client";
 
 // component
-import ElementLinkCard from "../element-card-with-link";
-import LoadingBounce from "../loading-bounce";
+import ElementLinkCard from "@/components/element-card-with-link";
+import LoadingBounce from "@/components/loader/loading-bounce";
 // hooks
 import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
 // actions
