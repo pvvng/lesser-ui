@@ -1,38 +1,48 @@
 "use client";
 
-// component
-import SnippetStudio from "@/components/snippet-studio";
-import TagSelector from "@/components/tag-selector";
+// components
+import TagSelector from "./tag-selector";
+import SnippetStudio from "./snippet-studio";
 import SubmitModal from "./submit-modal";
-// custom hook
+// hooks
 import useWarnOnUnload from "@/lib/hooks/use-warn-on-unload";
 // constant
-import { tagItems } from "@/lib/constants";
+import { exampleCode, tagItems } from "@/lib/constants";
 // type
 import { ElementDetail } from "@/types/core";
-// actions
 // etc
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faRocket } from "@fortawesome/free-solid-svg-icons";
 
-export default function EditElementView({
+interface ElementWorkspaceProps {
+  element?: ElementDetail;
+  type: "create" | "edit";
+}
+
+type CodeRef = { html: string; css: string };
+
+export default function ElementWorkspace({
   element,
-}: {
-  element: ElementDetail;
-}) {
-  const codeRef = useRef<{ html: string; css: string }>({
-    html: element.html,
-    css: element.css,
+  type,
+}: ElementWorkspaceProps) {
+  const codeRef = useRef<CodeRef>({
+    html: element?.html || "",
+    css: element?.css || "",
   });
+
   // tag state
-  const [selectedTag, setSelectedTag] = useState<string | null>(element.tag);
+  const [selectedTag, setSelectedTag] = useState<string | null>(
+    element?.tag || null
+  );
   // form open flag state
   const [isFormOpen, setIsFormOpen] = useState(false);
   // toggle form
   const toggleForm = () => setIsFormOpen((prev) => !prev);
 
   const selectedIcon = tagItems.find((item) => item.tag === selectedTag)?.icon;
+
+  const isCreateMode = type === "create";
 
   useWarnOnUnload();
 
@@ -46,13 +56,14 @@ export default function EditElementView({
           codeRef={codeRef}
           selectedTag={selectedTag}
           element={element}
+          isCreateMode={isCreateMode}
           closeForm={toggleForm}
         />
       )}
       {/* code editor */}
       <SnippetStudio
-        userHtml={element.html}
-        userCss={element.css}
+        userHtml={element?.html || exampleCode.userHtml}
+        userCss={element?.css || exampleCode.userCss}
         codeRef={codeRef}
       />
       <div className="w-full p-2 bg-neutral-800 rounded flex justify-between items-center">
@@ -75,10 +86,11 @@ export default function EditElementView({
         </div>
         <button
           className="rounded px-4 py-2 font-semibold cursor-pointer
-         flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-colors"
+             flex items-center gap-2 bg-green-500 hover:bg-green-600 transition-colors"
           onClick={toggleForm}
         >
-          <FontAwesomeIcon icon={faEdit} /> Edit
+          <FontAwesomeIcon icon={isCreateMode ? faRocket : faEdit} />{" "}
+          {isCreateMode ? "Submit" : "Edit"}
         </button>
       </div>
     </div>

@@ -1,7 +1,10 @@
+// components
+import ElementWorkspace from "@/components/element-workspace";
+// actions
 import { getElementDetail } from "@/lib/supabase/actions/elements";
-import { notFound, unauthorized } from "next/navigation";
-import EditElementView from "@/components/element-edit/view";
 import { checkUserLogin } from "@/lib/supabase/actions/users";
+// etc
+import { notFound, unauthorized } from "next/navigation";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;
@@ -17,8 +20,9 @@ export default async function EditElementDetail({
 
   if (error || !element) return notFound();
 
-  if (!currentUserId || currentUserId !== element.user_id)
+  if (!currentUserId || currentUserId !== element.user_id) {
     return unauthorized();
+  }
 
-  return <EditElementView element={element} />;
+  return <ElementWorkspace element={element} type="edit" />;
 }

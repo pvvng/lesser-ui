@@ -1,27 +1,32 @@
-"use client";
-
-// components
-import CheckBoxWithLabel from "../form/checkbox-with-label";
-import InputWithLabel from "../form/input-with-label";
-import FormButton from "../form/form-button";
-import ErrorMap from "../error-map";
-// etc
 import { startTransition, useActionState, useState } from "react";
+import { editElementAction } from "@/app/element/[id]/edit/actions";
 import { createElementAction } from "@/app/element/create/actions";
+import InputWithLabel from "./form/input-with-label";
+import CheckBoxWithLabel from "./form/checkbox-with-label";
+import ErrorMap from "./error-map";
+import FormButton from "./form/form-button";
 
 interface AdditionalInfoFormProps {
   selectedTag: string | null;
   userHtml: string;
   userCss: string;
+  name?: string;
+  bio?: string | null;
+  elementId?: string;
+  isCreateMode: boolean;
 }
 
 export default function AdditionalInfoForm({
   selectedTag,
   userHtml,
   userCss,
+  name,
+  bio,
+  elementId,
+  isCreateMode,
 }: AdditionalInfoFormProps) {
-  const [nameInput, setNameInput] = useState("");
-  const [nameBio, setNameBio] = useState("");
+  const [nameInput, setNameInput] = useState<string>(name || "");
+  const [nameBio, setNameBio] = useState<string>(bio || "");
   const [checks, setChecks] = useState({
     own: false,
     accurate: false,
@@ -30,7 +35,10 @@ export default function AdditionalInfoForm({
   const isFormValid =
     nameInput !== "" && nameBio !== "" && checks.own && checks.accurate;
 
-  const [state, action] = useActionState(createElementAction, null);
+  const [state, action] = useActionState(
+    isCreateMode ? createElementAction : editElementAction,
+    null
+  );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +50,9 @@ export default function AdditionalInfoForm({
     formData.append("tag", selectedTag ?? "");
     formData.append("html", userHtml);
     formData.append("css", userCss);
+    if (elementId && !isCreateMode) {
+      formData.append("elementId", elementId);
+    }
 
     // 비동기 UI 업데이트를 “덜 급한 작업”으로 처리
     startTransition(() => {
@@ -55,7 +66,9 @@ export default function AdditionalInfoForm({
       className="aspect-square p-5 bg-neutral-900 my-auto space-y-3 justify-center rounded-r-2xl overflow-auto"
     >
       <p className="text-2xl font-bold mb-3">
-        Looks great! Let’s finish it up.
+        {isCreateMode
+          ? "Looks great! Let’s finish it up."
+          : "Edit your Element"}
       </p>
       <InputWithLabel
         label="Element Tag"
@@ -73,6 +86,7 @@ export default function AdditionalInfoForm({
         setValue={setNameInput}
         placeholder="Type your element`s name"
         required
+        defaultValue={name}
         minLength={2}
         maxLength={20}
         errors={state?.fieldErrors.name}
@@ -84,6 +98,7 @@ export default function AdditionalInfoForm({
         setValue={setNameBio}
         minLength={2}
         maxLength={60}
+        defaultValue={bio || ""}
         placeholder="Type your element`s bio"
         required
         errors={state?.fieldErrors.bio}
@@ -103,7 +118,10 @@ export default function AdditionalInfoForm({
         />
         <ErrorMap errors={state?.formErrors} />
       </div>
-      <FormButton isFormValid={isFormValid} text="Submit to Confirm" />
+      <FormButton
+        isFormValid={isFormValid}
+        text={isCreateMode ? "Submit to Confirm" : "Edit this Element"}
+      />
     </form>
   );
 }
