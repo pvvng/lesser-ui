@@ -1,3 +1,4 @@
+import { typeToFlattenedError } from "zod";
 import { Database } from "./supabase";
 
 //////////////////////
@@ -42,3 +43,18 @@ export type UserDetail = Users & {
   favorites: Element[];
   comments: CommentWithElement[];
 };
+
+//////////////////////
+// element workspace action
+//////////////////////
+
+export type WorkspaceActionResult = typeToFlattenedError<
+  {
+    html: string;
+    name: string;
+    bio: string;
+    tag: string;
+    css: string;
+  },
+  string
+>;

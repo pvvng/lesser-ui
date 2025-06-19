@@ -1,37 +1,22 @@
 "use client";
 
+import Preview from "./snippet-studio/preview";
 import useSlideBoxes from "@/lib/hooks/gsap/use-slide-boxes";
 import useStopScoll from "@/lib/hooks/use-stop-scroll";
-import { generatePreviewCode } from "@/lib/utils/generate-preview-code";
-import { ElementDetail } from "@/types/core";
-import Preview from "./snippet-studio/preview";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import AdditionalInfoForm from "./additional-info-form";
 
-interface SubmitModalProps {
-  codeRef: React.RefObject<{
-    html: string;
-    css: string;
-  }>;
-  selectedTag: string | null;
-  element?: ElementDetail;
-  isCreateMode: boolean;
+interface SubmitModalContainerProps {
+  children: React.ReactNode;
+  previewCode: string;
   closeForm: () => void;
 }
 
-export default function SubmitModal({
-  codeRef,
-  selectedTag,
-  element,
-  isCreateMode,
+export default function SubmitModalContainer({
+  children,
+  previewCode,
   closeForm,
-}: SubmitModalProps) {
-  const previewCode = generatePreviewCode({
-    html: codeRef.current.html,
-    css: codeRef.current.css,
-  });
-
+}: SubmitModalContainerProps) {
   // gsap rendering animation
   const { containerRef, backdropRef } = useSlideBoxes();
 
@@ -61,16 +46,7 @@ export default function SubmitModal({
             <FontAwesomeIcon icon={faArrowLeft} /> Go Back
           </button>
         </div>
-        {/* form */}
-        <AdditionalInfoForm
-          selectedTag={selectedTag}
-          userHtml={codeRef.current.html}
-          userCss={codeRef.current.css}
-          name={element?.name}
-          bio={element?.bio}
-          elementId={element?.id}
-          isCreateMode={isCreateMode}
-        />
+        {children}
       </div>
     </div>
   );

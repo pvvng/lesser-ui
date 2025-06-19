@@ -2,9 +2,13 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { elementSchema } from "@/lib/zod-schema/element";
+import { WorkspaceActionResult } from "@/types/core";
 import { redirect } from "next/navigation";
 
-export async function createElementAction(_: unknown, formData: FormData) {
+export async function createElementAction(
+  _: unknown,
+  formData: FormData
+): Promise<WorkspaceActionResult> {
   const data = {
     name: formData.get("name"),
     bio: formData.get("bio"),

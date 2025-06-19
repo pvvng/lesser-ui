@@ -1,19 +1,21 @@
-import { startTransition, useActionState, useState } from "react";
-import { editElementAction } from "@/app/element/[id]/edit/actions";
-import { createElementAction } from "@/app/element/create/actions";
+"use client";
+
 import InputWithLabel from "./form/input-with-label";
 import CheckBoxWithLabel from "./form/checkbox-with-label";
 import ErrorMap from "./error-map";
 import FormButton from "./form/form-button";
+import { startTransition, useActionState, useState } from "react";
+import { WorkspaceActionResult } from "@/types/core";
 
 interface AdditionalInfoFormProps {
   selectedTag: string | null;
+  isCreateMode: boolean;
   userHtml: string;
   userCss: string;
   name?: string;
   bio?: string | null;
   elementId?: string;
-  isCreateMode: boolean;
+  action: (_: unknown, formData: FormData) => Promise<WorkspaceActionResult>;
 }
 
 export default function AdditionalInfoForm({
@@ -24,6 +26,7 @@ export default function AdditionalInfoForm({
   bio,
   elementId,
   isCreateMode,
+  action: formAction,
 }: AdditionalInfoFormProps) {
   const [nameInput, setNameInput] = useState<string>(name || "");
   const [nameBio, setNameBio] = useState<string>(bio || "");
@@ -35,10 +38,7 @@ export default function AdditionalInfoForm({
   const isFormValid =
     nameInput !== "" && nameBio !== "" && checks.own && checks.accurate;
 
-  const [state, action] = useActionState(
-    isCreateMode ? createElementAction : editElementAction,
-    null
-  );
+  const [state, action] = useActionState(formAction, null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -3,9 +3,13 @@
 import { createClient } from "@/lib/supabase/server";
 import getNullableValue from "@/lib/utils/get-nullable-value";
 import { elementSchema } from "@/lib/zod-schema/element";
+import { WorkspaceActionResult } from "@/types/core";
 import { redirect } from "next/navigation";
 
-export async function editElementAction(_: unknown, formData: FormData) {
+export async function editElementAction(
+  _: unknown,
+  formData: FormData
+): Promise<WorkspaceActionResult> {
   const data = {
     name: formData.get("name"),
     bio: formData.get("bio"),
