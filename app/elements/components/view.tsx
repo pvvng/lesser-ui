@@ -34,6 +34,7 @@ export default function ElementsView({
   } = useInfinityScroll<Element>({
     initialData: initialElements,
     count,
+    deps: [search, tag],
     action: (page) => getBySearch({ search, tag, page }),
   });
 

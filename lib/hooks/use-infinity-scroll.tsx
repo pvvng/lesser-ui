@@ -14,6 +14,8 @@ interface UseInfinityScrollProps<T> {
    * @param page 현재 페이지 (0부터 시작)
    * @returns data: 해당 페이지의 데이터 배열
    */
+
+  deps?: unknown[];
   action: (page: number) => Promise<{ data: T[] }>;
 }
 
@@ -28,6 +30,7 @@ interface UseInfinityScrollProps<T> {
 export default function useInfinityScroll<T>({
   initialData,
   count,
+  deps = [],
   action,
 }: UseInfinityScrollProps<T>) {
   const [datas, setDatas] = useState<T[]>([...initialData]);
@@ -79,7 +82,7 @@ export default function useInfinityScroll<T>({
     }
 
     return () => observer.disconnect();
-  }, [page]);
+  }, [page, ...deps]);
 
   return {
     /** 현재까지 로드된 데이터 */
