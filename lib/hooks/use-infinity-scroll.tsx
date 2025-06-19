@@ -15,6 +15,7 @@ interface UseInfinityScrollProps<T> {
    * @returns data: 해당 페이지의 데이터 배열
    */
 
+  /** 트리거 dependencys */
   deps?: unknown[];
   action: (page: number) => Promise<{ data: T[] }>;
 }
