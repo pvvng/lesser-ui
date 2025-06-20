@@ -1,19 +1,19 @@
 "use server";
 
-import { Users } from "@/types/core";
 import { createClient } from "../../server";
+import { cookies } from "next/headers";
+import { unstable_cache } from "next/cache";
 
-interface PromiseReturnType {
-  data: Users | null;
-  error: string | null;
-}
-
-export async function getUserdata({
+export async function _getUserdata({
   userId,
+  cookieStore,
 }: {
   userId: string;
-}): Promise<PromiseReturnType> {
-  const supabase = await createClient();
+  cookieStore: ReturnType<typeof cookies>;
+}) {
+  console.log("🔥 fetch from Supabase", new Date());
+
+  const supabase = await createClient(cookieStore);
 
   const { data, error } = await supabase
     .from("users")
@@ -33,4 +33,19 @@ export async function getUserdata({
     data,
     error: null,
   };
+}
+
+// unstable_cache 래퍼
+export async function getUserdata({
+  userId,
+}: {
+  userId: string;
+}): ReturnType<typeof _getUserdata> {
+  const cookieStore = cookies();
+
+  return unstable_cache(
+    () => _getUserdata({ userId, cookieStore }),
+    [`user-data-${userId}`],
+    { tags: [`user-data-${userId}`] }
+  )();
 }

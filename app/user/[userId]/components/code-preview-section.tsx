@@ -56,8 +56,6 @@ export default function UserCodePreviewSection({
     reset(initialElements);
   }, [initialElements, count, type]);
 
-  console.log(elements.length);
-
   return (
     <>
       <div className="grid grid-cols-5 gap-5">
