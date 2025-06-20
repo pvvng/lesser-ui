@@ -70,8 +70,6 @@ export default async function ElementDetail({
     <div className="p-5">
       <ConfettiCelebration run={shouldCelebrate} />
       <ElementDetailHeader
-        userId={element.user_id}
-        // username={element.users?.nickname || "탈퇴한 사용자"}
         view={element.view}
         marked={element.favorites?.length || 0}
       />

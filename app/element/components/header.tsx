@@ -6,24 +6,18 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface ElementDetailHeaderProps {
-  userId: string | null;
-  // username: string;
   view: number;
   marked: number;
 }
 
 export default function ElementDetailHeader({
-  userId,
-  // username,
   view,
   marked,
 }: ElementDetailHeaderProps) {
   const router = useRouter();
-
   const back = () => router.back();
 
   return (
