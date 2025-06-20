@@ -4,7 +4,7 @@ import BrowseAllLinkButton from "./components/browse-all-button";
 import RandomElementLoading from "./components/random-element-loading";
 import ElementLinkCard from "@/components/element-card-with-link";
 // actions
-import { createElementQuery } from "@/lib/supabase/actions/elements";
+import { getRandomElements } from "@/lib/supabase/actions/elements/get-random-elements";
 // etc
 import { Suspense } from "react";
 
@@ -20,8 +20,7 @@ export default function Home() {
 }
 
 async function RandomElementsGrid() {
-  const elementQuery = await createElementQuery();
-  const { data: elements } = await elementQuery.random().fetch();
+  const elements = await getRandomElements();
 
   return (
     <section className="relative">
