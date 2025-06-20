@@ -23,11 +23,11 @@ export default function UserCommentSection({
   const router = useRouter();
   if (comments.length === 0) return <EmptyMessage type="comments" />;
 
-  const { groupedComments, elements } = groupCommentsByElementId(comments);
+  const { elements, groupedComments } = groupCommentsByElementId(comments);
 
-  return Object.entries(elements).map(([key, element]) => (
+  return elements.map((element) => (
     <div
-      key={key}
+      key={element.id}
       className="flex gap-5 border-b border-neutral-600 last:border-none py-5 first:pt-0 last:pb-0"
     >
       <div className="relative size-72 shrink-0">
@@ -38,7 +38,7 @@ export default function UserCommentSection({
         />
       </div>
       <div className="w-full h-72 overflow-auto space-y-3">
-        {groupedComments[key].map((comment) => (
+        {groupedComments[element.id].map((comment) => (
           <CommentCard
             key={comment.id}
             id={comment.id}
