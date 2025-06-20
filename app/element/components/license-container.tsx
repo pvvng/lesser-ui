@@ -1,10 +1,15 @@
+import { getUserdata } from "@/lib/supabase/actions/users";
 import { getLicense } from "@/lib/utils/get-license";
 
-export default function MITLicenseContainer({
-  username,
+export default async function MITLicenseContainer({
+  creatorId,
 }: {
-  username: string;
+  creatorId: string | null;
 }) {
+  const { data: userdata } = await getUserdata({
+    userId: creatorId ?? "",
+  });
+
   return (
     <div>
       <p className="font-semibold text-lg flex items-center gap-2">
@@ -26,9 +31,9 @@ export default function MITLicenseContainer({
       </p>
       <div
         className="max-w-lg w-full h-50 rounded-2xl overflow-auto p-3 px-5
-            text-neutral-300 bg-neutral-800 break-words whitespace-pre-wrap mt-3"
+        text-neutral-300 bg-neutral-800 break-words whitespace-pre-wrap mt-3"
       >
-        {getLicense(username)}
+        {getLicense(userdata?.nickname || "탈퇴한 사용자")}
       </div>
     </div>
   );

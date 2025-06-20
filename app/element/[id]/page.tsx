@@ -21,7 +21,11 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CommentSectionLoading from "../components/comment-section-loading";
+import {
+  CommentSectionLoading,
+  LicenseContainerLoading,
+  UserInfoLoading,
+} from "./loading";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;
@@ -54,8 +58,10 @@ export default async function ElementDetail({
   // 조회수 증가
   await incrementViewCount({ elementId });
 
+  // 현재 사용자가 이 element의 작성자인지 확인
   const isOwner = userId === element.user_id;
 
+  // 현재 사용자가 이 element에 좋아요를 남겼는지 확인
   const isFavorite = element.favorites?.some(
     (favorite) => favorite.user_id === userId
   );
@@ -83,20 +89,20 @@ export default async function ElementDetail({
           />
           <ElementTag tag={element.tag} />
           <hr className="border-neutral-700" />
-          <UserInfo
-            creatorId={element.user_id}
-            avatar={element.users?.avatar || "/unknown.png"}
-            nickname={element.users?.nickname || "탈퇴한 사용자"}
-            createdAt={getKoreanDate(element.created_at)}
-          />
+          <Suspense fallback={<UserInfoLoading />}>
+            <UserInfo
+              creatorId={element.user_id}
+              createdAt={getKoreanDate(element.created_at)}
+            />
+          </Suspense>
         </ExplainationContainer>
         <div className="col-span-2 space-y-12">
           <Suspense fallback={<CommentSectionLoading />}>
             <CommentSection userId={userId} elementId={element.id} />
           </Suspense>
-          <MITLicenseContainer
-            username={element.users?.nickname || "탈퇴한 사용자"}
-          />
+          <Suspense fallback={<LicenseContainerLoading />}>
+            <MITLicenseContainer creatorId={element.user_id} />
+          </Suspense>
         </div>
       </div>
     </div>

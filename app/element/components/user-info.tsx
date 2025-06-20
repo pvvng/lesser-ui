@@ -1,17 +1,18 @@
+import { getUserdata } from "@/lib/supabase/actions/users";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function UserInfo({
+export default async function UserInfo({
   creatorId,
-  avatar,
-  nickname,
   createdAt,
 }: {
   creatorId: string | null;
-  avatar: string;
-  nickname: string;
   createdAt: string;
 }) {
+  const { data: userdata } = await getUserdata({
+    userId: creatorId ?? "",
+  });
+
   return (
     <div className="flex gap-3 items-center">
       <Link
@@ -19,8 +20,8 @@ export default function UserInfo({
         className="size-14 rounded bg-neutral-200 relative overflow-hidden"
       >
         <Image
-          src={avatar}
-          alt={nickname}
+          src={userdata?.avatar || "/unknown.png"}
+          alt={userdata?.nickname || "unknown-user"}
           fill
           sizes="56px"
           className="object-cover"
@@ -29,7 +30,9 @@ export default function UserInfo({
         />
       </Link>
       <div>
-        <p className="text-lg font-semibold">{nickname}</p>
+        <p className="text-lg font-semibold">
+          {userdata?.nickname || "탈퇴한 사용자"}
+        </p>
         <p className="text-sm text-neutral-400">{createdAt}</p>
       </div>
     </div>

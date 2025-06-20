@@ -6,11 +6,6 @@ import { unstable_cache } from "next/cache";
 import { cookies } from "next/headers";
 
 const selectFields = `*,
-  users!elements_user_id_fkey (
-    id,
-    nickname,
-    avatar
-  ),
   favorites:favorites (
     user_id,
     element_id
