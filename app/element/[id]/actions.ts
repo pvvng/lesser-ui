@@ -52,6 +52,7 @@ export async function insertComment(formdata: FormData) {
   }
 
   revalidateTag(`element-comments-${result.data.elementId}`);
+  revalidateTag(`user-tab-comments-${result.data.userId}`);
 
   return { data: commentData, error: null };
 }

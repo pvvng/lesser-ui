@@ -1,5 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
 import UserCommentSection from "./comment-section";
+import { getUserCommentsWithElements } from "@/lib/supabase/actions/comments/get-user-comments-with-elements";
 
 export default async function TabCommentSection({
   userId,
@@ -8,15 +8,9 @@ export default async function TabCommentSection({
   userId: string;
   nickname: string;
 }) {
-  const supabase = await createClient();
-  const { data: comments, error } = await supabase
-    .from("comments")
-    .select("*, element:elements(*)")
-    .eq("user_id", userId);
-
-  if (!comments || error) {
-    return null;
-  }
+  const { data: comments } = await getUserCommentsWithElements({
+    userId,
+  });
 
   return <UserCommentSection comments={comments} nickname={nickname} />;
 }

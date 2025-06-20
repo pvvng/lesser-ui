@@ -48,6 +48,7 @@ export async function editComment({
   }
 
   revalidateTag(`element-comments-${data.element_id}`);
+  revalidateTag(`user-tab-comments-${userId}`);
 
   return null;
 }

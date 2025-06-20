@@ -39,6 +39,7 @@ export async function deleteComment({
   }
 
   revalidateTag(`element-comments-${data.element_id}`);
+  revalidateTag(`user-tab-comments-${userId}`);
 
   return null;
 }
