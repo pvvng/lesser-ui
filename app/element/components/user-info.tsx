@@ -20,14 +20,16 @@ export default async function UserInfo({
   createdAt: string;
 }) {
   const getUserInfo = async () => {
-    let userInfo: UserInfo = { ...UNKNOWN_USER };
+    // 탈퇴한 사용자 혹은 id 확인이 안되는 사용자는 constant 얼리리턴
+    if (!creatorId) return UNKNOWN_USER;
+
     const { data: userdata } = await getUserdata({
-      userId: creatorId ?? "",
+      userId: creatorId,
     });
 
-    if (userdata) userInfo = { ...userdata };
+    if (!userdata) return UNKNOWN_USER;
 
-    return userInfo;
+    return userdata;
   };
 
   const userInfo = await getUserInfo();
