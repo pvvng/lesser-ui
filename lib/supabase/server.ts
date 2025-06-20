@@ -1,10 +1,12 @@
 import { Database } from "@/types/supabase";
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { cookies as defaultCookies } from "next/headers";
 
 /** get server-rendered supabase client */
-export async function createClient() {
-  const cookieStore = await cookies();
+export async function createClient(
+  cookieOverride?: ReturnType<typeof defaultCookies>
+) {
+  const cookieStore = await (cookieOverride ?? defaultCookies());
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,8 +18,8 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+            cookiesToSet.forEach(async ({ name, value, options }) =>
+              (await cookieStore).set(name, value, options)
             );
           } catch {
             // 서버 컴포넌트에서는 쿠키 못 만지니까 그냥 무시해도 됨
