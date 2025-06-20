@@ -78,7 +78,7 @@ export default async function ElementDetail({
           <ElementTag tag={element.tag} />
           <hr className="border-neutral-700" />
           <UserInfo
-            creatorId={userId}
+            creatorId={element.user_id}
             avatar={element.users?.avatar || "/unknown.png"}
             nickname={element.users?.nickname || "탈퇴한 사용자"}
             createdAt={getKoreanDate(element.created_at)}

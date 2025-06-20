@@ -1,17 +1,24 @@
-import { createElementQuery } from "@/lib/supabase/actions/elements";
 import UserCodePreviewSection from "./code-preview-section";
+import { getUserElements } from "@/lib/supabase/actions/users/get-user-elements";
 
 export default async function TabElementsSection({
   userId,
 }: {
   userId: string;
 }) {
-  const elementQuery = await createElementQuery();
-  const { data, error } = await elementQuery.byAuthor(userId).fetch();
+  const { data, error, count } = await getUserElements({ userId, page: 0 });
 
-  if (!data || error) {
-    return null;
+  if (error) {
+    return <p className="text-sm text-neutral-400">{error}</p>;
   }
 
-  return <UserCodePreviewSection elements={data} type="elements" />;
+  return (
+    <UserCodePreviewSection
+      elements={data}
+      type="elements"
+      count={count}
+      userId={userId}
+      action={getUserElements}
+    />
+  );
 }

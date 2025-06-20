@@ -1,23 +1,27 @@
-import { createClient } from "@/lib/supabase/server";
 import UserCodePreviewSection from "./code-preview-section";
+import { getFavoriteElements } from "@/lib/supabase/actions/users/get-favorite-elements";
 
 export default async function TabFavoritesSection({
   userId,
 }: {
   userId: string;
 }) {
-  const supabase = await createClient();
+  const { data, error, count } = await getFavoriteElements({
+    userId,
+    page: 0,
+  });
 
-  const { data, error } = await supabase
-    .from("favorites")
-    .select("elements(*)")
-    .eq("user_id", userId);
-
-  if (error || !data) {
-    return null;
+  if (error) {
+    return <p className="text-sm text-neutral-400">{error}</p>;
   }
 
-  const processedData = data.map(({ elements }) => elements);
-
-  return <UserCodePreviewSection elements={processedData} type="favorites" />;
+  return (
+    <UserCodePreviewSection
+      elements={data}
+      count={count}
+      type="favorites"
+      userId={userId}
+      action={getFavoriteElements}
+    />
+  );
 }
