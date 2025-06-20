@@ -39,12 +39,18 @@ export default async function ElementsPage(props: {
       <div className="flex justify-end pr-5">
         <SearchInputButton />
       </div>
-      <ElementsView
-        initialElements={elements || []}
-        count={count || 0}
-        search={search}
-        tag={tag}
-      />
+      {elements.length === 0 ? (
+        <p className="text-center mt-15 font-semibold">
+          일치하는 UI를 찾을 수 없어요.
+        </p>
+      ) : (
+        <ElementsView
+          initialElements={elements}
+          count={count || 0}
+          search={search}
+          tag={tag}
+        />
+      )}
     </div>
   );
 }
