@@ -39,9 +39,8 @@ export default function SearchInputButton() {
         name="search"
         onChange={handleChange}
         maxLength={100}
-        required
       />
-      <button className="h-full fancy-fill-btn border-none rounded-none px-3 shrink-0 cursor-pointer">
+      <button className="h-full text-green-500 border-none rounded-none px-3 shrink-0 cursor-pointer">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
     </form>
