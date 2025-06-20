@@ -3,6 +3,7 @@
 import { checkUserLogin } from "@/lib/supabase/actions/users";
 import { createClient } from "@/lib/supabase/server";
 import { editUserdataSchema } from "@/lib/zod-schema/edit-userdata";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function editUserdata(_: unknown, formdata: FormData) {
@@ -62,6 +63,8 @@ export async function editUserdata(_: unknown, formdata: FormData) {
     console.error(error);
     return ["유저 정보를 업데이트 하는 중 에러가 발생했습니다."];
   }
+
+  revalidateTag(`user-data-${result.data.userId}`);
 
   return redirect(`/user/${result.data.userId}`);
 }
