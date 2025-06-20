@@ -58,23 +58,6 @@ export default async function UserDashBoard({
 
   if (error || !userdata) return notFound();
 
-  const renderTabContent = () => {
-    switch (selectedTab) {
-      case "favorites":
-        return <TabFavoritesSection userId={userId} />;
-      case "elements":
-        return <TabElementsSection userId={userId} />;
-      case "comments":
-        return (
-          <TabCommentSection userId={userId} nickname={userdata.nickname} />
-        );
-      case "activites":
-        return <div className="text-neutral-400">준비 중...</div>;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="space-y-5 p-5">
       {/* background */}
@@ -108,7 +91,24 @@ export default async function UserDashBoard({
       <div className="mt-15">
         <TabHeader selectedTab={selectedTab} userId={userdata.id} />
         <TabSection deps={selectedTab}>
-          <Suspense fallback={null}>{renderTabContent()}</Suspense>
+          {selectedTab === "favorites" && (
+            <Suspense fallback={<TabLoading />}>
+              <TabFavoritesSection userId={userId} />
+            </Suspense>
+          )}
+          {selectedTab === "elements" && (
+            <Suspense fallback={<TabLoading />}>
+              <TabElementsSection userId={userId} />
+            </Suspense>
+          )}
+          {selectedTab === "comments" && (
+            <Suspense fallback={<TabLoading />}>
+              <TabCommentSection userId={userId} nickname={userdata.nickname} />
+            </Suspense>
+          )}
+          {selectedTab === "activites" && (
+            <p className="text-neutral-400 text-sm">준비 중...</p>
+          )}
         </TabSection>
       </div>
     </div>
@@ -125,4 +125,8 @@ function EditProfileLinkButton({ userId }: { userId: string }) {
       <FontAwesomeIcon icon={faPenToSquare} /> Edit Profile
     </Link>
   );
+}
+
+function TabLoading() {
+  return <p className="text-sm text-neutral-400">로딩 중...</p>;
 }
