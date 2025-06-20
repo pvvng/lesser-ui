@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation";
 
 interface ElementDetailHeaderProps {
   userId: string | null;
-  username: string;
+  // username: string;
   view: number;
   marked: number;
 }
 
 export default function ElementDetailHeader({
   userId,
-  username,
+  // username,
   view,
   marked,
 }: ElementDetailHeaderProps) {
@@ -36,16 +36,6 @@ export default function ElementDetailHeader({
         <FontAwesomeIcon icon={faArrowLeft} /> Go Back
       </button>
       <div className="flex items-center gap-5">
-        <div className="flex items-center gap-1">
-          <p className="text-neutral-400">Created By</p>
-          <Link
-            href={userId ? `/user/${userId}` : "#"}
-            className="flex gap-2 items-center font-bold 
-            hover:bg-neutral-600 transition-colors rounded px-2 py-1"
-          >
-            {username}
-          </Link>
-        </div>
         <p className="flex gap-3 items-center text-neutral-400">
           <span className="flex items-center gap-2">
             <FontAwesomeIcon icon={faEye} /> {view}

@@ -71,7 +71,7 @@ export default async function ElementDetail({
       <ConfettiCelebration run={shouldCelebrate} />
       <ElementDetailHeader
         userId={element.user_id}
-        username={element.users?.nickname || "탈퇴한 사용자"}
+        // username={element.users?.nickname || "탈퇴한 사용자"}
         view={element.view}
         marked={element.favorites?.length || 0}
       />

@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { ElementDetail } from "@/types/core";
 import { unstable_cache } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -36,7 +35,7 @@ export async function _getElementDetail({
   }
 
   return {
-    data: element as ElementDetail,
+    data: element,
     error: null,
   };
 }

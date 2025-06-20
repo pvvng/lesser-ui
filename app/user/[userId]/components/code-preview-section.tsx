@@ -34,6 +34,10 @@ export default function UserCodePreviewSection({
   userId,
   action,
 }: UserCodePreviewSectionProps) {
+  if (initialElements.length === 0) {
+    return <EmptyMessage type={type} />;
+  }
+
   const {
     datas: elements,
     isLoading,
@@ -46,10 +50,6 @@ export default function UserCodePreviewSection({
     deps: [type],
     action: (page) => action({ userId, page }),
   });
-
-  if (elements.length === 0) {
-    return <EmptyMessage type={type} />;
-  }
 
   useEffect(() => {
     reset(initialElements);
