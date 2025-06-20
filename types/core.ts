@@ -35,7 +35,6 @@ export type CommentWithElement = Comment & {
 export type ElementDetail = Element & {
   users: SimpleUser | null;
   favorites: SimpleFavorites[];
-  comments: CommentWithUser[];
 };
 
 export type UserDetail = Users & {

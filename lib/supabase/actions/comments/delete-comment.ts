@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { createClient } from "../../server";
 import { checkUserLogin } from "../users";
 
@@ -14,17 +15,17 @@ export async function deleteComment({
 
   const supabase = await createClient();
 
-  const { data: author, error } = await supabase
+  const { data, error } = await supabase
     .from("comments")
-    .select("user_id")
+    .select("user_id, element_id")
     .eq("id", commentId)
     .maybeSingle();
 
-  if (!author || error) {
-    return "사용자 정보를 불러오는 중 오류가 발생했습니다";
+  if (!data || error) {
+    return "데이터를 불러오는 중 오류가 발생했습니다";
   }
 
-  if (author?.user_id !== userId) {
+  if (data?.user_id !== userId) {
     return "승인되지 않은 사용자입니다.";
   }
 
@@ -36,6 +37,8 @@ export async function deleteComment({
   if (deleteCommentError) {
     return "댓글 삭제 중 오류가 발생했습니다.";
   }
+
+  revalidateTag(`element-comments-${data.element_id}`);
 
   return null;
 }

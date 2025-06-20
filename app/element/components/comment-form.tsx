@@ -9,14 +9,14 @@ import { useState } from "react";
 interface CommentFormProps {
   userId: string | null;
   elementId: string;
-  addComment?: (newComment: CommentWithUser) => void;
+  // addComment?: (newComment: CommentWithUser) => void;
 }
 
 export default function CommentForm({
   userId,
   elementId,
-  addComment,
-}: CommentFormProps) {
+}: // addComment,
+CommentFormProps) {
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +38,7 @@ export default function CommentForm({
       return setErrors(["댓글 작성에 실패했습니다."]);
     }
 
-    addComment?.({ ...data }); // 데이터가 성공적으로 삽입되었을 때, 새로운 댓글을 추가
+    // addComment?.({ ...data }); // 데이터가 성공적으로 삽입되었을 때, 새로운 댓글을 추가
 
     currentForm.reset();
     return setErrors([]); // 에러 초기화

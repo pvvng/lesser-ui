@@ -65,10 +65,7 @@ export async function getBySearch({
         page,
         cookieStore,
       }),
-    // 키는 가능한 한 유일하게
     [`search-elements-${search ?? ""}-${tag ?? ""}-${page}`],
-    {
-      tags: ["elements"],
-    }
+    { tags: ["elements"] }
   )();
 }

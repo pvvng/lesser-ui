@@ -1,10 +1,10 @@
 "use client";
 
+import EditButtonBox from "./edit-button-box";
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import EditButtonBox from "./edit-button-box";
 
 interface CommentCardProps {
   id: string;
@@ -15,7 +15,7 @@ interface CommentCardProps {
   createdAt: string;
   payload: string;
   type?: "section" | "userDetail";
-  deleteComment: (commentId: string) => void;
+  deleteComment?: (commentId: string) => void;
 }
 
 export default function CommentCard({

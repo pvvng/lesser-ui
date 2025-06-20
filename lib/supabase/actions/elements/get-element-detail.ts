@@ -14,17 +14,6 @@ const selectFields = `*,
   favorites:favorites (
     user_id,
     element_id
-  ),
-  comments:comments (
-    id,
-    payload,
-    created_at,
-    user_id,
-    users (
-      id,
-      nickname,
-      avatar
-    )
   )
 `;
 
@@ -36,7 +25,6 @@ export async function _getElementDetail({
   elementId: string;
   cookieStore: ReturnType<typeof cookies>;
 }) {
-  console.log("🔥 element detail hit! : ", elementId, " ", new Date());
   const supabase = await createClient(cookieStore);
 
   const { data: element, error: selectError } = await supabase

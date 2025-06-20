@@ -29,7 +29,7 @@ export default function EditButtonBox({
   initialPayload: string;
   toggleEditButton: () => void;
   resetPayload: () => void;
-  deleteComment: (commentId: string) => void;
+  deleteComment?: (commentId: string) => void;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,7 +63,7 @@ export default function EditButtonBox({
     setIsLoading(false);
 
     if (error) return alert(error);
-    return deleteComment(commentId);
+    return deleteComment?.(commentId);
   };
 
   if (isLoading) {

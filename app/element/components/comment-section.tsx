@@ -1,41 +1,40 @@
-"use client";
-
+// actions
+import { getElementComments } from "@/lib/supabase/actions/comments/get-element-comments";
 // components
 import CommentCard from "@/components/comment-card";
-import CommentForm from "@/app/element/components/comment-form";
-// types
-import { CommentWithUser } from "@/types/core";
-// etc
-import { faComment } from "@fortawesome/free-solid-svg-icons";
+import CommentForm from "./comment-form";
+// svg
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 interface CommentSectionProps {
   userId: string | null;
   elementId: string;
-  comments: CommentWithUser[];
 }
 
-export default function CommentSection({
+export default async function CommentSection({
   userId,
   elementId,
-  comments: initialComments,
 }: CommentSectionProps) {
-  const [comments, setComments] = useState<CommentWithUser[]>(initialComments);
+  const {
+    data: comments,
+    error,
+    count,
+  } = await getElementComments({ elementId });
 
-  const addComment = (newComment: CommentWithUser) => {
-    setComments((prevComments) => [...prevComments, newComment]);
-  };
-
-  const deleteComment = (commentId: string) => {
-    setComments([...comments.filter((comment) => comment.id !== commentId)]);
-  };
+  if (error) {
+    return (
+      <p className="text-sm text-neutral-400">
+        댓글 데이터를 불러오는데 실패했습니다.
+      </p>
+    );
+  }
 
   return (
     <section>
       <p className="font-semibold text-lg flex items-center gap-2">
         <FontAwesomeIcon icon={faComment} />
-        Comments ({comments.length})
+        Comments ({count})
       </p>
       <div className="space-y-3 mt-3 max-h-120 overflow-scroll">
         {comments.map((comment) => (
@@ -48,14 +47,14 @@ export default function CommentSection({
             nickname={comment.users?.nickname || null}
             createdAt={comment.created_at}
             payload={comment.payload}
-            deleteComment={deleteComment}
+            // deleteComment={() => {}}
           />
         ))}
       </div>
       <CommentForm
         elementId={elementId}
         userId={userId}
-        addComment={addComment}
+        // addComment={() => {}}
       />
     </section>
   );

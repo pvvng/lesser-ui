@@ -18,6 +18,10 @@ import { checkUserLogin } from "@/lib/supabase/actions/users";
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CommentSectionLoading from "../components/comment-section-loading";
 
 interface ElementDetailProps {
   params: Promise<{ id: string }>;
@@ -87,11 +91,9 @@ export default async function ElementDetail({
           />
         </ExplainationContainer>
         <div className="col-span-2 space-y-12">
-          <CommentSection
-            userId={userId}
-            elementId={element.id}
-            comments={element.comments}
-          />
+          <Suspense fallback={<CommentSectionLoading />}>
+            <CommentSection userId={userId} elementId={element.id} />
+          </Suspense>
           <MITLicenseContainer
             username={element.users?.nickname || "탈퇴한 사용자"}
           />

@@ -51,5 +51,7 @@ export async function insertComment(formdata: FormData) {
     return { data: null, error: ["댓글 작성에 실패했습니다."] };
   }
 
+  revalidateTag(`element-comments-${result.data.elementId}`);
+
   return { data: commentData, error: null };
 }
