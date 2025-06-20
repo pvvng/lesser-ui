@@ -1,5 +1,5 @@
 // actions
-import { getElementComments } from "@/lib/supabase/actions/comments/get-element-comments";
+import { getElementComments } from "@/lib/supabase/actions/comments";
 // components
 import CommentCard from "@/components/comment-card";
 import CommentForm from "./comment-form";

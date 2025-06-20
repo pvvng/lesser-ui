@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { createClient } from "../../server";
 
 /** element에 대한 북마크 insert 함수 */
@@ -29,6 +30,9 @@ export async function insertFavorite({
       error: "즐겨찾기 추가에 실패했습니다.",
     };
   }
+
+  revalidateTag(`element-detail-${elementId}`);
+  revalidateTag(`user-favorites-${userId}`);
 
   return {
     data,

@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { elementSchema } from "@/lib/zod-schema/element";
 import { WorkspaceActionResult } from "@/types/core";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createElementAction(
@@ -68,6 +69,9 @@ export async function createElementAction(
     };
   }
   const elementId = element.id;
+
+  revalidateTag("elements");
+  revalidateTag(`user-tab-elements-${user.id}`);
 
   return redirect(`/element/${elementId}?celebration=true`);
 }

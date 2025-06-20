@@ -39,7 +39,7 @@ export async function editUserdata(_: unknown, formdata: FormData) {
     .maybeSingle();
 
   if (nicknameError) {
-    console.log(nicknameError);
+    console.error(nicknameError);
     return ["닉네임을 확인하는 중 문제가 발생했습니다."];
   }
 
@@ -59,7 +59,7 @@ export async function editUserdata(_: unknown, formdata: FormData) {
     .maybeSingle();
 
   if (error) {
-    console.log(error);
+    console.error(error);
     return ["유저 정보를 업데이트 하는 중 에러가 발생했습니다."];
   }
 

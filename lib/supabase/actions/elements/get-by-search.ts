@@ -19,8 +19,6 @@ export async function _getBySearch({
 }: GetElementsBySearchTagProps & {
   cookieStore: ReturnType<typeof cookies>;
 }) {
-  console.log("🔥 element hit! : ", search, tag, page, " ", new Date());
-
   const elementQuery = await createElementQuery(cookieStore);
   const {
     data: elements,

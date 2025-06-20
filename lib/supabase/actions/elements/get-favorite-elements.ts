@@ -1,27 +1,24 @@
 "use server";
 
-import { Element } from "@/types/core";
+import { cookies } from "next/headers";
 import { createClient } from "../../server";
-
-interface PromiseReturnType {
-  data: Element[];
-  count: number;
-  error: string | null;
-}
+import { unstable_cache } from "next/cache";
 
 const PAGE_SIZE = 20;
 
-export async function getFavoriteElements({
+export async function _getFavoriteElements({
   userId,
   page,
+  cookieStore,
 }: {
   userId: string;
   page: number;
-}): Promise<PromiseReturnType> {
+  cookieStore: ReturnType<typeof cookies>;
+}) {
   const from = page * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
-  const supabase = await createClient();
+  const supabase = await createClient(cookieStore);
 
   const { data, error, count } = await supabase
     .from("favorites")
@@ -46,4 +43,20 @@ export async function getFavoriteElements({
     count: count ?? 0,
     error: null,
   };
+}
+
+export async function getFavoriteElements({
+  userId,
+  page,
+}: {
+  userId: string;
+  page: number;
+}): ReturnType<typeof _getFavoriteElements> {
+  const cookieStore = cookies();
+
+  return unstable_cache(
+    () => _getFavoriteElements({ userId, page, cookieStore }),
+    [`user-favorites-${userId}-${page}`],
+    { tags: [`user-favorites-${userId}`] }
+  )();
 }

@@ -39,7 +39,6 @@ export default function EditButtonBox({
   };
 
   const handleEdit = async () => {
-    console.log(initialPayload === payload);
     if (initialPayload === payload) {
       return alert("댓글 내용이 변하지 않았습니다.");
     }

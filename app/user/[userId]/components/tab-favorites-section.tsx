@@ -1,5 +1,5 @@
 import UserCodePreviewSection from "./code-preview-section";
-import { getFavoriteElements } from "@/lib/supabase/actions/users/get-favorite-elements";
+import { getFavoriteElements } from "@/lib/supabase/actions/elements";
 
 export default async function TabFavoritesSection({
   userId,

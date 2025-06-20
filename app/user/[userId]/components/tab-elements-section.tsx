@@ -1,5 +1,5 @@
 import UserCodePreviewSection from "./code-preview-section";
-import { getUserElements } from "@/lib/supabase/actions/users/get-user-elements";
+import { getUserElements } from "@/lib/supabase/actions/elements";
 
 export default async function TabElementsSection({
   userId,

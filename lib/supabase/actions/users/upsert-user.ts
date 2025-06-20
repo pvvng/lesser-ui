@@ -31,7 +31,7 @@ export async function upsertUser(insertValue: InsertUserParams) {
     );
   }
 
-  console.log("upsert user:", user.id);
+  console.error("upsert user:", user.id);
 
   return createActionResponse(user, null);
 }

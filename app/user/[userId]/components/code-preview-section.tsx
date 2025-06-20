@@ -2,10 +2,9 @@
 
 import ElementLinkCard from "@/components/element-card-with-link";
 import EmptyMessage from "./empty-message";
-import { Element } from "@/types/core";
-import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
-import { getFavoriteElements } from "@/lib/supabase/actions/users/get-favorite-elements";
 import LoadingBounce from "@/components/loader/loading-bounce";
+import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
+import { Element } from "@/types/core";
 import { useEffect } from "react";
 
 interface UserCodePreviewSectionProps {

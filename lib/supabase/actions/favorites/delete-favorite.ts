@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { createClient } from "../../server";
 
 /** element에 대한 북마크 delete 함수 */
@@ -30,6 +31,9 @@ export async function deleteFavorite({
       error: "즐겨찾기 삭제에 실패했습니다.",
     };
   }
+
+  revalidateTag(`element-detail-${elementId}`);
+  revalidateTag(`user-favorites-${userId}`);
 
   return {
     data,

@@ -36,6 +36,7 @@ export async function deleteElement({
 
   revalidateTag(`elements`);
   revalidateTag(`element-detail-${elementId}`);
+  revalidateTag(`user-tab-elements-${userId}`);
 
   return redirect("/elements");
 }
