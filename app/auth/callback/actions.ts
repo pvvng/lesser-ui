@@ -1,3 +1,5 @@
+"use client";
+
 // supabase
 import { createClient } from "@/lib/supabase/client";
 import { findUserById, upsertUser } from "@/lib/supabase/actions/users";
