@@ -2,6 +2,7 @@
 
 import { Element } from "@/types/core";
 import { createClient } from "../../server";
+import { cookies as defaultCookies } from "next/headers";
 
 // =======================
 // Types
@@ -36,8 +37,10 @@ const PAGE_SIZE = 20;
  *
  * 서버 컴포넌트 전용이며, fetch() 호출 전까지는 쿼리가 실행되지 않음
  */
-export async function createElementQuery() {
-  const supabase = await createClient();
+export async function createElementQuery(
+  cookieOverride?: ReturnType<typeof defaultCookies>
+) {
+  const supabase = await createClient(cookieOverride);
 
   // 내부 상태 변수
   let isRandom: boolean = false;
@@ -91,7 +94,7 @@ export async function createElementQuery() {
      * @param size - 페이지당 아이템 수 (기본값: 20)
      * @param page - 현재 페이지 인덱스 (기본값: 0)
      */
-    range({ size = 5, page = 0 }: { size?: number; page?: number }) {
+    range({ size = PAGE_SIZE, page = 0 }: { size?: number; page?: number }) {
       const from = page * size;
       const to = from + size - 1;
 

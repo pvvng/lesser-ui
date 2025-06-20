@@ -11,8 +11,6 @@ export async function _getUserdata({
   userId: string;
   cookieStore: ReturnType<typeof cookies>;
 }) {
-  console.log("🔥 fetch from Supabase", new Date());
-
   const supabase = await createClient(cookieStore);
 
   const { data, error } = await supabase

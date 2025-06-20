@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import getNullableValue from "@/lib/utils/get-nullable-value";
 import { elementSchema } from "@/lib/zod-schema/element";
 import { WorkspaceActionResult } from "@/types/core";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function editElementAction(
@@ -77,6 +78,8 @@ export async function editElementAction(
       fieldErrors: {},
     };
   }
+
+  revalidateTag(`element-detail-${elementId}`);
 
   return redirect(`/element/${elementId}`);
 }

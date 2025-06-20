@@ -37,16 +37,18 @@ export default async function ElementDetail({
 
   const shouldCelebrate = celebration === "true";
 
-  const [userId, _, { data: element, error }] = await Promise.all([
+  const [userId, { data: element, error }] = await Promise.all([
     checkUserLogin(),
-    incrementViewCount({ elementId }),
     getElementDetail({ elementId }),
   ]);
 
   if (error || !element) {
     console.error(error);
-    notFound();
+    return notFound();
   }
+
+  // 조회수 증가
+  await incrementViewCount({ elementId });
 
   const isOwner = userId === element.user_id;
 

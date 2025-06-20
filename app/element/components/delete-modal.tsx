@@ -8,7 +8,7 @@ import { deleteElement } from "@/lib/supabase/actions/elements";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface DeleteModalProps {
   userId: string | null;
@@ -21,6 +21,7 @@ export default function DeleteModal({
   elementId,
   toggleDeleteModal,
 }: DeleteModalProps) {
+  const pathname = usePathname();
   const router = useRouter();
 
   // gsap 훅을 사용하여 모달 애니메이션 설정
@@ -58,8 +59,6 @@ export default function DeleteModal({
             onClick={async () => {
               const { error } = await deleteElement({ userId, elementId });
               if (error) return alert(error);
-              alert("요소 삭제가 완료되었습니다.");
-              return router.push("/elements");
             }}
           >
             Yes

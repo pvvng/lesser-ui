@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { commentSchema } from "@/lib/zod-schema/comment";
+import { revalidateTag } from "next/cache";
 
 /** 코멘트 insert 함수 */
 export async function insertComment(formdata: FormData) {

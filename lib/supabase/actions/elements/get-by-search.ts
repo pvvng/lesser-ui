@@ -2,6 +2,8 @@
 
 import { Element } from "@/types/core";
 import { createElementQuery } from "./builder";
+import { cookies } from "next/headers";
+import { unstable_cache } from "next/cache";
 
 interface GetElementsBySearchTagProps {
   search: string | null;
@@ -9,31 +11,17 @@ interface GetElementsBySearchTagProps {
   page: number;
 }
 
-interface PromiseReturnType {
-  data: Element[];
-  count: number;
-  error: string | null;
-}
-
-/**
- * 검색어와 태그를 기준으로 요소(Element) 목록을 페이지 단위로 조회하는 어댑터 함수
- *
- * - 클라이언트 컴포넌트에서 직접 Supabase 쿼리를 실행할 수 없기 때문에 서버에서 실행
- * - createElementQuery 체이닝 방식으로 조건 구성
- * - 결과는 페이지네이션 처리된 데이터와 전체 개수, 에러 메시지를 포함
- *
- * @param search - 요소 이름 검색어 (부분 일치)
- * @param tag - 태그 필터 (정확 일치)
- * @param page - 페이지 번호 (0부터 시작)
- *
- * @returns Element 목록, 전체 개수, 에러 메시지(null이면 성공)
- */
-export async function getBySearch({
+export async function _getBySearch({
   search,
   tag,
   page,
-}: GetElementsBySearchTagProps): Promise<PromiseReturnType> {
-  const elementQuery = await createElementQuery();
+  cookieStore,
+}: GetElementsBySearchTagProps & {
+  cookieStore: ReturnType<typeof cookies>;
+}) {
+  console.log("🔥 element hit! : ", search, tag, page, " ", new Date());
+
+  const elementQuery = await createElementQuery(cookieStore);
   const {
     data: elements,
     count,
@@ -59,4 +47,28 @@ export async function getBySearch({
     count: count ?? 0,
     error: null,
   };
+}
+
+// 캐싱된 함수
+export async function getBySearch({
+  search,
+  tag,
+  page,
+}: GetElementsBySearchTagProps): ReturnType<typeof _getBySearch> {
+  const cookieStore = cookies();
+
+  return unstable_cache(
+    () =>
+      _getBySearch({
+        search,
+        tag,
+        page,
+        cookieStore,
+      }),
+    // 키는 가능한 한 유일하게
+    [`search-elements-${search ?? ""}-${tag ?? ""}-${page}`],
+    {
+      tags: ["elements"],
+    }
+  )();
 }

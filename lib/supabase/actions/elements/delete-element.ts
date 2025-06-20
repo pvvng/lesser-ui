@@ -1,7 +1,9 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { createClient } from "../../server";
 import { checkUserLogin } from "../users";
+import { redirect } from "next/navigation";
 
 /** elementId와 현재 로그인한 user id를 사용하여 element 삭제하는 함수 */
 export async function deleteElement({
@@ -11,12 +13,8 @@ export async function deleteElement({
   elementId: string;
   userId: string | null;
 }): Promise<{ error: string | null }> {
-  if (!userId) {
-    return { error: "사용자 ID가 필요합니다." };
-  }
-
-  if (!elementId) {
-    return { error: "컴포넌트 ID가 필요합니다." };
+  if (!userId || !elementId) {
+    return { error: "인증 정보가 누락되었습니다." };
   }
 
   const supabase = await createClient();
@@ -26,7 +24,7 @@ export async function deleteElement({
     return { error: "사용자 인증에 실패했습니다." };
   }
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("elements")
     .delete()
     .eq("id", elementId)
@@ -36,5 +34,8 @@ export async function deleteElement({
     return { error: "컴포넌트 삭제에 실패했습니다." };
   }
 
-  return { error: null };
+  revalidateTag(`elements`);
+  revalidateTag(`element-detail-${elementId}`);
+
+  return redirect("/elements");
 }
