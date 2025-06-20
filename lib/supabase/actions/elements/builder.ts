@@ -91,7 +91,7 @@ export async function createElementQuery() {
      * @param size - 페이지당 아이템 수 (기본값: 20)
      * @param page - 현재 페이지 인덱스 (기본값: 0)
      */
-    range({ size = PAGE_SIZE, page = 0 }: { size?: number; page?: number }) {
+    range({ size = 5, page = 0 }: { size?: number; page?: number }) {
       const from = page * size;
       const to = from + size - 1;
 

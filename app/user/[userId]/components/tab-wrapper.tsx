@@ -13,10 +13,7 @@ export default function TabSection({
   const contentRef = useSlideUp(deps);
 
   return (
-    <section
-      className="w-full py-5 max-h-[500px] overflow-auto rounded-2xl rounded-tl-none"
-      ref={contentRef}
-    >
+    <section className="w-full py-5" ref={contentRef}>
       {children}
     </section>
   );
