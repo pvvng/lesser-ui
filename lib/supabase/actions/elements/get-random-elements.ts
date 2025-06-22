@@ -7,7 +7,6 @@ export async function _getRandomElements({
 }: {
   cookieStore: ReturnType<typeof cookies>;
 }) {
-  console.log("getNEWWW!");
   const elementQuery = await createElementQuery(cookieStore);
   const { data: elements, error } = await elementQuery.random().fetch();
 
