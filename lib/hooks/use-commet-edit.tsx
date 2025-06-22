@@ -27,6 +27,9 @@ export default function useCommentEdit({
   // 저장 버튼 ID (엔터키 트리거용)
   const editButtonId = `edit-btn-${commentId}`;
 
+  /** delete modal open 여부 */
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   // 수정 모드 여부
   const [isEditMode, setisEditMode] = useState(false);
 
@@ -36,9 +39,9 @@ export default function useCommentEdit({
   // 로딩 상태 (편집 or 삭제 처리 중)
   const [isLoading, setIsLoading] = useState(false);
 
-  /** 인풋 필드 값 변경 핸들러 */
-  const onInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPayload(e.target.value);
+  /** delete modal 토글 */
+  const toggleDeleteModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
   };
 
   /** 수정 모드 토글 (on/off) */
@@ -55,6 +58,11 @@ export default function useCommentEdit({
   const cancelEditMode = () => {
     resetPayload();
     toggleEditButton();
+  };
+
+  /** 인풋 필드 값 변경 핸들러 */
+  const onInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPayload(e.target.value);
   };
 
   /** Enter 키 입력 시 저장 버튼 클릭 트리거 */
@@ -84,8 +92,6 @@ export default function useCommentEdit({
 
   /** 댓글 삭제 요청 처리 */
   const handleDelete = async () => {
-    if (!confirm("정말 이 댓글을 삭제하시겠습니까?")) return;
-
     setIsLoading(true);
     const error = await deleteAction({ commentId });
     setIsLoading(false);
@@ -96,6 +102,8 @@ export default function useCommentEdit({
   };
 
   return {
+    /** delete modal open 여부 */
+    isDeleteModalOpen,
     /** 현재 수정 모드 여부 (true면 input 필드가 나타남) */
     isEditMode,
     /** 편집/삭제 요청 중 여부 (로딩 상태) */
@@ -112,6 +120,8 @@ export default function useCommentEdit({
     toggleEditButton,
     /** 댓글 내용을 초기값으로 리셋 */
     resetPayload,
+    /** delete modal toggle */
+    toggleDeleteModal,
     /** 수정 모드 취소 (초기화 + 종료) */
     cancelEditMode,
     /** 댓글 저장 요청 실행 */

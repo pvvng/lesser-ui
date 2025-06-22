@@ -5,10 +5,11 @@ import { insertFavorite } from "@/lib/supabase/actions/favorites";
 import { deleteFavorite } from "@/lib/supabase/actions/favorites";
 // components
 import FavoriteToggleButton from "./favorite-toggle-button";
-import DeleteModal from "./delete-modal";
+import DeleteModal from "../../../components/delete-modal";
 import OwnerButtons from "./owner-buttons";
 // etc
 import { useState } from "react";
+import { deleteElement } from "@/lib/supabase/actions/elements";
 
 interface ExplainationContainerProps {
   children: React.ReactNode;
@@ -50,12 +51,18 @@ export default function ExplainationContainer({
     }
   };
 
+  /** element 삭제 액션 */
+  const deleteAction = async () => {
+    const { error } = await deleteElement({ userId, elementId });
+    if (error) return alert(error);
+  };
+
   return (
     <section className="space-y-6 relative">
       {isDeleteModalOpen && (
         <DeleteModal
-          userId={userId}
-          elementId={elementId}
+          type="element"
+          deleteAction={deleteAction}
           toggleDeleteModal={toggleDeleteModal}
         />
       )}

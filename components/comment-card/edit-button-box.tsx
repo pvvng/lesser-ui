@@ -17,8 +17,8 @@ interface EditButtonBoxProps {
   isLoading: boolean;
   cancelEditMode: () => void;
   toggleEditButton: () => void;
+  toggleDeleteModal: () => void;
   handleEdit: () => Promise<void>;
-  handleDelete: () => Promise<void>;
 }
 
 export default function EditButtonBox({
@@ -28,9 +28,9 @@ export default function EditButtonBox({
   isDisabled,
   isLoading,
   cancelEditMode,
-  handleEdit,
-  handleDelete,
+  toggleDeleteModal,
   toggleEditButton,
+  handleEdit,
 }: EditButtonBoxProps) {
   if (isLoading) {
     return (
@@ -64,7 +64,7 @@ export default function EditButtonBox({
         <button
           className="cursor-pointer px-2 py-1 font-semibold text-sm
           transition-colors hover:bg-neutral-600 rounded text-neutral-300 hover:text-neutral-100"
-          onClick={handleDelete}
+          onClick={toggleDeleteModal}
         >
           <span>삭제</span> <FontAwesomeIcon icon={faTrash} />
         </button>
