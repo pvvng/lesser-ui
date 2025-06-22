@@ -34,20 +34,18 @@ export default function DeleteModal({
     >
       <div
         ref={modalRef}
-        className="bg-neutral-800 rounded-2xl p-5 *:text-center space-y-3"
+        className="min-w-xs bg-neutral-800 rounded-2xl p-5 *:text-center space-y-5"
         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 전파 방지
       >
         <div>
           <FontAwesomeIcon icon={faTriangleExclamation} />
           <p>
-            Deleted elements{" "}
+            삭제된 UI 컴포넌트는{" "}
             <span className="underline underline-offset-2">
-              cannot be restored.
+              복구할 수 없습니다.
             </span>
           </p>
-          <p className="font-semibold">
-            Are you sure you want to delete this element?
-          </p>
+          <p className="font-semibold">정말 이 UI 컴포넌트를 삭제할까요?</p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <button
@@ -57,13 +55,13 @@ export default function DeleteModal({
               if (error) return alert(error);
             }}
           >
-            Yes
+            네
           </button>
           <button
             className="bg-neutral-900 hover:bg-neutral-950 transition-colors font-semibold py-1 rounded cursor-pointer"
             onClick={toggleDeleteModal}
           >
-            No
+            아니요
           </button>
         </div>
       </div>

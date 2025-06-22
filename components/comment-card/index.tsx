@@ -1,10 +1,19 @@
 "use client";
 
+// actions
+import {
+  editComment,
+  deleteComment as deleteCommentById,
+} from "@/lib/supabase/actions/comments";
+// components
 import EditButtonBox from "./edit-button-box";
+// hooks
+import useCommentEdit from "@/lib/hooks/use-commet-edit";
+// utils
 import { getKoreanDate } from "@/lib/utils/get-korean-date";
+// etc
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 interface CommentCardProps {
   id: string;
@@ -29,18 +38,24 @@ export default function CommentCard({
   type = "section",
   deleteComment,
 }: CommentCardProps) {
-  const [isEditMode, setisEditMode] = useState(false);
-  const [payload, setPayload] = useState(initialPayload);
-
-  const toggleEditButton = () => {
-    setisEditMode((prev) => !prev);
-  };
-
-  const resetPayload = () => {
-    setPayload(initialPayload);
-  };
-
-  const isAuthor = currentUserId === authorId;
+  const {
+    isEditMode,
+    isLoading,
+    payload,
+    editButtonId,
+    onKeyDownHandler,
+    onInputValueChange,
+    toggleEditButton,
+    cancelEditMode,
+    handleEdit,
+    handleDelete,
+  } = useCommentEdit({
+    commentId,
+    initialPayload,
+    deleteComment,
+    editAction: editComment,
+    deleteAction: deleteCommentById,
+  });
 
   return (
     <div className="p-5 bg-neutral-800 rounded-2xl">
@@ -70,14 +85,15 @@ export default function CommentCard({
           </div>
         </div>
         <EditButtonBox
-          commentId={commentId}
-          isAuthor={isAuthor}
+          editButtonId={editButtonId}
           isEditMode={isEditMode}
-          payload={payload}
-          initialPayload={initialPayload}
+          isLoading={isLoading}
+          isDisabled={initialPayload === payload}
+          isAuthor={currentUserId === authorId}
+          cancelEditMode={cancelEditMode}
           toggleEditButton={toggleEditButton}
-          resetPayload={resetPayload}
-          deleteComment={deleteComment}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
         />
       </div>
       <hr className="border-neutral-600 my-3" />
@@ -89,9 +105,10 @@ export default function CommentCard({
           placeholder="변경할 댓글 내용을 입력하세요."
           value={payload}
           required
-          onChange={(e) => setPayload(e.target.value)}
           minLength={1}
           maxLength={50}
+          onChange={onInputValueChange}
+          onKeyDown={onKeyDownHandler}
         />
       )}
     </div>

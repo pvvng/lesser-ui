@@ -1,7 +1,5 @@
-import {
-  editComment,
-  deleteComment as deleteCommentById,
-} from "@/lib/supabase/actions/comments";
+"use client";
+
 import {
   faBackspace,
   faEdit,
@@ -10,61 +8,30 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
-export default function EditButtonBox({
-  commentId,
-  isAuthor,
-  isEditMode,
-  payload,
-  initialPayload,
-  toggleEditButton,
-  resetPayload,
-  deleteComment,
-}: {
-  commentId: string;
+interface EditButtonBoxProps {
+  editButtonId: string;
   isAuthor: boolean;
   isEditMode: boolean;
-  payload: string;
-  initialPayload: string;
+  isDisabled: boolean;
+  isLoading: boolean;
+  cancelEditMode: () => void;
   toggleEditButton: () => void;
-  resetPayload: () => void;
-  deleteComment?: (commentId: string) => void;
-}) {
-  const [isLoading, setIsLoading] = useState(false);
+  handleEdit: () => Promise<void>;
+  handleDelete: () => Promise<void>;
+}
 
-  const handleCancelEditMode = () => {
-    resetPayload();
-    toggleEditButton();
-  };
-
-  const handleEdit = async () => {
-    if (initialPayload === payload) {
-      return alert("댓글 내용이 변하지 않았습니다.");
-    }
-
-    setIsLoading(true);
-    const error = await editComment({ commentId, payload });
-    setIsLoading(false);
-
-    if (error) {
-      resetPayload();
-      return alert(error);
-    }
-    return toggleEditButton();
-  };
-
-  const handleDelete = async () => {
-    if (!confirm("정말 이 댓글을 삭제하시겠습니까?")) return;
-
-    setIsLoading(true);
-    const error = await deleteCommentById({ commentId });
-    setIsLoading(false);
-
-    if (error) return alert(error);
-    return deleteComment?.(commentId);
-  };
-
+export default function EditButtonBox({
+  editButtonId,
+  isAuthor,
+  isEditMode,
+  isDisabled,
+  isLoading,
+  cancelEditMode,
+  handleEdit,
+  handleDelete,
+  toggleEditButton,
+}: EditButtonBoxProps) {
   if (isLoading) {
     return (
       <p className="text-neutral-100 text-sm">
@@ -80,16 +47,17 @@ export default function EditButtonBox({
         <button
           className="cursor-pointer px-2 py-1 font-semibold text-sm
           transition-colors hover:bg-neutral-600 rounded text-neutral-300 hover:text-neutral-100"
-          onClick={handleCancelEditMode}
+          onClick={cancelEditMode}
         >
           <span>취소</span> <FontAwesomeIcon icon={faBackspace} />
         </button>
         <button
+          id={editButtonId}
           className="cursor-pointer px-2 py-1 font-semibold text-sm 
           disabled:cursor-not-allowed disabled:text-neutral-500 disabled:hover:bg-transparent 
           transition-colors hover:bg-neutral-600 rounded text-neutral-300 hover:text-neutral-100"
           onClick={handleEdit}
-          disabled={initialPayload === payload}
+          disabled={isDisabled}
         >
           <span>저장</span> <FontAwesomeIcon icon={faSave} />
         </button>

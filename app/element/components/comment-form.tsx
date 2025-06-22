@@ -58,8 +58,8 @@ CommentFormProps) {
         <input
           name="payload"
           className="w-full h-10 ring ring-neutral-600 rounded px-3 transition-all flex justify-center items-center
-          placeholder:text-neutral-600 focus:outline-none focus:ring-2"
-          placeholder="Send Comment"
+          placeholder:text-neutral-600 focus:outline-none focus:ring-2 placeholder:text-sm"
+          placeholder="댓글을 입력하세요"
           minLength={1}
           maxLength={50}
         />
@@ -68,7 +68,7 @@ CommentFormProps) {
           flex justify-center items-center gap-1 cursor-pointer"
         >
           <FontAwesomeIcon icon={faPaperPlane} />
-          <span>Send</span>
+          <span>등록</span>
         </button>
       </form>
     </>
