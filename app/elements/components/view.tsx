@@ -4,7 +4,7 @@
 import ElementLinkCard from "@/components/element-card-with-link";
 import LoadingBounce from "@/components/loader/loading-bounce";
 import SearchInputButton from "./search-input-button";
-import SortDropdown from "./order-accordian";
+import SortDropdown from "./sort-dropdown";
 // hooks
 import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
 // actions
