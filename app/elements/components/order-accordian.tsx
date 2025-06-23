@@ -3,7 +3,7 @@
 import { normalizeSortOption } from "@/lib/utils/normalize-sort-option";
 import useAccordionOpen from "@/lib/hooks/gsap/use-accordion-open";
 import { SortOptions } from "@/types/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFilter,
@@ -22,6 +22,7 @@ export default function SortDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
+  const buttonRef = useRef<HTMLDivElement>(null);
   // reveal animation
   const { menuRef, optionRefs } = useAccordionOpen({ deps: isOpen });
 
@@ -37,14 +38,40 @@ export default function SortDropdown() {
     setIsOpen(false);
   };
 
+  // orderBy가 바뀌면 state 갱신
   useEffect(() => {
     setCurrentSort(normalizeSortOption(orderBy));
   }, [orderBy]);
+
+  // 외부 클릭 감지해서 닫기
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, menuRef]);
 
   return (
     <div className="relative inline-block text-white">
       {/* 버튼 */}
       <div
+        ref={buttonRef}
         onClick={() => setIsOpen((prev) => !prev)}
         className="px-4 py-2 flex justify-center items-center gap-2 font-semibold 
         cursor-pointer text-sm hover:bg-neutral-600 rounded-2xl transition"
