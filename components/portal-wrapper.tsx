@@ -31,5 +31,11 @@ export default function PortalWrapper({
   const root = document.querySelector(selector);
   if (!root) return null;
 
-  return createPortal(children, root);
+  // 컴포넌트를 현재 컴포넌트 트리 밖의 DOM 노드에 렌더링할 수 있게 해주는 함수
+  return createPortal(
+    // 포탈로 보낼 JSX
+    children,
+    // JSX를 렌더링할지를 지정하는 DOM 요소
+    root
+  );
 }
