@@ -35,6 +35,7 @@ export async function deleteElement({
   }
 
   revalidateTag(`elements`);
+  revalidateTag("random-elements");
   revalidateTag(`element-detail-${elementId}`);
   revalidateTag(`user-tab-elements-${userId}`);
 

@@ -71,6 +71,7 @@ export async function createElementAction(
   const elementId = element.id;
 
   revalidateTag("elements");
+  revalidateTag("random-elements");
   revalidateTag(`user-tab-elements-${user.id}`);
 
   return redirect(`/element/${elementId}?celebration=true`);

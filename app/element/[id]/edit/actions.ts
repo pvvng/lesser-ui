@@ -80,6 +80,7 @@ export async function editElementAction(
   }
 
   revalidateTag("elements");
+  revalidateTag("random-elements");
   revalidateTag(`element-detail-${elementId}`);
 
   return redirect(`/element/${elementId}`);
