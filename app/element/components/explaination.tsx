@@ -5,7 +5,7 @@ import { insertFavorite } from "@/lib/supabase/actions/favorites";
 import { deleteFavorite } from "@/lib/supabase/actions/favorites";
 // components
 import FavoriteToggleButton from "./favorite-toggle-button";
-import DeleteModal from "../../../components/delete-modal";
+import DeleteModalPortal from "@/components/delete-modal-portal";
 import OwnerButtons from "./owner-buttons";
 // etc
 import { useState } from "react";
@@ -60,7 +60,7 @@ export default function ExplainationContainer({
   return (
     <section className="space-y-6 relative">
       {isDeleteModalOpen && (
-        <DeleteModal
+        <DeleteModalPortal
           type="element"
           deleteAction={deleteAction}
           toggleDeleteModal={toggleDeleteModal}

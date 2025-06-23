@@ -7,6 +7,7 @@ import {
 } from "@/lib/supabase/actions/comments";
 // components
 import EditButtonBox from "./edit-button-box";
+import DeleteModalPortal from "@/components/delete-modal-portal";
 // hooks
 import useCommentEdit from "@/lib/hooks/use-commet-edit";
 // utils
@@ -14,7 +15,6 @@ import { getKoreanDate } from "@/lib/utils/get-korean-date";
 // etc
 import Image from "next/image";
 import Link from "next/link";
-import DeleteModal from "../delete-modal";
 
 interface CommentCardProps {
   id: string;
@@ -63,7 +63,7 @@ export default function CommentCard({
   return (
     <>
       {isDeleteModalOpen && (
-        <DeleteModal
+        <DeleteModalPortal
           type="comment"
           toggleDeleteModal={toggleDeleteModal}
           deleteAction={handleDelete}

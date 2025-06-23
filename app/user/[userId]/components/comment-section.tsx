@@ -30,7 +30,7 @@ export default function UserCommentSection({
       key={element.id}
       className="flex gap-5 border-b border-neutral-600 last:border-none py-5 first:pt-0 last:pb-0"
     >
-      <div className="relative size-72 shrink-0">
+      <div className="size-72 shrink-0">
         <ElementLinkCard
           elementId={element.id}
           htmlCode={element.html}
