@@ -7,7 +7,8 @@ import {
 } from "@/lib/supabase/actions/comments";
 // components
 import EditButtonBox from "./edit-button-box";
-import DeleteModalPortal from "@/components/delete-modal-portal";
+import DeleteModal from "../delete-modal";
+import PortalWrapper from "../portal-wrapper";
 // hooks
 import useCommentEdit from "@/lib/hooks/use-commet-edit";
 // utils
@@ -63,11 +64,13 @@ export default function CommentCard({
   return (
     <>
       {isDeleteModalOpen && (
-        <DeleteModalPortal
-          type="comment"
-          toggleDeleteModal={toggleDeleteModal}
-          deleteAction={handleDelete}
-        />
+        <PortalWrapper>
+          <DeleteModal
+            type="comment"
+            toggleDeleteModal={toggleDeleteModal}
+            deleteAction={handleDelete}
+          />
+        </PortalWrapper>
       )}
       <div className="p-5 bg-neutral-800 rounded-2xl">
         <div className="flex justify-between items-start">

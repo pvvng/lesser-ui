@@ -17,6 +17,7 @@ import { ElementDetail, WorkspaceActionResult } from "@/types/core";
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faRocket } from "@fortawesome/free-solid-svg-icons";
+import PortalWrapper from "../portal-wrapper";
 
 interface ElementWorkspaceProps {
   element?: ElementDetail;
@@ -95,18 +96,23 @@ export default function ElementWorkspace({
         <TagSelector confirmChoice={(tag) => setSelectedTag(tag)} />
       )}
       {isFormOpen && (
-        <SubmitModalContainer previewCode={previewCode} closeForm={toggleForm}>
-          <AdditionalInfoForm
-            selectedTag={selectedTag}
-            isCreateMode={isCreateMode}
-            userHtml={codeRef.current.html}
-            userCss={codeRef.current.css}
-            name={element?.name}
-            bio={element?.bio}
-            elementId={element?.id}
-            action={action}
-          />
-        </SubmitModalContainer>
+        <PortalWrapper>
+          <SubmitModalContainer
+            previewCode={previewCode}
+            closeForm={toggleForm}
+          >
+            <AdditionalInfoForm
+              selectedTag={selectedTag}
+              isCreateMode={isCreateMode}
+              userHtml={codeRef.current.html}
+              userCss={codeRef.current.css}
+              name={element?.name}
+              bio={element?.bio}
+              elementId={element?.id}
+              action={action}
+            />
+          </SubmitModalContainer>
+        </PortalWrapper>
       )}
       {/* code editor */}
       <SnippetStudio
