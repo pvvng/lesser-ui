@@ -57,3 +57,8 @@ export type WorkspaceActionResult = typeToFlattenedError<
   },
   string
 >;
+
+//////////////////////
+// elements sort options
+//////////////////////
+export type SortOptions = "Recent" | "Oldest" | "View" | "Marked";

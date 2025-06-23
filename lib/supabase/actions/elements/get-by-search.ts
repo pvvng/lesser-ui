@@ -6,15 +6,29 @@ import { cookies } from "next/headers";
 import { unstable_cache } from "next/cache";
 
 interface GetElementsBySearchTagProps {
+  page: number;
   search: string | null;
   tag: string | null;
-  page: number;
+  orderBy?: string | null;
+}
+
+const orderMap: Record<string, { field: keyof Element; ascending: boolean }> = {
+  recent: { field: "created_at", ascending: false },
+  oldest: { field: "created_at", ascending: true },
+  view: { field: "view", ascending: false },
+  marked: { field: "marked", ascending: false },
+};
+
+// orderBy를 즉시 사용 가능한 object 형태로 변경
+function generateOrderObject(orderBy: string | null) {
+  return orderBy ? orderMap[orderBy] : undefined;
 }
 
 export async function _getBySearch({
   search,
   tag,
   page,
+  orderBy = "created_at",
   cookieStore,
 }: GetElementsBySearchTagProps & {
   cookieStore: ReturnType<typeof cookies>;
@@ -28,7 +42,7 @@ export async function _getBySearch({
     .byTag(tag)
     .byName(search)
     .range({ page })
-    .order({ field: "created_at", ascending: false })
+    .order(generateOrderObject(orderBy) ?? {})
     .fetch();
 
   if (error) {
@@ -52,6 +66,7 @@ export async function getBySearch({
   search,
   tag,
   page,
+  orderBy,
 }: GetElementsBySearchTagProps): ReturnType<typeof _getBySearch> {
   const cookieStore = cookies();
 
@@ -61,9 +76,14 @@ export async function getBySearch({
         search,
         tag,
         page,
+        orderBy,
         cookieStore,
       }),
-    [`search-elements-${search ?? ""}-${tag ?? ""}-${page}`],
+    [
+      `search-elements-${search ?? "none"}-${tag ?? "none"}-${
+        orderBy ?? "none"
+      }-${page}`,
+    ],
     { tags: ["elements"] }
   )();
 }

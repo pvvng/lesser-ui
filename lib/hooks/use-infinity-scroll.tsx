@@ -96,5 +96,7 @@ export default function useInfinityScroll<T>({
     trigger,
     /** 무한스크롤 상태 초기화 함수 */
     reset,
+    /** 데이터 변환 setState */
+    setDatas,
   };
 }

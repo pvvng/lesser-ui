@@ -3,6 +3,8 @@
 // component
 import ElementLinkCard from "@/components/element-card-with-link";
 import LoadingBounce from "@/components/loader/loading-bounce";
+import SearchInputButton from "./search-input-button";
+import SortDropdown from "./order-accordian";
 // hooks
 import useInfinityScroll from "@/lib/hooks/use-infinity-scroll";
 // actions
@@ -17,6 +19,7 @@ interface ElementsView {
   count: number;
   search: string | null;
   tag: string | null;
+  orderBy: string | null;
 }
 
 export default function ElementsView({
@@ -24,6 +27,7 @@ export default function ElementsView({
   count,
   search,
   tag,
+  orderBy,
 }: ElementsView) {
   const {
     datas: elements,
@@ -34,31 +38,41 @@ export default function ElementsView({
   } = useInfinityScroll<Element>({
     initialData: initialElements,
     count,
-    deps: [search, tag],
-    action: (page) => getBySearch({ search, tag, page }),
+    deps: [search, tag, orderBy],
+    action: (page) => getBySearch({ search, tag, page, orderBy }),
   });
 
   useEffect(() => {
     reset(initialElements);
-  }, [initialElements, count, search, tag]);
+  }, [initialElements, count, search, tag, orderBy]);
 
   return (
-    <>
-      <section className="grid grid-cols-4 gap-5 p-5">
-        {elements.map((element) => (
-          <ElementLinkCard
-            key={element.id}
-            elementId={element.id}
-            htmlCode={element.html}
-            cssCode={element.css}
-          />
-        ))}
-      </section>
+    <div className="mt-10 space-y-5">
+      <div className="flex justify-between px-5">
+        <SortDropdown orderBy={orderBy} />
+        <SearchInputButton />
+      </div>
+      {elements.length <= 0 ? (
+        <p className="text-center mt-15 font-semibold">
+          일치하는 UI를 찾을 수 없어요.
+        </p>
+      ) : (
+        <section className="grid grid-cols-4 gap-5 p-5">
+          {elements.map((element) => (
+            <ElementLinkCard
+              key={element.id}
+              elementId={element.id}
+              htmlCode={element.html}
+              cssCode={element.css}
+            />
+          ))}
+        </section>
+      )}
       {!isLastPage && (
         <div ref={trigger} className="my-10">
           <LoadingBounce />
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-import SearchInputButton from "@/app/elements/components/search-input-button";
 import ElementsView from "@/app/elements/components/view";
 import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { getBySearch } from "@/lib/supabase/actions/elements";
@@ -13,6 +12,7 @@ export default async function ElementsPage(props: {
   const searchParams = await props.searchParams;
   const search = getValidSearchParam(searchParams.search);
   const tag = getValidSearchParam(searchParams.tag);
+  const orderBy = getValidSearchParam(searchParams.orderBy);
 
   const {
     data: elements,
@@ -22,6 +22,7 @@ export default async function ElementsPage(props: {
     search,
     tag,
     page: 0,
+    orderBy,
   });
 
   if (error) {
@@ -35,22 +36,12 @@ export default async function ElementsPage(props: {
   }
 
   return (
-    <div className="mt-10 space-y-5">
-      <div className="flex justify-end pr-5">
-        <SearchInputButton />
-      </div>
-      {elements.length === 0 ? (
-        <p className="text-center mt-15 font-semibold">
-          일치하는 UI를 찾을 수 없어요.
-        </p>
-      ) : (
-        <ElementsView
-          initialElements={elements}
-          count={count || 0}
-          search={search}
-          tag={tag}
-        />
-      )}
-    </div>
+    <ElementsView
+      initialElements={elements}
+      count={count || 0}
+      search={search}
+      tag={tag}
+      orderBy={orderBy}
+    />
   );
 }

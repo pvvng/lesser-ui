@@ -33,6 +33,7 @@ export async function insertFavorite({
 
   revalidateTag(`element-detail-${elementId}`);
   revalidateTag(`user-favorites-${userId}`);
+  revalidateTag(`elements`);
 
   return {
     data,

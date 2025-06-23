@@ -34,6 +34,7 @@ export async function deleteFavorite({
 
   revalidateTag(`element-detail-${elementId}`);
   revalidateTag(`user-favorites-${userId}`);
+  revalidateTag(`elements`);
 
   return {
     data,

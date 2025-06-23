@@ -79,6 +79,7 @@ export async function editElementAction(
     };
   }
 
+  revalidateTag("elements");
   revalidateTag(`element-detail-${elementId}`);
 
   return redirect(`/element/${elementId}`);
