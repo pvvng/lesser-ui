@@ -23,8 +23,7 @@ CommentFormProps) {
     event.preventDefault();
 
     const currentForm = event.currentTarget;
-    if (!userId) return alert("로그인이 필요합니다.");
-    if (!elementId) return alert("UI 컴포넌트 ID가 필요합니다.");
+    if (!userId || !elementId) return alert("인증 정보를 확인하지 못했습니다.");
 
     const formdata = new FormData(currentForm);
     formdata.append("userId", userId);

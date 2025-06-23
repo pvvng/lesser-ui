@@ -47,7 +47,7 @@ export default function ExplainationContainer({
         await insertFavorite({ userId, elementId });
       }
     } catch (error) {
-      alert("즐겨찾기 변경에 실패했어요.");
+      alert("즐겨찾기 변경에 실패했습니다.");
       setIsFavorite((prev) => !prev);
     }
   };
