@@ -49,7 +49,7 @@ export default function ElementsView({
   return (
     <div className="mt-10 space-y-5">
       <div className="flex justify-between px-5">
-        <SortDropdown orderBy={orderBy} />
+        <SortDropdown />
         <SearchInputButton />
       </div>
       {elements.length <= 0 ? (

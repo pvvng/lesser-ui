@@ -3,18 +3,21 @@
 import { normalizeSortOption } from "@/lib/utils/normalize-sort-option";
 import useAccordionOpen from "@/lib/hooks/gsap/use-accordion-open";
 import { SortOptions } from "@/types/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFilter,
   faAngleDown,
   faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const sortOptions: SortOptions[] = ["Recent", "Oldest", "View", "Marked"];
 
-export default function SortDropdown({ orderBy }: { orderBy: string | null }) {
+export default function SortDropdown() {
+  const searchParams = useSearchParams();
+  const orderBy = searchParams.get("orderBy");
+
   const [currentSort, setCurrentSort] = useState(normalizeSortOption(orderBy));
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -33,6 +36,10 @@ export default function SortDropdown({ orderBy }: { orderBy: string | null }) {
     setCurrentSort(option);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    setCurrentSort(normalizeSortOption(orderBy));
+  }, [orderBy]);
 
   return (
     <div className="relative inline-block text-white">
