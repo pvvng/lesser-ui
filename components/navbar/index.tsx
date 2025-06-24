@@ -44,14 +44,14 @@ export async function LinkButton() {
   const { data: dbUser } = await findUserById({ userId: user.id });
 
   const href = dbUser?.id ? `/user/${user.id}` : "/login";
-  const label = dbUser?.id ? "Dashboard" : "Login";
+  const label = dbUser?.id ? "대시보드" : "로그인";
 
   return (
     <>
       {dbUser?.id && (
-        <Link href="/element/create" className="fancy-fill-btn">
+        <Link href="/element/create" className="fancy-fill-btn px-3 text-sm">
           <FontAwesomeIcon icon={faPlus} />
-          <span>Create New</span>
+          <span>UI 블럭 추가</span>
         </Link>
       )}
       {renderLink(href, label)}
@@ -61,7 +61,7 @@ export async function LinkButton() {
 
 function renderLink(href: string, label: string) {
   return (
-    <Link href={href} scroll={false} className="fancy-fill-btn">
+    <Link href={href} scroll={false} className="fancy-fill-btn px-3 text-sm">
       <FontAwesomeIcon icon={faClover} />
       <span>{label}</span>
     </Link>

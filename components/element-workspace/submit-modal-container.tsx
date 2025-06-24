@@ -43,7 +43,7 @@ export default function SubmitModalContainer({
             className="absolute top-2 left-2 cursor-pointer flex gap-2 items-center text-sm 
               px-3 py-2 rounded transition-colors hover:bg-neutral-700"
           >
-            <FontAwesomeIcon icon={faArrowLeft} /> Go Back
+            <FontAwesomeIcon icon={faArrowLeft} /> 뒤로 가기
           </button>
         </div>
         {children}

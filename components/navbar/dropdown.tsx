@@ -1,11 +1,10 @@
 "use client";
 
-import gsap from "gsap";
-import { menuItems } from "@/lib/constants";
+import { DropdownElement } from "./dropdown-element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function NavbarDropDown() {
@@ -71,7 +70,7 @@ export default function NavbarDropDown() {
         className="ml-5 flex gap-1 items-center font-semibold cursor-pointer"
       >
         <FontAwesomeIcon icon={show ? faAngleUp : faAngleDown} />
-        <span>Elements</span>
+        <span>{"Elements"}</span>
       </div>
 
       {show && (
@@ -87,31 +86,4 @@ export default function NavbarDropDown() {
       )}
     </div>
   );
-}
-
-interface DropdownElementProps {
-  closeDropdown?: () => void;
-}
-
-function DropdownElement({ closeDropdown }: DropdownElementProps) {
-  const getTagLink = (link: string | null) => {
-    const tagLink = "/elements";
-    if (!link) return tagLink;
-    return `${tagLink}?tag=${link}`;
-  };
-
-  return menuItems.map((item) => (
-    <li key={item.label} role="none">
-      <Link
-        href={getTagLink(item.link)}
-        role="menuitem"
-        className="p-3 rounded flex gap-2 items-center text-sm font-semibold 
-        bg-neutral-700 hover:bg-neutral-600 transition-colors"
-        onClick={closeDropdown}
-      >
-        <FontAwesomeIcon icon={item.icon} />
-        <span>{item.label}</span>
-      </Link>
-    </li>
-  ));
 }

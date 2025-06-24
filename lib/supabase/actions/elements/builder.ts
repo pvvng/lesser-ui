@@ -148,7 +148,7 @@ export async function createElementQuery(
         console.error(error?.message);
         return {
           data: null,
-          error: "UI 컴포넌트를 불러오는 중 에러가 발생했습니다.",
+          error: "UI 블럭을 불러오는 중 에러가 발생했습니다.",
           count: null,
         };
       }

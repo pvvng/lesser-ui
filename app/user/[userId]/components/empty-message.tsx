@@ -9,22 +9,22 @@ interface EmptyMessageProps {
 const messageMap = {
   favorites: {
     message:
-      "🤔 즐겨찾기 저장소가 아직 비었어요. 마음에 드는 UI 컴포넌트를 저장해보세요!",
+      "🤔 즐겨찾기 저장소가 아직 비었어요. 마음에 드는 UI 블럭을 저장해보세요!",
     icon: faRocket,
     link: "/elements",
-    linkLabel: "Browse All Element",
+    linkLabel: "모든 UI 블럭 둘러보기",
   },
   elements: {
-    message: "저장된 UI 컴포넌트가 없어요. 이제 하나 만들어볼까요? 🚀",
+    message: "저장된 UI 블럭이 없어요. 이제 하나 만들어볼까요? 🚀",
     icon: faPlus,
     link: "/element/create",
-    linkLabel: "Create New Element",
+    linkLabel: "UI 블럭 새로 추가하기",
   },
   comments: {
     message: "💬 아직 남긴 댓글이 없어요.",
     icon: faRocket,
     link: "/elements",
-    linkLabel: "Browse All Element",
+    linkLabel: "모든 UI 블럭 둘러보기",
   },
 };
 

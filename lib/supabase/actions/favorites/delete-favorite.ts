@@ -14,7 +14,7 @@ export async function deleteFavorite({
   if (!elementId || !userId) {
     return {
       data: null,
-      error: "UI 컴포넌트 ID와 사용자 ID가 필요합니다.",
+      error: "UI 블럭 ID와 사용자 ID가 필요합니다.",
     };
   }
 

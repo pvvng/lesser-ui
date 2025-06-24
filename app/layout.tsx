@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${partialSans.variable} antialiased min-w-[1440px] overflow-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} ${partialSans.variable} antialiased`}
       >
         <div id="modal-root" />
         <Navbar />

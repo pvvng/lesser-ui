@@ -55,7 +55,7 @@ export default function BrowseAllLinkButton() {
         transition-colors bg-green-500 hover:bg-green-600 flex items-center"
       >
         <FontAwesomeIcon icon={faRocket} className="mr-2" ref={iconRef} />
-        Browse All Element
+        UI 블럭 둘러보기
       </Link>
     </div>
   );

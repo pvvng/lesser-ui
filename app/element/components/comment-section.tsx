@@ -34,7 +34,7 @@ export default async function CommentSection({
     <section>
       <p className="font-semibold text-lg flex items-center gap-2">
         <FontAwesomeIcon icon={faComment} />
-        Comments ({count})
+        댓글 ({count})
       </p>
       <div className="space-y-3 mt-3 max-h-120 overflow-scroll">
         {comments.map((comment) => (

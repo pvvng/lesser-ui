@@ -27,7 +27,7 @@ export default function ElementDetailHeader({
         className="cursor-pointer flex gap-2 items-center text-sm 
         px-3 py-2 rounded transition-colors hover:bg-neutral-700"
       >
-        <FontAwesomeIcon icon={faArrowLeft} /> Go Back
+        <FontAwesomeIcon icon={faArrowLeft} /> 뒤로 가기
       </button>
       <div className="flex items-center gap-5">
         <p className="flex gap-3 items-center text-neutral-400">

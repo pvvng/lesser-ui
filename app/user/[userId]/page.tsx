@@ -122,7 +122,7 @@ function EditProfileLinkButton({ userId }: { userId: string }) {
       className="px-3 py-2 rounded font-semibold cursor-pointer flex gap-1 items-center
       transition-colors bg-neutral-800 hover:bg-neutral-700"
     >
-      <FontAwesomeIcon icon={faPenToSquare} /> Edit Profile
+      <FontAwesomeIcon icon={faPenToSquare} /> 프로필 수정
     </Link>
   );
 }

@@ -27,7 +27,7 @@ export default function DeleteModal({
   };
 
   const content = {
-    element: "UI 컴포넌트",
+    element: "UI 블럭",
     comment: "댓글",
   };
 

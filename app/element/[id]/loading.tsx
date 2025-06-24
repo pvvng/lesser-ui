@@ -3,7 +3,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default async function ElementDetailLoading() {
-  return <LoadingSpinner text="UI 컴포넌트 불러오는 중..." />;
+  return <LoadingSpinner text="UI 블럭 불러오는 중..." />;
 }
 
 export function CommentSectionLoading() {
@@ -42,7 +42,7 @@ export function LicenseContainerLoading() {
     <div>
       <p className="font-semibold text-lg flex items-center gap-2">
         <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-        <span>MIT License</span>
+        <span>MIT 라이선스</span>
       </p>
       <div
         className="max-w-lg w-full h-50 rounded-2xl overflow-auto p-3 px-5

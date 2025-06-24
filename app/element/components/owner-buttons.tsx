@@ -20,7 +20,7 @@ export default function OwnerButtons({
         transition-colors rounded font-semibold cursor-pointer text-sm"
         scroll={false}
       >
-        <FontAwesomeIcon icon={faEdit} /> Edit Element
+        <FontAwesomeIcon icon={faEdit} /> UI 블럭 수정
       </Link>
       <button
         className="bg-neutral-800 hover:bg-neutral-700 text-red-400
@@ -28,7 +28,7 @@ export default function OwnerButtons({
         transition-colors rounded font-semibold cursor-pointer text-sm"
         onClick={toggleDeleteModal}
       >
-        <FontAwesomeIcon icon={faTrash} /> Delete Element
+        <FontAwesomeIcon icon={faTrash} /> UI 블럭 삭제
       </button>
     </div>
   );

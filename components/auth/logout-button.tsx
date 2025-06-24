@@ -19,7 +19,7 @@ export default function LogoutButton() {
         flex gap-1 items-center
         transition-colors bg-neutral-800 hover:bg-neutral-700"
       >
-        <FontAwesomeIcon icon={faPowerOff} /> Logout
+        <FontAwesomeIcon icon={faPowerOff} /> 로그아웃
       </button>
     </form>
   );

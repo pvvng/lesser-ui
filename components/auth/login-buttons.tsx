@@ -29,7 +29,7 @@ export default function SocialLoginButtons() {
         <button
           key={provider}
           onClick={() => handleLogin(provider)}
-          className="px-4 py-2 bg-neutral-200 text-neutral-900 font-semibold text-sm
+          className="px-3 py-2 bg-neutral-200 text-neutral-900 font-semibold text-sm
           rounded cursor-pointer flex justify-center items-center gap-2"
         >
           <Image
