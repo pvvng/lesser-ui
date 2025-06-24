@@ -93,7 +93,9 @@ export default function ElementWorkspace({
   return (
     <div className="p-5 space-y-5">
       {!selectedTag && (
-        <TagSelector confirmChoice={(tag) => setSelectedTag(tag)} />
+        <PortalWrapper>
+          <TagSelector confirmChoice={(tag) => setSelectedTag(tag)} />
+        </PortalWrapper>
       )}
       {isFormOpen && (
         <PortalWrapper>

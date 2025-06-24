@@ -3,7 +3,6 @@
 import { cookies } from "next/headers";
 import { createClient } from "../../server";
 import { unstable_cache } from "next/cache";
-import { Comment, Element } from "@/types/core";
 
 async function _getUserCommentsWithElements({
   userId,
