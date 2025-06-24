@@ -16,7 +16,7 @@ export default function LogoutButton() {
     <form action={logout}>
       <button
         className="px-3 py-2 rounded font-semibold cursor-pointer 
-        flex gap-1 items-center
+        flex gap-1 items-center text-sm
         transition-colors bg-neutral-800 hover:bg-neutral-700"
       >
         <FontAwesomeIcon icon={faPowerOff} /> 로그아웃

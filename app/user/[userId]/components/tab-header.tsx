@@ -14,6 +14,13 @@ const userPageTabItems = [
   "activites",
 ] as const;
 
+const koreanTabItems = {
+  favorites: "북마크한 UI 블럭",
+  elements: "제작한 UI 블럭",
+  comments: "작성한 댓글",
+  activites: "내 활동",
+};
+
 export default function TabHeader({ selectedTab, userId }: TabHeaderProps) {
   return (
     <ul className="flex items-center">
@@ -34,7 +41,9 @@ export default function TabHeader({ selectedTab, userId }: TabHeaderProps) {
               className="px-3 py-2 font-semibold cursor-pointer rounded-t relative overflow-hidden"
               data-active={isActive}
             >
-              <span className={`relative z-10 ${textClassName}`}>{tab}</span>
+              <span className={`relative z-10 ${textClassName}`}>
+                {koreanTabItems[tab]}
+              </span>
               {/* 배경 효과 */}
               <span
                 className={`absolute inset-0 transition-all duration-500 ease-out z-0 ${bgClassName}`}
