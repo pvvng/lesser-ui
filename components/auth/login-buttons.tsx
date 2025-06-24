@@ -24,7 +24,7 @@ export default function SocialLoginButtons() {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col justify-center gap-5">
       {socialLoginProviderList.map((provider) => (
         <button
           key={provider}

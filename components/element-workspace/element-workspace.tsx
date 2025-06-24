@@ -146,7 +146,7 @@ export default function ElementWorkspace({
           onClick={toggleForm}
         >
           <FontAwesomeIcon icon={isCreateMode ? faRocket : faEdit} />{" "}
-          {isCreateMode ? "Submit" : "Edit"}
+          {isCreateMode ? "제출" : "수정"}
         </button>
       </div>
     </div>

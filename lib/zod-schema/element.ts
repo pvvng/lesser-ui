@@ -11,7 +11,7 @@ export const elementSchema = z
     name: z
       .string()
       .min(2, "이름은 최소 2자 이상이어야 합니다.")
-      .max(20, "이름은 최대 20자까지 입력할 수 있습니다.")
+      .max(40, "이름은 최대 40자까지 입력할 수 있습니다.")
       .refine(notOnlyWhitespace, "이름은 공백만으로 구성될 수 없습니다.")
       .refine(
         isDangerousPattern,
@@ -19,12 +19,12 @@ export const elementSchema = z
       ),
     bio: z
       .string()
-      .min(2, "소개는 최소 2자 이상이어야 합니다.")
-      .max(60, "소개는 최대 60자까지 입력할 수 있습니다.")
-      .refine(notOnlyWhitespace, "소개는 공백만으로 구성될 수 없습니다.")
+      .min(2, "설명은 최소 2자 이상이어야 합니다.")
+      .max(100, "설명은 최대 100자까지 입력할 수 있습니다.")
+      .refine(notOnlyWhitespace, "설명은 공백만으로 구성될 수 없습니다.")
       .refine(
         isDangerousPattern,
-        "소개에 허용되지 않은 위험한 문자가 포함되어 있습니다."
+        "설명에 허용되지 않은 위험한 문자가 포함되어 있습니다."
       ),
     tag: z
       .string()

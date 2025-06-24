@@ -133,7 +133,7 @@ export default function EditUserdataView({
         </div>
         <ErrorMap errors={state ?? []} />
         <div className="mt-5">
-          <FormButton text="Edit" />
+          <FormButton text="수정 완료" />
         </div>
       </div>
     </form>

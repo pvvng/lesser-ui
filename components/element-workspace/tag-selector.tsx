@@ -22,7 +22,9 @@ export default function TagSelector({
       flex justify-center items-center"
     >
       <div className="max-w-screen-lg bg-neutral-900 rounded-2xl p-8 space-y-5">
-        <p className="font-bold text-3xl text-center">What are you making?</p>
+        <p className="font-bold text-3xl text-center">
+          무슨 UI를 만들고 있나요?
+        </p>
         <div className="grid grid-cols-4 gap-5">
           {tagItems.map((item) => (
             <TagCard
@@ -39,7 +41,7 @@ export default function TagSelector({
           disabled={!Boolean(selected)}
           onClick={() => confirmChoice?.(selected)}
         >
-          Continue
+          계속
         </button>
       </div>
     </section>

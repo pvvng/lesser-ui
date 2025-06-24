@@ -31,7 +31,7 @@ export default function SubmitModalContainer({
     >
       <div
         ref={containerRef}
-        className="max-w-screen-lg p-5 grid grid-cols-2 shadow-xl"
+        className="min-w-240 shrink-0 p-5 grid grid-cols-2 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* preview */}

@@ -6,6 +6,7 @@ import useBounceBoxes from "@/lib/hooks/gsap/use-bounce-boxes";
 // etc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { hasJongsung } from "@/lib/utils/has-jongsung";
 
 interface DeleteModalProps {
   type: "element" | "comment";
@@ -18,14 +19,6 @@ export default function DeleteModal({
   toggleDeleteModal,
   deleteAction,
 }: DeleteModalProps) {
-  /** (한글) 받힘이 있는 글자인지 확인하는 함수 */
-  const hasJongsung = (char: string): boolean => {
-    const code = char.charCodeAt(0);
-    if (code < 0xac00 || code > 0xd7a3) return false; // 한글이 아니면 false
-    const jongsungIndex = (code - 0xac00) % 28;
-    return jongsungIndex !== 0;
-  };
-
   const content = {
     element: "UI 블럭",
     comment: "댓글",

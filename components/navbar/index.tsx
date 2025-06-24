@@ -38,7 +38,7 @@ export async function LinkButton() {
   } = await supabase.auth.getUser();
 
   if (error || !user) {
-    return renderLink("/login", "Login");
+    return renderLink("/login", "로그인");
   }
 
   const { data: dbUser } = await findUserById({ userId: user.id });

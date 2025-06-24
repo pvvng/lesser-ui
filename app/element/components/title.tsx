@@ -7,8 +7,8 @@ export default function ElementTitle({
 }) {
   return (
     <div className="space-y-1">
-      <p className="text-2xl font-semibold">{name}</p>
-      <p className="text-neutral-300">{bio}</p>
+      <p className="text-2xl font-semibold break-words">{name}</p>
+      <p className="text-neutral-300 break-words">{bio}</p>
     </div>
   );
 }

@@ -66,7 +66,7 @@ export default function CodeCopyButton({
         icon={isCopied ? faClipboardCheck : faClipboard}
         className="mr-2"
       />
-      {isCopied ? "Copied!" : "Copy"}
+      {isCopied ? "복사완료" : "복사"}
     </button>
   );
 }

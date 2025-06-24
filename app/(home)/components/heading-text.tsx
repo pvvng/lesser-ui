@@ -51,9 +51,9 @@ export default function HeadingTextSection() {
         ref={headingRef}
         className="md:text-8xl text-4xl text-center font-partial leading-tight"
       >
-        <span className="block">Dev-Ready UI</span>
-        <span className="block">Powered by</span>
-        <span className="block text-green-500">Open-Source</span>
+        <span className="block">같이 만들고</span>
+        <span className="block">같이 나누는</span>
+        <span className="block text-green-500">오픈소스 UI</span>
         <HeadingIcon animateEnd={animateEnd} />
       </h1>
     </section>

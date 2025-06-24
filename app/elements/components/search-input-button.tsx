@@ -35,7 +35,7 @@ export default function SearchInputButton() {
     >
       <input
         className="w-full h-full focus:outline-none px-3 text-sm placeholder:text-sm"
-        placeholder="Search Element by name"
+        placeholder="이름으로 UI 블럭 검색"
         name="search"
         onChange={handleChange}
         maxLength={100}

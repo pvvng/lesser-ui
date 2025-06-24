@@ -66,12 +66,10 @@ export default function AdditionalInfoForm({
       className="aspect-square p-5 bg-neutral-900 my-auto space-y-3 justify-center rounded-r-2xl overflow-auto"
     >
       <p className="text-2xl font-bold mb-3">
-        {isCreateMode
-          ? "Looks great! Let’s finish it up."
-          : "Edit your Element"}
+        {isCreateMode ? "좋아요! 마무리해볼까요?" : "UI 블럭 수정하기"}
       </p>
       <InputWithLabel
-        label="Element Tag"
+        label="UI 블럭 태그"
         id="tag"
         name="tag"
         defaultValue={selectedTag ?? ""}
@@ -80,38 +78,38 @@ export default function AdditionalInfoForm({
         errors={state?.fieldErrors.tag}
       />
       <InputWithLabel
-        label="Element Name"
+        label="UI 블럭 이름"
         id="name"
         name="name"
         setValue={setNameInput}
-        placeholder="Type your element`s name"
+        placeholder="UI 블럭의 이름을 입력하세요"
         required
         defaultValue={name}
         minLength={2}
-        maxLength={20}
+        maxLength={40}
         errors={state?.fieldErrors.name}
       />
       <InputWithLabel
-        label="Element Bio"
+        label="UI 블럭 설명"
         id="bio"
         name="bio"
         setValue={setNameBio}
         minLength={2}
-        maxLength={60}
+        maxLength={100}
         defaultValue={bio || ""}
-        placeholder="Type your element`s bio"
+        placeholder="어디에 쓰이는지, 어떤 특징이 있는지 적어보세요"
         required
         errors={state?.fieldErrors.bio}
       />
       <div className="mt-5 space-y-3">
         <CheckBoxWithLabel
-          label="Is this element your own work?"
+          label="이 UI 블럭이 본인의 작업물이 맞나요?"
           onChange={(checked) =>
             setChecks((prev) => ({ ...prev, own: checked }))
           }
         />
         <CheckBoxWithLabel
-          label="Does the preview UI on the left accurately reflect what you intended to submit?"
+          label="미리보기 UI가 제출하려는 내용과 정확히 일치하나요?"
           onChange={(checked) =>
             setChecks((prev) => ({ ...prev, accurate: checked }))
           }
@@ -120,7 +118,7 @@ export default function AdditionalInfoForm({
       </div>
       <FormButton
         isFormValid={isFormValid}
-        text={isCreateMode ? "Submit to Confirm" : "Edit this Element"}
+        text={isCreateMode ? "제출하여 등록하기" : "UI 블럭 수정하기"}
       />
     </form>
   );

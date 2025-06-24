@@ -51,11 +51,11 @@ export default function BrowseAllLinkButton() {
         href="/elements"
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        className="px-4 py-2 text-lg font-semibold font-sans rounded-2xl pointer-events-auto
+        className="px-4 py-2 text-lg font-semibold rounded-2xl pointer-events-auto
         transition-colors bg-green-500 hover:bg-green-600 flex items-center"
       >
         <FontAwesomeIcon icon={faRocket} className="mr-2" ref={iconRef} />
-        UI 블럭 둘러보기
+        <span>모든 UI 블럭 둘러보기</span>
       </Link>
     </div>
   );

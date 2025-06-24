@@ -4,13 +4,13 @@ import SocialLoginButtons from "./login-buttons";
 
 export default function AuthShowcaseCard() {
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl shadow-xl">
+    <div className="relative overflow-hidden rounded-2xl shadow-xl">
       <FloatingDotsGrid />
       <div className="w-full p-10 *:z-1 bg-neutral-950 flex flex-col gap-8 items-center text-center">
         <LinkLogo size="3xl" />
         <div className="space-y-5">
           <p className="font-bold text-xl">
-            함께 만드는 UI, 함께 나누는 디자인
+            같이 만드는 UI, 같이 나누는 디자인
           </p>
           <div className="text-sm">
             <p>Lesser UI에 당신의 감각을 더해보세요.</p>
