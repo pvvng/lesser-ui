@@ -18,7 +18,7 @@ const messageMap = {
     message: "제작한 UI 블럭이 없어요. 이제 하나 만들어볼까요? 🚀",
     icon: faPlus,
     link: "/element/create",
-    linkLabel: "UI 블럭 새로 추가하기",
+    linkLabel: "UI 블럭 새로 제작하기",
   },
   comments: {
     message: "💬 아직 남긴 댓글이 없어요.",

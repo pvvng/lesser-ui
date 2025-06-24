@@ -3,11 +3,13 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 
 const partialSans = localFont({
   src: "./PartialSansKR-Regular.otf",
@@ -39,12 +41,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${partialSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${partialSans.variable} w-[1440px] overflow-auto antialiased`}
       >
         <div id="modal-root" />
         <Navbar />
         {modal}
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
+        <Footer />
       </body>
     </html>
   );

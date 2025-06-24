@@ -51,7 +51,7 @@ export async function LinkButton() {
       {dbUser?.id && (
         <Link href="/element/create" className="fancy-fill-btn px-3 text-sm">
           <FontAwesomeIcon icon={faPlus} />
-          <span>UI 블럭 추가</span>
+          <span>UI 블럭 제작</span>
         </Link>
       )}
       {renderLink(href, label)}

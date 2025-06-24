@@ -16,7 +16,7 @@ export default function LinkLogo({ size = "xl" }: LinkLogoProps) {
   return (
     <Link
       href="/"
-      className={`${sizeMap[size]} font-partial flex gap-0.5 items-center`}
+      className={`${sizeMap[size]} font-partial max-w-fit flex gap-0.5 items-center`}
     >
       <span>LESSER</span>
       <span className="text-green-500">UI</span>
