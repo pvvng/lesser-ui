@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "개인정보 처리방침",
+  description:
+    "Lesser UI는 이용자의 개인정보를 안전하게 보호하며, 관련 법령을 준수합니다.",
+};
+
 export default function PrivacyPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 text-sm leading-6 text-neutral-300">

@@ -12,7 +12,7 @@ import useWarnOnUnload from "@/lib/hooks/use-warn-on-unload";
 // constant
 import { tagItems } from "@/lib/constants";
 // type
-import { ElementDetail, WorkspaceActionResult } from "@/types/core";
+import { Element, WorkspaceActionResult } from "@/types/core";
 // etc
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +20,7 @@ import { faEdit, faRocket } from "@fortawesome/free-solid-svg-icons";
 import PortalWrapper from "../portal-wrapper";
 
 interface ElementWorkspaceProps {
-  element?: ElementDetail;
+  element?: Element;
   type: "create" | "edit";
   action: (_: unknown, formData: FormData) => Promise<WorkspaceActionResult>;
 }

@@ -1,10 +1,17 @@
 import ElementsView from "@/app/elements/components/view";
 import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { getBySearch } from "@/lib/supabase/actions/elements";
+import { Metadata } from "next";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
 }>;
+
+export const metadata: Metadata = {
+  title: "전체 UI 블록",
+  description:
+    "Lesser UI에 등록된 오픈소스 UI 블록을 한눈에 확인하고, 원하는 UI 디자인을 찾아보세요.",
+};
 
 export default async function ElementsPage(props: {
   searchParams: SearchParams;

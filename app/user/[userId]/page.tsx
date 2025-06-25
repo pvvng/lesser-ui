@@ -1,8 +1,15 @@
 // supabase lib func
 import { checkUserLogin, getUserdata } from "@/lib/supabase/actions/users";
+// util
+import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 // component
 import LogoutButton from "@/components/auth/logout-button";
 import TabSection from "@/app/user/[userId]/components/tab-wrapper";
+import TabFavoritesSection from "./components/tab-favorites-section";
+import TabElementsSection from "./components/tab-elements-section";
+import TabCommentSection from "./components/tab-comment-section";
+import TabHeader from "./components/tab-header";
+import BackgrounWithModal from "./edit/components/background-with-modal";
 // fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -10,14 +17,8 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import TabHeader from "@/app/user/[userId]/components/tab-header";
 import { UserTab } from "@/types/core";
-import { getValidSearchParam } from "@/lib/utils/get-valid-search-params";
 import { Suspense } from "react";
-import TabFavoritesSection from "./components/tab-favorites-section";
-import TabElementsSection from "./components/tab-elements-section";
-import TabCommentSection from "./components/tab-comment-section";
-import BackgrounWithModal from "./edit/components/background-with-modal";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
@@ -37,6 +38,31 @@ const tabSet = new Set<UserTab>([
 
 function isUserTab(value: string | null): value is UserTab {
   return tabSet.has(value as UserTab);
+}
+
+export async function generateMetadata({ params }: UserDashBoardProps) {
+  const { userId } = await params;
+
+  if (!userId) {
+    return {
+      title: "사용자 페이지",
+      description: "사용자 정보를 불러올 수 없습니다.",
+    };
+  }
+
+  const { data: userdata, error } = await getUserdata({ userId });
+
+  if (error || !userdata) {
+    return {
+      title: "사용자 페이지",
+      description: "사용자 정보를 불러올 수 없습니다.",
+    };
+  }
+
+  return {
+    title: `${userdata.nickname}님의 프로필`,
+    description: `${userdata.nickname}님의 Lesser UI 프로필 페이지입니다.`,
+  };
 }
 
 export default async function UserDashBoard({

@@ -34,6 +34,24 @@ interface ElementDetailProps {
   }>;
 }
 
+export async function generateMetadata({ params }: ElementDetailProps) {
+  const elementId = (await params).id;
+  const { data: element, error } = await getElementDetail({ elementId });
+
+  if (!element || error) {
+    return {
+      title: "UI 블록을 찾을 수 없습니다",
+      description: "존재하지 않는 UI 블록이거나 삭제된 요소입니다.",
+    };
+  }
+
+  return {
+    title: element.name,
+    description:
+      "Lesser UI 커뮤니티가 만든, 누구나 사용할 수 있는 UI 블록입니다.",
+  };
+}
+
 export default async function ElementDetail({
   params,
   searchParams,
