@@ -20,28 +20,28 @@ export default function EditBackgroundModal({
   return (
     <div
       ref={backdropRef}
-      className="fixed inset-0 bg-black/80 w-full h-screen p-20 px-25 z-10000"
+      className="fixed inset-0 bg-black/80 w-full h-screen py-20 px-25 z-10000"
       onClick={toggleBgModal}
     >
       <div
         ref={containerRef}
-        className="bg-white text-black rounded-2xl p-5 w-full h-full overflow-auto"
+        className="bg-white text-black rounded-2xl w-full h-full overflow-auto"
         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 전파 방지
       >
-        <header className="w-full p-3 pb-5 flex justify-between items-center">
+        <header className="sticky top-0 left-0 w-full z-1 bg-white py-3 px-5 flex justify-between items-center">
           <p id="modal-title" className="text-lg font-semibold">
             보유한 배경
           </p>
           <button
             onClick={toggleBgModal}
-            className="cursor-pointer transition-transform hover:scale-95"
+            className="cursor-pointer transition-transform hover:scale-90"
             aria-label="배경 선택 닫기"
             title="닫기"
           >
             <FontAwesomeIcon icon={faX} className="text-lg" />
           </button>
         </header>
-        <section className="grid grid-cols-3 gap-5">
+        <section className="grid grid-cols-3 gap-5 p-5">
           {userBackground.map((data) => (
             <BackgroundCard
               key={data.name}
@@ -72,7 +72,7 @@ function BackgroundCard({
 }: BackgroundCardProps) {
   return (
     <div
-      className="rounded-2xl cursor-pointer hover:scale-95 transition-transform"
+      className="rounded-2xl cursor-pointer hover:scale-95 transition-transform shadow"
       onClick={() => selectBackground(name)}
     >
       <div className="rounded-2xl overflow-hidden">

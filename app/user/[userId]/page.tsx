@@ -17,6 +17,7 @@ import { Suspense } from "react";
 import TabFavoritesSection from "./components/tab-favorites-section";
 import TabElementsSection from "./components/tab-elements-section";
 import TabCommentSection from "./components/tab-comment-section";
+import BackgrounWithModal from "./edit/components/background-with-modal";
 
 type SearchParams = Promise<{
   [key: string]: string | string[] | undefined;
@@ -61,16 +62,7 @@ export default async function UserDashBoard({
   return (
     <div className="space-y-5 p-5">
       {/* background */}
-      <section className="relative w-full h-96 overflow-hidden -z-1">
-        <Image
-          src={`/background/${userdata.background}.webp`}
-          alt="bg"
-          fill
-          className="object-cover object-center"
-          draggable={false}
-          priority
-        />
-      </section>
+      <BackgrounWithModal background={userdata.background} />
       {/* avatar */}
       <div className="size-36 rounded-full relative overflow-hidden -mt-12">
         <Image
