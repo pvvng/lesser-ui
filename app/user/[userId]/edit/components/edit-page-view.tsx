@@ -1,11 +1,17 @@
 "use client";
 
+// actions
 import { editUserdata, getUploadUrl } from "@/app/user/[userId]/edit/actions";
+// components
 import FormButton from "@/components/form/form-button";
 import ErrorMap from "@/components/error-map";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import PortalWrapper from "@/components/portal-wrapper";
+import ImageEditOverlay from "./image-edit-overlay";
+import EditBackgroundModal from "./edit-bg-modal";
+import ImageInputLabel from "./image-input-label";
+// etc
 import { useActionState, useState } from "react";
+import Image from "next/image";
 
 const MAX_FILE_SIZE_MB = 2;
 
@@ -13,16 +19,30 @@ interface EditUserdataViewProps {
   avatar: string | null;
   nickname: string;
   userId: string;
+  background: string;
 }
 
 export default function EditUserdataView({
   avatar,
   nickname,
   userId,
+  background: initialBackground,
 }: EditUserdataViewProps) {
   const [preview, setPreview] = useState<string | null>(avatar);
   const [uploadUrl, setUploadUrl] = useState<string | null>(null);
   const [imageId, setImageId] = useState<string | null>(null);
+
+  const [background, setBackground] = useState(initialBackground);
+  const [showBgModal, setShowBgModal] = useState(false);
+
+  const toggleBgModal = () => {
+    setShowBgModal((prev) => !prev);
+  };
+
+  const selectBackground = (selectedBg: string) => {
+    setBackground(selectedBg);
+    setShowBgModal(false);
+  };
 
   const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -62,6 +82,7 @@ export default function EditUserdataView({
 
   const interceptAction = async (_: unknown, formData: FormData) => {
     formData.set("userId", userId);
+    formData.set("background", background);
 
     // 이미지에 변화가 없을때
     if (preview === avatar) {
@@ -103,8 +124,30 @@ export default function EditUserdataView({
 
   return (
     <form action={action} className="space-y-5 p-5">
+      {showBgModal && (
+        <PortalWrapper>
+          <EditBackgroundModal
+            toggleBgModal={toggleBgModal}
+            selectBackground={selectBackground}
+          />
+        </PortalWrapper>
+      )}
       {/* background */}
-      <section className="w-full h-72 bg-neutral-800"></section>
+      <section
+        className="relative w-full h-96 overflow-hidden group cursor-pointer"
+        onClick={toggleBgModal}
+      >
+        <ImageEditOverlay />
+        <Image
+          src={`/background/${background}.webp`}
+          alt={background}
+          fill
+          className="object-cover object-center"
+          draggable={false}
+          priority
+        />
+      </section>
+      {/* avatar */}
       <ImageInputLabel preview={preview} onImageChange={onImageChange} />
       {/* name */}
       <div className="w-full mt-10 space-y-5 max-w-screen-md mx-auto">
@@ -136,39 +179,5 @@ export default function EditUserdataView({
         </div>
       </div>
     </form>
-  );
-}
-
-interface ImageInputLabelProps {
-  preview: string | null;
-  onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-}
-
-function ImageInputLabel({ preview, onImageChange }: ImageInputLabelProps) {
-  return (
-    <div>
-      <label
-        htmlFor="avatar"
-        className="size-42 rounded-full -mt-21 mx-auto bg-neutral-200 border-2 border-dashed border-neutral-500
-        flex flex-col items-center justify-center text-neutral-600 cursor-pointer bg-center bg-cover"
-        style={{ backgroundImage: `url(${preview})` }}
-      >
-        {!preview && (
-          <>
-            <FontAwesomeIcon icon={faCamera} className="text-2xl" />
-            <div className="text-neural-400 text-sm"></div>
-          </>
-        )}
-      </label>
-      <input
-        name="avatar"
-        type="file"
-        id="avatar"
-        className="hidden"
-        // 이미지만 받기
-        accept="image/*"
-        onChange={onImageChange}
-      />
-    </div>
   );
 }

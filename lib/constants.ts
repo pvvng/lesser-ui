@@ -45,3 +45,61 @@ export const tagItems = [
 
 /** tag set */
 export const tagSet: Set<string> = new Set(tagItems.map((item) => item.tag));
+
+export const userBackground: {
+  name: string;
+  label: string;
+  description: string;
+  tags: string[];
+}[] = [
+  {
+    name: "clovers",
+    label: "네잎 클로버",
+    description: "행운이 가득한 느낌",
+    tags: ["기본"],
+  },
+  {
+    name: "draw",
+    label: "푸른색 물감",
+    description: "눈의 피로를 줄이는 푸른색",
+    tags: ["기본"],
+  },
+  {
+    name: "glassy",
+    label: "유리 너머 세계",
+    description: "투명한 감성",
+    tags: ["기본"],
+  },
+  {
+    name: "glow",
+    label: "빛나는 배경",
+    description: "반짝반짝",
+    tags: ["기본"],
+  },
+  {
+    name: "jquery",
+    label: "올드 스쿨 코드 감성",
+    description: "코딩은 역시 제이쿼리",
+    tags: ["기본"],
+  },
+  {
+    name: "metalic",
+    label: "크롬 느낌",
+    description: "세련되고 차가운 금속",
+    tags: ["기본"],
+  },
+  {
+    name: "peace",
+    label: "평화로운 마음가짐",
+    description: "이너피스",
+    tags: ["기본"],
+  },
+  {
+    name: "super-css",
+    label: "눈부신 스타일",
+    description: "CSS로 세상을 구하는 중",
+    tags: ["기본"],
+  },
+] as const;
+
+export const bgSet = new Set<string>(userBackground.map((bg) => bg.name));

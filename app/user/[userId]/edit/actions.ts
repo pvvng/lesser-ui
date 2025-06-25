@@ -11,6 +11,7 @@ export async function editUserdata(_: unknown, formdata: FormData) {
     userId: formdata.get("userId"),
     avatar: formdata.get("avatar"),
     nickname: formdata.get("nickname"),
+    background: formdata.get("background"),
   };
 
   const result = editUserdataSchema.safeParse(data);
@@ -54,6 +55,7 @@ export async function editUserdata(_: unknown, formdata: FormData) {
     .update({
       avatar: result.data.avatar,
       nickname: result.data.nickname,
+      background: result.data.background,
     })
     .eq("id", result.data.userId)
     .select("*")

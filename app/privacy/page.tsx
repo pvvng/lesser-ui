@@ -55,7 +55,7 @@ export default function PrivacyPage() {
       </h2>
       <p className="mb-4">
         언제든지 개인정보 열람, 수정, 삭제 요청이 가능합니다. 관련 문의는
-        gdonu093@gmail.com 으로 연락해주세요.
+        gdongu093@gmail.com 으로 연락해주세요.
       </p>
     </div>
   );

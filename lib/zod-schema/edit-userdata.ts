@@ -1,10 +1,14 @@
 import { z } from "zod";
 import { notOnlyWhitespace } from "../utils/not-only-white-space";
 import { isDangerousPattern } from "../utils/is-dangerous-pattern";
+import { bgSet } from "../constants";
 
 export const editUserdataSchema = z.object({
   userId: z.string(),
   avatar: z.string(),
+  background: z
+    .string()
+    .refine((val) => bgSet.has(val), "존재하지 않는 배경입니다."),
   nickname: z
     .string()
     .min(2, "사용자 이름은 최소 2자 이상이어야 합니다.")

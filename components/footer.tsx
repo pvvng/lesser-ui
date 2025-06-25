@@ -3,7 +3,7 @@ import LinkLogo from "./link-logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t-2 border-neutral-600 mt-10 px-5 py-10">
+    <footer className="border-t-2 border-neutral-600 mt-10 px-5 pt-10 pb-20">
       <div className="flex gap-15">
         <div className="space-y-1">
           <LinkLogo />

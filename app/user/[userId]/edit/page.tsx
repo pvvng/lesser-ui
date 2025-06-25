@@ -28,6 +28,7 @@ export default async function EditUserDetailPage({
       nickname={userdata.nickname}
       avatar={userdata.avatar}
       userId={userdata.id}
+      background={userdata.background}
     />
   );
 }

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 /** 모달 최초 렌더링 시 튕기는 애니메이션 */
 export default function useBounceBoxes() {
   const modalRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!modalRef.current || !backdropRef.current) return;
