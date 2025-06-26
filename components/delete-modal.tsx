@@ -44,16 +44,12 @@ export default function DeleteModal({
         <div>
           <FontAwesomeIcon icon={faTriangleExclamation} />
           <p>
-            삭제된 {content[type]}
-            {hasJongsung(content[type]) ? "은" : "는"}{" "}
+            삭제된 {content[type]}은
             <strong className="underline underline-offset-2">
               복구할 수 없습니다.
             </strong>
           </p>
-          <p className="font-semibold">
-            정말 이 {content[type]}
-            {hasJongsung(content[type]) ? "을" : "를"} 삭제할까요?
-          </p>
+          <p className="font-semibold">정말 이 {content[type]}을 삭제할까요?</p>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <button
