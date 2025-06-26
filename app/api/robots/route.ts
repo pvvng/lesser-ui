@@ -8,6 +8,7 @@ export async function GET() {
 User-agent: *
 Disallow: /auth/*
 Disallow: */edit
+Disallow: element/create
 Disallow: /login
 Sitemap: https://yourdomain.com/sitemap.xml
     `.trim()
