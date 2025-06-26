@@ -3,13 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: [
+    remotePatterns: [
       // 깃허브
-      "avatars.githubusercontent.com",
+      { hostname: "avatars.githubusercontent.com" },
       // 구글
-      "lh3.googleusercontent.com",
+      { hostname: "imagedelivery.net" },
       // CF
-      "imagedelivery.net",
+      { hostname: "lh3.googleusercontent.com" },
     ],
   },
   experimental: {
