@@ -11,14 +11,14 @@ const userPageTabItems = [
   "favorites",
   "elements",
   "comments",
-  "activites",
+  // "activites",
 ] as const;
 
 const koreanTabItems = {
   favorites: "북마크한 UI 블럭",
   elements: "제작한 UI 블럭",
   comments: "작성한 댓글",
-  activites: "내 활동",
+  // activites: "내 활동",
 };
 
 export default function TabHeader({ selectedTab, userId }: TabHeaderProps) {
