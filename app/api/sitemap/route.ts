@@ -6,7 +6,7 @@ const baseUrl = process.env.VERCEL_URL
   : "http://localhost:3000";
 
 // 필요한 정적 페이지 경로들
-const staticPages = ["", "terms", "privacy", "login", "elements"];
+const staticPages = ["", "terms", "privacy", "elements"];
 
 export async function GET() {
   const supabase = await createClient();
