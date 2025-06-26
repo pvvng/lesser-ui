@@ -36,8 +36,10 @@ export default function TabHeader({ selectedTab, userId }: TabHeaderProps) {
         const textClassName = isActive ? "text-white" : "text-neutral-400";
 
         return (
-          <Link key={tab} href={`/user/${userId}?tab=${tab}`} scroll={false}>
-            <li
+          <li key={tab}>
+            <Link
+              href={`/user/${userId}?tab=${tab}`}
+              scroll={false}
               className="px-3 py-2 font-semibold cursor-pointer rounded-t relative overflow-hidden"
               data-active={isActive}
             >
@@ -47,9 +49,10 @@ export default function TabHeader({ selectedTab, userId }: TabHeaderProps) {
               {/* 배경 효과 */}
               <span
                 className={`absolute inset-0 transition-all duration-500 ease-out z-0 ${bgClassName}`}
+                aria-hidden="true"
               />
-            </li>
-          </Link>
+            </Link>
+          </li>
         );
       })}
     </ul>

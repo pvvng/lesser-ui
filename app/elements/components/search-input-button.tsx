@@ -40,7 +40,10 @@ export default function SearchInputButton() {
         onChange={handleChange}
         maxLength={100}
       />
-      <button className="h-full text-green-500 border-none rounded-none px-3 shrink-0 cursor-pointer">
+      <button
+        className="h-full text-green-500 border-none rounded-none px-3 shrink-0 cursor-pointer"
+        aria-label="검색"
+      >
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
     </form>
